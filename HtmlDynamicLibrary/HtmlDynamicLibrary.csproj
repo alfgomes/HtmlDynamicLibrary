@@ -75,20 +75,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\ActionLinkComponent.cs" />
     <Compile Include="Components\DynamicButtonComponent.cs" />
+    <Compile Include="Components\DynamicCheckBoxListComponent.cs" />
     <Compile Include="Components\DynamicDisplayForComponent.cs" />
     <Compile Include="Components\DynamicDisplayNameForComponent.cs" />
+    <Compile Include="Components\DynamicDropDownListComponent.cs" />
+    <Compile Include="Components\DynamicDropDownListForComponent.cs" />
     <Compile Include="Components\DynamicEditorForComponent.cs" />
+    <Compile Include="Components\DynamicEnumDropDownListForComponent.cs" />
     <Compile Include="Components\DynamicLinkComponent.cs" />
+    <Compile Include="Components\DynamicListBoxComponent.cs" />
+    <Compile Include="Components\DynamicListBoxForComponent.cs" />
+    <Compile Include="Components\DynamicGlyphIconComponent.cs" />
     <Compile Include="Components\RequiredSymbolForComponent.cs" />
     <Compile Include="CustomAttributes\AuthorAttribute.cs" />
+    <Compile Include="CustomAttributes\EnumTitleAttribute.cs" />
     <Compile Include="CustomValidateAttributes\CurrencyAttribute.cs" />
     <Compile Include="CustomValidateAttributes\NIFAttribute.cs" />
     <Compile Include="CustomValidateAttributes\NoEspecialCharsAttribute.cs" />
     <Compile Include="CustomValidateAttributes\OnlyNumberAttribute.cs" />
-    <Compile Include="Enumerators\Enums.cs" />
+    <Compile Include="Enumerators\DynamicDisplayTypeEnum.cs" />
+    <Compile Include="Enumerators\DynamicGlyphIconEnum.cs" />
+    <Compile Include="Enumerators\DynamicLinkActionEnum.cs" />
     <Compile Include="ExtensionMethods\IDictionaryExtensions.cs" />
+    <Compile Include="ExtensionMethods\ObjectExtensions.cs" />
     <Compile Include="ExtensionMethods\RouteValueDictionaryExtensions.cs" />
+    <Compile Include="ExtensionMethods\TagBuilderExtensions.cs" />
     <Compile Include="Helpers\CustomAttributesHelpers.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\MetadataAttributes.cs" />
@@ -102,7 +115,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>start XCOPY /Y /R "$(TargetPath)" "C:\Professional Projects\vodafone-configurador\pt.vodafone.configurador.web\packages\HtmlDynamicLibrary\$(TargetName)$(TargetExt)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

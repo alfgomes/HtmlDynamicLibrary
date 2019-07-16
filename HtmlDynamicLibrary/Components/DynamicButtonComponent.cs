@@ -11,12 +11,13 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using HtmlDynamicLibrary.Helpers;
+using HtmlDynamicLibrary.ExtensionMethods;
 
 namespace System.Web.Mvc
 {
 	public static class DynamicButtonComponent
 	{
-		public static MvcHtmlString DynamicButton(this HtmlHelper helper, DynamicLinkAction action, string id, string caption, object viewData = null, string function = null)
+		public static MvcHtmlString DynamicButton(this HtmlHelper helper, DynamicLinkAction action, string id, string caption, bool printable = true, object viewData = null, string function = null)
 		{
 			function = HtmlHelpers.ActionToCommand(action, function);
 
@@ -32,6 +33,10 @@ namespace System.Web.Mvc
 				htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(viewDataObj["htmlAttributes"]);
 			else
 				htmlAttributes = viewDataObj;
+
+			tag.MergeAttributeValues("class", "btn", true);
+			if (!printable)
+				tag.MergeAttributeValues("class", "d-print-none", true);
 
 			foreach (var attr in htmlAttributes)
 				tag.Attributes.Add(attr.Key, attr.Value.ToString());
