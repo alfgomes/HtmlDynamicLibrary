@@ -102,6 +102,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>start XCOPY /Y /R "$(TargetPath)" "C:\Professional Projects\vodafone-configurador\pt.vodafone.configurador.web\packages\HtmlDynamicLibrary\$(TargetName)$(TargetExt)"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
