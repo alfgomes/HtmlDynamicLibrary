@@ -10,7 +10,7 @@ using HtmlDynamicLibrary.Helpers;
 
 namespace System.Web.Mvc
 {
-	public static class ActionLinkComponent
+	public static class DynamicActionLinkComponent
 	{
 
 	}

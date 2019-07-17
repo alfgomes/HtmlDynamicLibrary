@@ -16,7 +16,7 @@ namespace System.Web.Mvc
 {
 	public static class RequiredSymbolForComponent
 	{
-		public static MvcHtmlString RequiredSymbolFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object ViewData = null, bool readOnly = false, string symbol = "*", string cssClass = "req editor-field-required")
+		public static MvcHtmlString DynamicRequiredSymbolForComponent<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object ViewData = null, bool readOnly = false, string symbol = "*", string cssClass = "req editor-field-required")
 		{
 			ModelMetadata modelMetadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
 

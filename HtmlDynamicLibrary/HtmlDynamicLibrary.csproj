@@ -75,7 +75,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\ActionLinkComponent.cs" />
+    <Compile Include="Components\DynamicActionLinkComponent.cs" />
+    <Compile Include="Components\DynamicAjaxLinkExtensions.cs" />
     <Compile Include="Components\DynamicButtonComponent.cs" />
     <Compile Include="Components\DynamicCheckBoxListComponent.cs" />
     <Compile Include="Components\DynamicDisplayForComponent.cs" />
@@ -88,7 +89,7 @@
     <Compile Include="Components\DynamicListBoxComponent.cs" />
     <Compile Include="Components\DynamicListBoxForComponent.cs" />
     <Compile Include="Components\DynamicGlyphIconComponent.cs" />
-    <Compile Include="Components\RequiredSymbolForComponent.cs" />
+    <Compile Include="Components\DynamicRequiredSymbolForComponent.cs" />
     <Compile Include="CustomAttributes\AuthorAttribute.cs" />
     <Compile Include="CustomAttributes\EnumTitleAttribute.cs" />
     <Compile Include="CustomValidateAttributes\CurrencyAttribute.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="ExtensionMethods\TagBuilderExtensions.cs" />
     <Compile Include="Helpers\CustomAttributesHelpers.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
+    <Compile Include="Helpers\JavascriptHelpers.cs" />
     <Compile Include="Helpers\MetadataAttributes.cs" />
     <Compile Include="Helpers\MvcHtmlStringHelpers.cs" />
     <Compile Include="Helpers\TagBuilderGenerators.cs" />

@@ -43,47 +43,47 @@ namespace System.Web.Mvc
 			//Obter Atributos Adicionados ao Metadata...
 			MetadataAttributes metadataAttributes = new MetadataAttributes(modelMetadata);
 
-			TagBuilder tagInput = new TagBuilder(CustomAttributesHelpers.GetInputElementTypeByDataType((DataType)metadataAttributes.GetValue<DataType>("DataType", "DataType")));
+			TagBuilder tagSelect = new TagBuilder("select");
 			//tagInput.GenerateId(fieldFullName);
-			tagInput.AddInputAttributeIsNotNull("id", sanitizedId);
-			tagInput.AddInputAttributeIsNotNull("name", fieldFullName);
+			tagSelect.AddInputAttributeIsNotNull("id", sanitizedId);
+			tagSelect.AddInputAttributeIsNotNull("name", fieldFullName);
 			/*Adicionar os atributos de acordo com o que for obtido no MetaData...*/
 			//tagInput.AddInputTypeAttribute(fieldType);
-			tagInput.AddInputAttributeIsNotNull("type", CustomAttributesHelpers.ConvertDataTypeToHtmlType((DataType)metadataAttributes.GetValue<DataType>("DataType", "DataType"), fieldType));
-			tagInput.AddInputAttributeIsNotNull("autofocus", metadataAttributes.GetValue<object>("Base", "Autofocus"));
-			tagInput.AddInputAttributeIsNotNull("required", metadataAttributes.GetValue<object>("Base", "IsRequired"));
-			tagInput.AddInputAttributeIsNotNull("readonly", readOnly || (bool)metadataAttributes.GetValue<object>("Base", "IsReadOnly"));
-			int? minimumLength = (int?)metadataAttributes.GetValue<DataType>("Minimum", "Length") ?? (int?)metadataAttributes.GetValue<DataType>("StringLength", "MinimumLength");
-			tagInput.AddInputAttributeIsNotNullAndExpressionIsTrue("minlength", minimumLength, minimumLength.HasValue && minimumLength.Value > 0);
-			int? maximumLength = (int?)metadataAttributes.GetValue<DataType>("Maximum", "Length") ?? (int?)metadataAttributes.GetValue<DataType>("StringLength", "MaximumLength");
-			tagInput.AddInputAttributeIsNotNullAndExpressionIsTrue("maxlength", maximumLength, maximumLength.HasValue && maximumLength.Value > 0);
-			tagInput.AddInputAttributeIsNotNull("title", metadataAttributes.GetValue<object>("Base", "Description"));
-			tagInput.AddInputAttributeIsNotNull("placeholder", metadataAttributes.GetValue<object>("Base", "Watermark"));
-			tagInput.AddInputAttributeIsNotNull("class", metadataAttributes.GetValue<object>("OnlyNumber", "ClassDecorator"));
-			tagInput.AddInputAttributeIsNotNull("class", metadataAttributes.GetValue<object>("Currency", "ClassDecorator"));
-			tagInput.AddInputAttributeIsNotNull("pattern", metadataAttributes.GetValue<object>("Currency", "Pattern"));
-			tagInput.AddInputAttributeIsNotNull("class", metadataAttributes.GetValue<object>("NoEspecialChars", "ClassDecorator"));
+			tagSelect.AddInputAttributeIsNotNull("autofocus", metadataAttributes.GetValue<object>("Base", "Autofocus"));
+			tagSelect.AddInputAttributeIsNotNull("required", metadataAttributes.GetValue<object>("Base", "IsRequired"));
+			tagSelect.AddInputAttributeIsNotNull("readonly", readOnly || (bool)metadataAttributes.GetValue<object>("Base", "IsReadOnly"));
+			tagSelect.AddInputAttributeIsNotNull("title", metadataAttributes.GetValue<object>("Base", "Description"));
+			tagSelect.AddInputAttributeIsNotNull("placeholder", metadataAttributes.GetValue<object>("Base", "Watermark"));
 			/*Adicionar os atributos de acordo com o que for obtido no HtmlAttributes...*/
-			tagInput.MergeInputAttributeHtmlAttributes("class", htmlAttributes);
-			tagInput.MergeInputAttributeHtmlAttributes("style", htmlAttributes);
-			tagInput.AddInputAttributeHtmlAttributes("type", htmlAttributes);
-			tagInput.AddInputAttributeHtmlAttributes("autofocus", htmlAttributes);
-			tagInput.AddInputAttributeHtmlAttributes("required", htmlAttributes);
-			tagInput.AddInputAttributeHtmlAttributes("readonly", htmlAttributes);
-			tagInput.AddInputAttributeHtmlAttributes("disabled", htmlAttributes);
-			tagInput.AddInputAttributeHtmlAttributes("minlength", htmlAttributes);
-			tagInput.AddInputAttributeHtmlAttributes("maxlength", htmlAttributes);
-			tagInput.AddInputAttributeHtmlAttributes("title", htmlAttributes);
-			tagInput.AddInputAttributeHtmlAttributes("placeholder", htmlAttributes);
+			tagSelect.MergeInputAttributeHtmlAttributes("class", htmlAttributes);
+			tagSelect.MergeInputAttributeHtmlAttributes("style", htmlAttributes);
+			tagSelect.AddInputAttributeHtmlAttributes("autofocus", htmlAttributes);
+			tagSelect.AddInputAttributeHtmlAttributes("required", htmlAttributes);
+			tagSelect.AddInputAttributeHtmlAttributes("readonly", htmlAttributes);
+			tagSelect.AddInputAttributeHtmlAttributes("disabled", htmlAttributes);
+			tagSelect.AddInputAttributeHtmlAttributes("title", htmlAttributes);
+			tagSelect.AddInputAttributeHtmlAttributes("placeholder", htmlAttributes);
+			/*Criando os options...*/
+			var options = "";
+			TagBuilder option;
+			foreach (var item in selectList)
+			{
+				option = new TagBuilder("option");
+				option.MergeAttribute("value", item.Value.ToString());
+				option.MergeAttribute("data-value", item.Value.ToString());
+				option.SetInnerText(item.Text);
+				options += option.ToString(TagRenderMode.Normal) + "\n";
+			}
+			tagSelect.InnerHtml = options;
 			/*Injetando o Valor no Input...*/
-			tagInput.AddInputAttributeIsNotNull("value", fieldValue);
+			tagSelect.AddInputAttributeIsNotNull("value", fieldValue);
 			///*Adicionar os atributos de acordo com o que for obtido no Data-Val...*/
 			//tagInput.AddInputAttributeStaticValue("data-val", "true");
 			//tagInput.AddInputAttributeStaticValue("data-val-required", "");
 			//tagInput.AddInputAttributeStaticValue("data-val-regex-pattern", "");
 			//tagInput.AddInputAttributeStaticValue("data-val-regex", "");
 
-			return tagInput.ToMvcHtmlString(TagRenderMode.Normal);
+			return tagSelect.ToMvcHtmlString(TagRenderMode.Normal);
 		}
 
 		public static MvcHtmlString DynamicDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, object htmlAttributes)
