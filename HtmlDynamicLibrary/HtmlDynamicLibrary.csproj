@@ -89,8 +89,10 @@
     <Compile Include="Components\DynamicListBoxComponent.cs" />
     <Compile Include="Components\DynamicListBoxForComponent.cs" />
     <Compile Include="Components\DynamicGlyphIconComponent.cs" />
+    <Compile Include="Components\DynamicPasswordForComponent.cs" />
     <Compile Include="Components\DynamicRequiredSymbolForComponent.cs" />
     <Compile Include="CustomAttributes\AuthorAttribute.cs" />
+    <Compile Include="CustomAttributes\ViewDisabledAttribute.cs" />
     <Compile Include="CustomAttributes\_DynamicAttribute.cs" />
     <Compile Include="CustomAttributes\EnumTitleAttribute.cs" />
     <Compile Include="CustomValidateAttributes\CurrencyAttribute.cs" />
@@ -101,8 +103,10 @@
     <Compile Include="Enumerators\DynamicDisplayTypeEnum.cs" />
     <Compile Include="Enumerators\DynamicGlyphIconEnum.cs" />
     <Compile Include="Enumerators\DynamicLinkActionEnum.cs" />
+    <Compile Include="ExtensionMethods\AjaxHelperExtensions.cs" />
     <Compile Include="ExtensionMethods\IDictionaryExtensions.cs" />
     <Compile Include="ExtensionMethods\ObjectExtensions.cs" />
+    <Compile Include="ExtensionMethods\RequestContextExtensions.cs" />
     <Compile Include="ExtensionMethods\RouteValueDictionaryExtensions.cs" />
     <Compile Include="ExtensionMethods\TagBuilderExtensions.cs" />
     <Compile Include="Helpers\CustomAttributesHelpers.cs" />

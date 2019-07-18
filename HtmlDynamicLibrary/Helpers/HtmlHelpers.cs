@@ -65,6 +65,7 @@ namespace HtmlDynamicLibrary.Helpers
 
 			RouteValueDictionary htmlAttributes = (htmlAttributesDict != null) ? new RouteValueDictionary(htmlAttributesDict) : HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributesObject);
 			RouteValueDictionary defaultHtmlAttributes = (defaultHtmlAttributesDict != null) ? new RouteValueDictionary(defaultHtmlAttributesDict) : HtmlHelper.AnonymousObjectToHtmlAttributes(defaultHtmlAttributesObject);
+			defaultHtmlAttributes = new RouteValueDictionary(defaultHtmlAttributes["htmlAttributes"]);
 
 			foreach (var item in htmlAttributes)
 			{

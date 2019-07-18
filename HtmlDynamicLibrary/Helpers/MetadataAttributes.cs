@@ -80,6 +80,7 @@ namespace HtmlDynamicLibrary.Helpers
 			EmailAddressAttribute emailAddressAttribute = GetModelMetadataAttributes(metadata).OfType<EmailAddressAttribute>().FirstOrDefault();
 			FileExtensionsAttribute fileExtensionsAttribute = GetModelMetadataAttributes(metadata).OfType<FileExtensionsAttribute>().FirstOrDefault();
 			TimestampAttribute timestampAttribute = GetModelMetadataAttributes(metadata).OfType<TimestampAttribute>().FirstOrDefault();
+			ViewDisabledAttribute viewDisabledAttribute = GetModelMetadataAttributes(metadata).OfType<ViewDisabledAttribute>().FirstOrDefault();
 
 			OnlyNumberAttribute onlyNumberAttribute = GetModelMetadataAttributes(metadata).OfType<OnlyNumberAttribute>().FirstOrDefault();
 			CurrencyAttribute currencyAttribute = GetModelMetadataAttributes(metadata).OfType<CurrencyAttribute>().FirstOrDefault();
@@ -331,6 +332,19 @@ namespace HtmlDynamicLibrary.Helpers
 				metadataAttributes.Add(metaAttribute);
 			}
 
+			if (viewDisabledAttribute != null)
+			{
+				MetadataAttribute metaAttribute = new MetadataAttribute()
+				{
+					AttributeName = "ViewDisabledAttribute",
+					Property = new Dictionary<string, object>()
+				};
+
+				metaAttribute.Property.Add("Declared", true);
+
+				metadataAttributes.Add(metaAttribute);
+			}
+
 			if (onlyNumberAttribute != null)
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
@@ -339,6 +353,7 @@ namespace HtmlDynamicLibrary.Helpers
 					Property = new Dictionary<string, object>()
 				};
 
+				metaAttribute.Property.Add("Declared", true);
 				metaAttribute.Property.Add("ClassDecorator", "onlyNumber");
 
 				metadataAttributes.Add(metaAttribute);
@@ -352,6 +367,7 @@ namespace HtmlDynamicLibrary.Helpers
 					Property = new Dictionary<string, object>()
 				};
 
+				metaAttribute.Property.Add("Declared", true);
 				metaAttribute.Property.Add("ClassDecorator", "onlyNumber");
 				metaAttribute.Property.Add("Pattern", "currency");
 
@@ -366,6 +382,7 @@ namespace HtmlDynamicLibrary.Helpers
 					Property = new Dictionary<string, object>()
 				};
 
+				metaAttribute.Property.Add("Declared", true);
 				metaAttribute.Property.Add("ClassDecorator", "NoCaracEsp");
 
 				metadataAttributes.Add(metaAttribute);

@@ -69,6 +69,8 @@ namespace System.Web.Mvc
 			foreach (var item in selectList)
 			{
 				option = new TagBuilder("option");
+				if (item.Value.ToString().Trim() == fieldValue.ToString().Trim())
+					option.MergeAttribute("selected", "true");
 				option.MergeAttribute("value", item.Value.ToString());
 				option.MergeAttribute("data-value", item.Value.ToString());
 				option.SetInnerText(item.Text);
@@ -86,34 +88,34 @@ namespace System.Web.Mvc
 			return tagSelect.ToMvcHtmlString(TagRenderMode.Normal);
 		}
 
-		public static MvcHtmlString DynamicDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, object htmlAttributes)
-		{
-			return null;
-		}
+		//public static MvcHtmlString DynamicDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel)
+		//{
+		//	return null;
+		//}
 
-		public static MvcHtmlString DynamicDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel)
-		{
-			return null;
-		}
+		//public static MvcHtmlString DynamicDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, object htmlAttributes)
+		//{
+		//	return null;
+		//}
 
-		public static MvcHtmlString DynamicDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, IDictionary<string, object> htmlAttributes)
-		{
-			return null;
-		}
+		//public static MvcHtmlString DynamicDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, IDictionary<string, object> htmlAttributes)
+		//{
+		//	return null;
+		//}
 
-		public static MvcHtmlString DynamicDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, object htmlAttributes)
-		{
-			return null;
-		}
+		//public static MvcHtmlString DynamicDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, object htmlAttributes)
+		//{
+		//	return null;
+		//}
 
-		public static MvcHtmlString DynamicDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList)
-		{
-			return null;
-		}
+		//public static MvcHtmlString DynamicDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList)
+		//{
+		//	return null;
+		//}
 
-		public static MvcHtmlString DynamicDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
-		{
-			return null;
-		}
+		//public static MvcHtmlString DynamicDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
+		//{
+		//	return null;
+		//}
 	}
 }

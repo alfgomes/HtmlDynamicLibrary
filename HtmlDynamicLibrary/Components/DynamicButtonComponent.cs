@@ -34,9 +34,9 @@ namespace System.Web.Mvc
 			else
 				htmlAttributes = viewDataObj;
 
-			tag.MergeAttributeValues("class", "btn", true);
+			tag.MergeAttributeValue("class", "btn", true);
 			if (!printable)
-				tag.MergeAttributeValues("class", "d-print-none", true);
+				tag.MergeAttributeValue("class", "d-print-none", true);
 
 			foreach (var attr in htmlAttributes)
 				tag.Attributes.Add(attr.Key, attr.Value.ToString());

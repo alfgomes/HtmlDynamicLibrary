@@ -61,6 +61,7 @@ namespace System.Web.Mvc
 			tagInput.AddInputAttributeIsNotNull("autofocus", metadataAttributes.GetValue<object>("Base", "Autofocus"));
 			tagInput.AddInputAttributeIsNotNull("required", metadataAttributes.GetValue<object>("Base", "IsRequired"));
 			tagInput.AddInputAttributeIsNotNull("readonly", readOnly || (bool)metadataAttributes.GetValue<object>("Base", "IsReadOnly"));
+			tagInput.AddInputAttributeIsNotNull("disabled", disabled || metadataAttributes.GetValue<bool>("ViewDisabled", "Declared"));
 			int? minimumLength = (int?)metadataAttributes.GetValue<DataType>("Minimum", "Length") ?? (int?)metadataAttributes.GetValue<DataType>("StringLength", "MinimumLength");
 			tagInput.AddInputAttributeIsNotNullAndExpressionIsTrue("minlength", minimumLength, minimumLength.HasValue && minimumLength.Value > 0);
 			int? maximumLength = (int?)metadataAttributes.GetValue<DataType>("Maximum", "Length") ?? (int?)metadataAttributes.GetValue<DataType>("StringLength", "MaximumLength");
