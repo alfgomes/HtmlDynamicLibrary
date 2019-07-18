@@ -3,12 +3,13 @@
 namespace System.ComponentModel.DataAnnotations
 {
 	[AttributeUsage(AttributeTargets.Field, AllowMultiple = true, Inherited = false)]
-	public class EnumTitleAttribute : Attribute
+	public class EnumTitleAttribute : DynamicAttribute
 	{
 		public string Title { get; private set; }
 		public string Description { get; set; }
 
 		public EnumTitleAttribute(string title)
+			: base()
 		{
 			this.Title = title;
 		}

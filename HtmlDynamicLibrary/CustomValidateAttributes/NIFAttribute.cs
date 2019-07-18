@@ -13,14 +13,12 @@ using HtmlDynamicLibrary.Helpers;
 namespace System.ComponentModel.DataAnnotations
 {
 	[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
-	public sealed class NIFAttribute : ValidationAttribute, IClientValidatable
-    {
-        const string DefaultErrorMessage = "{0} é inválido.";
-		const int MaximumLength = 9;
-
+	public sealed class NIFAttribute : DynamicValidateAttribute
+	{
 		public string CountryCodeProperty { get; private set; }
 
-        public NIFAttribute(string countryCodeProperty) : base(DefaultErrorMessage)
+        public NIFAttribute(string countryCodeProperty)
+			: base(DefaultErrorMessage)
         {
 			if (string.IsNullOrEmpty(countryCodeProperty))
 				throw new ArgumentNullException("countryCodeProperty");
@@ -33,6 +31,8 @@ namespace System.ComponentModel.DataAnnotations
         {
             if (value != null)
             {
+				const int MaximumLength = 9;
+
 				var properties = TypeDescriptor.GetProperties(value);
 				foreach (PropertyDescriptor property in properties)
 				{
@@ -55,11 +55,11 @@ namespace System.ComponentModel.DataAnnotations
                 }
             }
 
-            return ValidationResult.Success;
+			return base.IsValid(value, validationContext);
         }
 
 		//Implement IClientValidatable for client side Validation...
-		public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
+		public override IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
 		{
 			string errorMessage = this.FormatErrorMessage(metadata.DisplayName);
 
@@ -76,20 +76,16 @@ namespace System.ComponentModel.DataAnnotations
 			return validaNifPT;
 		}
 
-		public override string FormatErrorMessage(string name)
-		{
-			return string.Format(ErrorMessageString, name);
-		}
-
 		private bool NIFValidate(string nif)
         {
+            bool ret = false;
+
             if (nif.Any(c => char.IsDigit(c) == false)) return false;
 
             nif = new string(nif.Where(c => char.IsDigit(c)).ToArray());
 
             if (nif.Length != 9) return false;
 
-            bool valorDeRetorno = false;
             long checkDigit = 0;
             string[] nifString = new string[9];
             string nifChar = null;
@@ -113,11 +109,11 @@ namespace System.ComponentModel.DataAnnotations
                         checkDigit = 0;
 
                     if ((checkDigit == Convert.ToInt32(nifString[8])))
-                        valorDeRetorno = true;
+                        ret = true;
                 }
             }
 
-            return valorDeRetorno;
+            return ret;
         }
 	}
 }
