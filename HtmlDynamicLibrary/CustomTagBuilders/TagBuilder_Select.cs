@@ -60,7 +60,6 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 			if (this.optionLabel != null)
 			{
 				option = new TagBuilder("option");
-				option.MergeAttribute("value", this.optionLabel.Value.ToString());
 				option.SetInnerText(this.optionLabel.Text);
 				options += option.ToString(TagRenderMode.Normal) + "\n";
 			}
