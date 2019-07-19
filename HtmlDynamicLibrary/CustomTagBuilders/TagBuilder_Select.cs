@@ -67,7 +67,7 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 			foreach (SelectListItem item in this.selectListItems)
 			{
 				option = new TagBuilder("option");
-				if (item.Value != null && (item.Value.ToString().Trim() == this.Value.ToString().Trim()))
+				if (this.Value != null && (item.Value.ToString().Trim() == this.Value.ToString().Trim()))
 					option.MergeAttribute("selected", "true");
 				option.MergeAttribute("value", item.Value.ToString());
 				option.MergeAttribute("data-value", item.Value.ToString());
