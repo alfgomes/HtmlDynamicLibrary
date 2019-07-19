@@ -18,33 +18,18 @@ namespace System.Web.Mvc
 	{
 		public static MvcHtmlString DynamicDisplayNameFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, DynamicDisplayType displayType, object viewData = null, bool blockShowRequiredSymbol = false, string requiredSymbol = "*", string requiredClass = "req editor-field-required")
 		{
-			var typedExpression = (Expression<Func<TModel, TProperty>>)(object)expression;
-
-			MemberInfo field = (expression.Body as MemberExpression).Member;
-			var fieldName = ExpressionHelper.GetExpressionText(expression);
-			Type fieldType = ((FieldInfo[])((TypeInfo)expression.Body.Type).DeclaredFields)[1].FieldType;
-			bool fieldIsNullable = HtmlHelpers.IsNullable(field);
-			TProperty fieldValue = expression.Compile().Invoke(helper.ViewData.Model);
-			string fieldFullName = helper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(fieldName);
-			string sanitizedId = TagBuilder.CreateSanitizedId(fieldFullName);
-			ModelMetadata modelMetadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
-
-			RouteValueDictionary viewDataObj = HtmlHelper.AnonymousObjectToHtmlAttributes(viewData);
-			RouteValueDictionary htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(viewDataObj["htmlAttributes"]);
-
-			//Adicionar os atributos de acordo com o que for obtido no MetaData...
+			DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase = new DynamicComponentBaseFor<TModel, TProperty>(helper, expression, viewData);
 
 			switch (displayType)
 			{
 				case DynamicDisplayType.Label:
-					htmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(htmlAttributes, viewDataObj, new RouteValueDictionary() { { "class", "control-label" } });
-					return TagBuilderGenerators.GenerateTagLabel($"display_{ sanitizedId}", modelMetadata.DisplayName, sanitizedId, htmlAttributes, modelMetadata.Description, !blockShowRequiredSymbol && modelMetadata.IsRequired, requiredSymbol, requiredClass).ToMvcHtmlString(TagRenderMode.Normal);
+					dynamicComponentBase.HtmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(dynamicComponentBase.HtmlAttributes, new RouteValueDictionary() { { "class", "control-label" } });
+					return TagBuilderGenerators.GenerateTagLabel($"display_{ dynamicComponentBase.SanitizedId }", dynamicComponentBase.FieldModelMetadata.DisplayName, dynamicComponentBase.SanitizedId, dynamicComponentBase.HtmlAttributes, dynamicComponentBase.FieldModelMetadata.Description, !blockShowRequiredSymbol && dynamicComponentBase.FieldModelMetadata.IsRequired, requiredSymbol, requiredClass).ToMvcHtmlString(TagRenderMode.Normal);
 				case DynamicDisplayType.Span:
-					htmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(htmlAttributes, viewDataObj, new RouteValueDictionary() { { "class", "control-span" } });
-					return TagBuilderGenerators.GenerateTagDisplay($"display_{ sanitizedId}", modelMetadata.DisplayName, htmlAttributes, modelMetadata.Description, !blockShowRequiredSymbol && modelMetadata.IsRequired, requiredSymbol, requiredClass).ToMvcHtmlString(TagRenderMode.Normal);
+					dynamicComponentBase.HtmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(dynamicComponentBase.HtmlAttributes, new RouteValueDictionary() { { "class", "control-span" } });
+					return TagBuilderGenerators.GenerateTagDisplay($"display_{ dynamicComponentBase.SanitizedId }", dynamicComponentBase.FieldModelMetadata.DisplayName, dynamicComponentBase.HtmlAttributes, dynamicComponentBase.FieldModelMetadata.Description, !blockShowRequiredSymbol && dynamicComponentBase.FieldModelMetadata.IsRequired, requiredSymbol, requiredClass).ToMvcHtmlString(TagRenderMode.Normal);
 				default:
-					htmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(htmlAttributes, viewDataObj);
-					return TagBuilderGenerators.GenerateOnlyText(modelMetadata.DisplayName, htmlAttributes, !blockShowRequiredSymbol && modelMetadata.IsRequired, requiredSymbol, requiredClass);
+					return TagBuilderGenerators.GenerateOnlyText(dynamicComponentBase.FieldModelMetadata.DisplayName, dynamicComponentBase.HtmlAttributes, !blockShowRequiredSymbol && dynamicComponentBase.FieldModelMetadata.IsRequired, requiredSymbol, requiredClass);
 			}
 		}
 	}

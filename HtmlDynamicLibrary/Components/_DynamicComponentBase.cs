@@ -14,19 +14,13 @@ using HtmlDynamicLibrary.Helpers;
 
 namespace System.Web.Mvc
 {
-	public class DynamicComponentBaseFor<TModel, TProperty>
+	public class DynamicComponentBase<TModel>
 	{
 		#region Properties...
 
-		public Expression<Func<TModel, TProperty>> TypedExpression { get; private set; }
-		public MemberInfo Field { get; private set; }
 		public string FieldName { get; private set; }
-		public Type FieldType { get; private set; }
-		public TProperty FieldValue { get; private set; }
 		public string FieldFullName { get; private set; }
 		public string SanitizedId { get; private set; }
-		public ModelMetadata FieldModelMetadata { get; private set; }
-		public MetadataAttributes MetadataAttributes { get; private set; }
 		public RouteValueDictionary HtmlAttributes { get; set; }
 		public bool FieldIsNullable { get; private set; }
 		public bool FieldIsReadOnly { get; set; }
@@ -35,26 +29,17 @@ namespace System.Web.Mvc
 
 		#endregion
 
-		public DynamicComponentBaseFor(HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object viewData = null, bool readOnly = false, bool disabled = false, bool visible = true)
+		public DynamicComponentBase(HtmlHelper<TModel> helper, string fieldId, string name, string type, object viewData = null, bool nullable = false, bool readOnly = false, bool disabled = false, bool visible = true)
 		{
-			TypedExpression = (Expression<Func<TModel, TProperty>>)(object)expression;
-
-			Field = (expression.Body as MemberExpression).Member;
-			FieldName = ExpressionHelper.GetExpressionText(expression);
-			FieldType = ((FieldInfo[])((TypeInfo)expression.Body.Type).DeclaredFields)[1].FieldType;
-			FieldValue = expression.Compile().Invoke(helper.ViewData.Model);
+			FieldName = name;
 			FieldFullName = helper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(FieldName);
 			SanitizedId = TagBuilder.CreateSanitizedId(FieldFullName);
-			FieldModelMetadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
-
-			//Obter Atributos Adicionados ao Metadata...
-			MetadataAttributes = new MetadataAttributes(FieldModelMetadata);
 
 			RouteValueDictionary viewDataObj = HtmlHelper.AnonymousObjectToHtmlAttributes(viewData);
 			HtmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(viewDataObj["htmlAttributes"]);
 			HtmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(HtmlAttributes, viewDataObj);
 
-			FieldIsNullable = HtmlHelpers.IsNullable(Field);
+			FieldIsNullable = nullable;
 			FieldIsReadOnly = readOnly;
 			FieldIsDisabled = disabled;
 			FieldIsVisible = visible;
