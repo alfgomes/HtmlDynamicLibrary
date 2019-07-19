@@ -91,6 +91,7 @@
     <Compile Include="Components\DynamicGlyphIconComponent.cs" />
     <Compile Include="Components\DynamicPasswordForComponent.cs" />
     <Compile Include="Components\DynamicRequiredSymbolForComponent.cs" />
+    <Compile Include="Components\_DynamicComponentBaseFor.cs" />
     <Compile Include="CustomAttributes\AuthorAttribute.cs" />
     <Compile Include="CustomAttributes\ViewDisabledAttribute.cs" />
     <Compile Include="CustomAttributes\_DynamicAttribute.cs" />

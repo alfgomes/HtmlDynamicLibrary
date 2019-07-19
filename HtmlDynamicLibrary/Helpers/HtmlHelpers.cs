@@ -49,36 +49,24 @@ namespace HtmlDynamicLibrary.Helpers
 			return strinbuilder.ToString().Trim();
 		}
 
-		public static RouteValueDictionary MergeHtmlAttributes(RouteValueDictionary htmlAttributesObject, RouteValueDictionary defaultHtmlAttributesObject)
+		public static RouteValueDictionary MergeHtmlAttributes(RouteValueDictionary htmlAttributesObject, params RouteValueDictionary[] defaultHtmlAttributesObjects)
 		{
-			htmlAttributesObject = htmlAttributesObject.Merge(defaultHtmlAttributesObject);
+			foreach (var item in defaultHtmlAttributesObjects)
+				htmlAttributesObject = htmlAttributesObject.Merge(item);
 
 			return htmlAttributesObject;
 		}
 
-		public static IDictionary<string, object> MergeHtmlAttributes(this HtmlHelper helper, object htmlAttributesObject, object defaultHtmlAttributesObject)
+		//public static RouteValueDictionary MergeHtmlAttributes(RouteValueDictionary htmlAttributesObject, RouteValueDictionary defaultHtmlAttributesObject)
+		//{
+		//	htmlAttributesObject = htmlAttributesObject.Merge(defaultHtmlAttributesObject);
+
+		//	return htmlAttributesObject;
+		//}
+
+		public static RouteValueDictionary MergeHtmlAttributes(this HtmlHelper helper, RouteValueDictionary htmlAttributesObject, params RouteValueDictionary[] defaultHtmlAttributesObjects)
 		{
-			var concatKeys = new string[] { "class" };
-
-			var htmlAttributesDict = htmlAttributesObject as IDictionary<string, object>;
-			var defaultHtmlAttributesDict = defaultHtmlAttributesObject as IDictionary<string, object>;
-
-			RouteValueDictionary htmlAttributes = (htmlAttributesDict != null) ? new RouteValueDictionary(htmlAttributesDict) : HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributesObject);
-			RouteValueDictionary defaultHtmlAttributes = (defaultHtmlAttributesDict != null) ? new RouteValueDictionary(defaultHtmlAttributesDict) : HtmlHelper.AnonymousObjectToHtmlAttributes(defaultHtmlAttributesObject);
-			defaultHtmlAttributes = new RouteValueDictionary(defaultHtmlAttributes["htmlAttributes"]);
-
-			foreach (var item in htmlAttributes)
-			{
-				if (concatKeys.Contains(item.Key))
-					defaultHtmlAttributes[item.Key] = (defaultHtmlAttributes[item.Key] != null) ? string.Format("{0} {1}", defaultHtmlAttributes[item.Key], item.Value) : item.Value;
-				else
-					defaultHtmlAttributes[item.Key] = item.Value;
-
-				string[] sentences = defaultHtmlAttributes[item.Key].ToString().Split(new char[] { ' ' });
-				defaultHtmlAttributes[item.Key] = sentences.Distinct().ToArray();
-			}
-
-			return defaultHtmlAttributes;
+			return MergeHtmlAttributes(htmlAttributesObject, defaultHtmlAttributesObjects);
 		}
 
 		public static string ActionToCommand(DynamicLinkAction action, string customCommand = null)

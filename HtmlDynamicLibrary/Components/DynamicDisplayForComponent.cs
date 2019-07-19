@@ -16,7 +16,7 @@ namespace System.Web.Mvc
 {
 	public static class DynamicDisplayForComponent
 	{
-		public static MvcHtmlString DynamicDisplayFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, DynamicDisplayType displayType, object ViewData = null, bool blockShowRequiredSymbol = false, string requiredSymbol = "*", string requiredClass = "req editor-field-required")
+		public static MvcHtmlString DynamicDisplayFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, DynamicDisplayType displayType, object viewData = null, bool blockShowRequiredSymbol = false, string requiredSymbol = "*", string requiredClass = "req editor-field-required")
 		{
 			var typedExpression = (Expression<Func<TModel, TProperty>>)(object)expression;
 
@@ -29,26 +29,19 @@ namespace System.Web.Mvc
 			string sanitizedId = TagBuilder.CreateSanitizedId(fieldFullName);
 			ModelMetadata modelMetadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
 
-			////Testes para obter os Metadata Attributes do campo...
-			//var list = helper.ViewData.ModelMetadata.Properties.ToList();
-			//var required = field.GetCustomAttributes(typeof(RequiredAttribute), false).Cast<RequiredAttribute>().FirstOrDefault();
-			//var t = fieldType.GetCustomAttributes(false).OfType<MetadataTypeAttribute>().FirstOrDefault();
-
-			RouteValueDictionary viewData = HtmlHelper.AnonymousObjectToHtmlAttributes(ViewData);
-			RouteValueDictionary htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(viewData["htmlAttributes"]);
-			htmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(htmlAttributes, viewData);
+			RouteValueDictionary viewDataObj = HtmlHelper.AnonymousObjectToHtmlAttributes(viewData);
+			RouteValueDictionary htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(viewDataObj["htmlAttributes"]);
 
 			switch (displayType)
 			{
 				case DynamicDisplayType.Label:
-					var defaultHtmlAttributesObjectLabel = new { @class = "control-label" };
-					htmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(htmlAttributes, defaultHtmlAttributesObjectLabel);
+					htmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(htmlAttributes, viewDataObj, new RouteValueDictionary() { { "class", "control-label" } });
 					return TagBuilderGenerators.GenerateTagLabel(sanitizedId, fieldValue.ToString(), sanitizedId, htmlAttributes, modelMetadata.Description, !blockShowRequiredSymbol && modelMetadata.IsRequired, requiredSymbol, requiredClass).ToMvcHtmlString(TagRenderMode.Normal);
 				case DynamicDisplayType.Span:
-					var defaultHtmlAttributesObjectSpan = new { @class = "control-span" };
-					htmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(htmlAttributes, defaultHtmlAttributesObjectSpan);
+					htmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(htmlAttributes, viewDataObj, new RouteValueDictionary() { { "class", "control-span" } });
 					return TagBuilderGenerators.GenerateTagDisplay(sanitizedId, fieldValue.ToString(), htmlAttributes, modelMetadata.Description, !blockShowRequiredSymbol && modelMetadata.IsRequired, requiredSymbol, requiredClass).ToMvcHtmlString(TagRenderMode.Normal);
 				default:
+					htmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(htmlAttributes, viewDataObj);
 					return TagBuilderGenerators.GenerateOnlyText(fieldValue.ToString(), htmlAttributes, !blockShowRequiredSymbol && modelMetadata.IsRequired, requiredSymbol, requiredClass);
 			}
 		}

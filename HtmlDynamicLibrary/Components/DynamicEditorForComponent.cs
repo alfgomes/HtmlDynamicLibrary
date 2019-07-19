@@ -16,15 +16,18 @@ namespace System.Web.Mvc
 {
 	public static class DynamicEditorForComponent
 	{
-		public static MvcHtmlString DynamicEditorFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object ViewData = null, bool readOnly = false, bool disabled = false, bool visible = true)
+		public static MvcHtmlString DynamicEditorFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object viewData = null, bool readOnly = false, bool disabled = false, bool visible = true)
 		{
-			if (expression.Body.Type.FullName == "System.Boolean")
-				return DynamicCheckbox(helper, expression, ViewData, readOnly, disabled, visible);
-			else
-				return DynamicInput(helper, expression, ViewData, readOnly, disabled, visible);
+			switch (expression.Body.Type.FullName)
+			{
+				case "System.Boolean":
+					return DynamicCheckbox(helper, expression, viewData, readOnly, disabled, visible);
+				default:
+					return DynamicInput(helper, expression, viewData, readOnly, disabled, visible);
+			}
 		}
 
-		private static MvcHtmlString DynamicInput<TModel, TProperty>(HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object ViewData = null, bool readOnly = false, bool disabled = false, bool visible = true)
+		private static MvcHtmlString DynamicInput<TModel, TProperty>(HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object viewData = null, bool readOnly = false, bool disabled = false, bool visible = true)
 		{
 			var typedExpression = (Expression<Func<TModel, TProperty>>)(object)expression;
 
@@ -42,12 +45,10 @@ namespace System.Web.Mvc
 			//var required = field.GetCustomAttributes(typeof(RequiredAttribute), false).Cast<RequiredAttribute>().FirstOrDefault();
 			//var t = fieldType.GetCustomAttributes(false).OfType<MetadataTypeAttribute>().FirstOrDefault();
 
-			RouteValueDictionary viewData = HtmlHelper.AnonymousObjectToHtmlAttributes(ViewData);
-			RouteValueDictionary htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(viewData["htmlAttributes"]);
-			htmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(htmlAttributes, viewData);
-			var defaultHtmlAttributesObject = new { @class = "control-label" };
-			htmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(htmlAttributes, defaultHtmlAttributesObject);
-
+			RouteValueDictionary viewDataObj = HtmlHelper.AnonymousObjectToHtmlAttributes(viewData);
+			RouteValueDictionary htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(viewDataObj["htmlAttributes"]);
+			htmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(htmlAttributes, viewDataObj, new RouteValueDictionary() { { "class", "control-input" } });
+			
 			//Obter Atributos Adicionados ao Metadata...
 			MetadataAttributes metadataAttributes = new MetadataAttributes(modelMetadata);
 
@@ -95,7 +96,7 @@ namespace System.Web.Mvc
 			return tagInput.ToMvcHtmlString(TagRenderMode.Normal);
 		}
 
-		private static MvcHtmlString DynamicCheckbox<TModel, TProperty>(HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object ViewData = null, bool readOnly = false, bool disabled = false, bool visible = true)
+		private static MvcHtmlString DynamicCheckbox<TModel, TProperty>(HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object viewData = null, bool readOnly = false, bool disabled = false, bool visible = true)
 		{
 			var typedExpression = (Expression<Func<TModel, TProperty>>)(object)expression;
 
@@ -108,16 +109,9 @@ namespace System.Web.Mvc
 			string sanitizedId = TagBuilder.CreateSanitizedId(fieldFullName);
 			ModelMetadata modelMetadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
 
-			////Testes para obter os Metadata Attributes do campo...
-			//var list = helper.ViewData.ModelMetadata.Properties.ToList();
-			//var required = field.GetCustomAttributes(typeof(RequiredAttribute), false).Cast<RequiredAttribute>().FirstOrDefault();
-			//var t = fieldType.GetCustomAttributes(false).OfType<MetadataTypeAttribute>().FirstOrDefault();
-
-			RouteValueDictionary viewData = HtmlHelper.AnonymousObjectToHtmlAttributes(ViewData);
-			RouteValueDictionary htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(viewData["htmlAttributes"]);
-			htmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(htmlAttributes, viewData);
-			var defaultHtmlAttributesObject = new { @class = "custom-control-input" };
-			htmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(htmlAttributes, defaultHtmlAttributesObject);
+			RouteValueDictionary viewDataObj = HtmlHelper.AnonymousObjectToHtmlAttributes(viewData);
+			RouteValueDictionary htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(viewDataObj["htmlAttributes"]);
+			htmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(htmlAttributes, viewDataObj, new RouteValueDictionary() { { "class", "control-checkbox" } });
 
 			//Obter Atributos Adicionados ao Metadata...
 			MetadataAttributes metadataAttributes = new MetadataAttributes(modelMetadata);
@@ -142,11 +136,6 @@ namespace System.Web.Mvc
 			tagInput.AddInputAttributeHtmlAttributes("title", htmlAttributes);
 			/*Injetando o Valor no Input...*/
 			tagInput.AddInputAttributeIsNotNull("value", fieldValue);
-			///*Adicionar os atributos de acordo com o que for obtido no Data-Val...*/
-			//tagInput.AddInputAttributeStaticValue("data-val", "true");
-			//tagInput.AddInputAttributeStaticValue("data-val-required", "");
-			//tagInput.AddInputAttributeStaticValue("data-val-regex-pattern", "");
-			//tagInput.AddInputAttributeStaticValue("data-val-regex", "");
 
 			return tagInput.ToMvcHtmlString(TagRenderMode.Normal);
 		}

@@ -16,7 +16,7 @@ namespace System.Web.Mvc
 {
 	public static class DynamicDropDownListForComponent
 	{
-		public static MvcHtmlString DynamicDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, object ViewData = null, bool readOnly = false, bool disabled = false, bool visible = true)
+		public static MvcHtmlString DynamicDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, object viewData = null, bool readOnly = false, bool disabled = false, bool visible = true)
 		{
 			var typedExpression = (Expression<Func<TModel, TProperty>>)(object)expression;
 
@@ -34,11 +34,9 @@ namespace System.Web.Mvc
 			//var required = field.GetCustomAttributes(typeof(RequiredAttribute), false).Cast<RequiredAttribute>().FirstOrDefault();
 			//var t = fieldType.GetCustomAttributes(false).OfType<MetadataTypeAttribute>().FirstOrDefault();
 
-			RouteValueDictionary viewData = HtmlHelper.AnonymousObjectToHtmlAttributes(ViewData);
-			RouteValueDictionary htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(viewData["htmlAttributes"]);
-			htmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(htmlAttributes, viewData);
-			var defaultHtmlAttributesObject = new { @class = "control-label" };
-			htmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(htmlAttributes, defaultHtmlAttributesObject);
+			RouteValueDictionary viewDataObj = HtmlHelper.AnonymousObjectToHtmlAttributes(viewData);
+			RouteValueDictionary htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(viewDataObj["htmlAttributes"]);
+			htmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(htmlAttributes, viewDataObj, new RouteValueDictionary() { { "class", "control-select" } });
 
 			//Obter Atributos Adicionados ao Metadata...
 			MetadataAttributes metadataAttributes = new MetadataAttributes(modelMetadata);
