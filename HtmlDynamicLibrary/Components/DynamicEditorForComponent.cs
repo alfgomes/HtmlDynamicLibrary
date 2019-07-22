@@ -21,11 +21,30 @@ namespace System.Web.Mvc
 		{
 			DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase = new DynamicComponentBaseFor<TModel, TProperty>(helper, expression, viewData, readOnly, disabled, visible);
 
-			switch (expression.Body.Type.FullName)
+			switch ((DataType)dynamicComponentBase.MetadataAttributes.GetValue<DataType>("DataType", "DataType"))
 			{
-				case "System.Boolean":
-					return DynamicCheckbox(dynamicComponentBase);
+				case DataType.MultilineText:
+					return DynamicTextArea(dynamicComponentBase);
+				case DataType.Custom:
+				case DataType.DateTime:
+				case DataType.Date:
+				case DataType.Time:
+				case DataType.Duration:
+				case DataType.PhoneNumber:
+				case DataType.Currency:
+				case DataType.Text:
+				case DataType.Html:
+				case DataType.EmailAddress:
+				case DataType.Password:
+				case DataType.Url:
+				case DataType.ImageUrl:
+				case DataType.CreditCard:
+				case DataType.PostalCode:
+				case DataType.Upload:
 				default:
+					if (expression.Body.Type.FullName == "System.Boolean")
+						return DynamicCheckbox(dynamicComponentBase);
+
 					return DynamicInput(dynamicComponentBase);
 			}
 		}
@@ -38,6 +57,11 @@ namespace System.Web.Mvc
 		private static MvcHtmlString DynamicCheckbox<TModel, TProperty>(DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase)
 		{
 			return new TagBuilder_Checkbox<TModel, TProperty>(dynamicComponentBase).GenerateElementMvcString(TagRenderMode.Normal);
+		}
+
+		private static MvcHtmlString DynamicTextArea<TModel, TProperty>(DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase)
+		{
+			return new TagBuilder_TextArea<TModel, TProperty>(dynamicComponentBase).GenerateElementMvcString(TagRenderMode.Normal);
 		}
 	}
 }

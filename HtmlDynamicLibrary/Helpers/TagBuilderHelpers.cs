@@ -50,14 +50,14 @@ namespace HtmlDynamicLibrary.Helpers
 
 		public static void AddInputAttributeStaticValue(this TagBuilder tagInput, string attributeName, object value)
 		{
-			if (tagInput.Attributes.ContainsKey(attributeName))
-				tagInput.Attributes.Remove(attributeName);
+			if (tagInput.Attributes.ContainsKey(attributeName.ToLowerInvariant()))
+				tagInput.Attributes.Remove(attributeName.ToLowerInvariant());
 
 			bool testBool;
 			Boolean.TryParse(value.GetType().IsArray ? ((string[])value)[0] : value.ToString(), out testBool);
 			if (!testBool)
 			{
-				switch (attributeName)
+				switch (attributeName.ToLowerInvariant())
 				{
 					case "autofocus":
 					case "required":
@@ -81,7 +81,7 @@ namespace HtmlDynamicLibrary.Helpers
 				valueTreated = value;
 			}
 
-			tagInput.Attributes.Add(attributeName, valueTreated.ToString().Trim());
+			tagInput.Attributes.Add(attributeName.ToLowerInvariant(), valueTreated.ToString().Trim());
 		}
 
 		public static void AddInputTypeAttribute(this TagBuilder tagInput, Type fieldType)

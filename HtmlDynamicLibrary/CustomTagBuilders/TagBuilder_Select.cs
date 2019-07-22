@@ -33,7 +33,7 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 
 		public void AddOptionLabel(string text)
 		{
-			this.optionLabel = new SelectListItem() { Text = text };
+			this.optionLabel = new SelectListItem() { Text = $"{text.Trim()}" };
 		}
 
 		public void AddOptions(IEnumerable<SelectListItem> selectListItems)

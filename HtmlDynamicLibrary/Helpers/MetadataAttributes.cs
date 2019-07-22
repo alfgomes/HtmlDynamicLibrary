@@ -81,6 +81,7 @@ namespace HtmlDynamicLibrary.Helpers
 			FileExtensionsAttribute fileExtensionsAttribute = GetModelMetadataAttributes(metadata).OfType<FileExtensionsAttribute>().FirstOrDefault();
 			TimestampAttribute timestampAttribute = GetModelMetadataAttributes(metadata).OfType<TimestampAttribute>().FirstOrDefault();
 			ViewDisabledAttribute viewDisabledAttribute = GetModelMetadataAttributes(metadata).OfType<ViewDisabledAttribute>().FirstOrDefault();
+			TextAreaAttribute textAreaAttribute = GetModelMetadataAttributes(metadata).OfType<TextAreaAttribute>().FirstOrDefault();
 
 			OnlyNumberAttribute onlyNumberAttribute = GetModelMetadataAttributes(metadata).OfType<OnlyNumberAttribute>().FirstOrDefault();
 			CurrencyAttribute currencyAttribute = GetModelMetadataAttributes(metadata).OfType<CurrencyAttribute>().FirstOrDefault();
@@ -341,6 +342,23 @@ namespace HtmlDynamicLibrary.Helpers
 				};
 
 				metaAttribute.Property.Add("Declared", true);
+
+				metadataAttributes.Add(metaAttribute);
+			}
+
+			if (textAreaAttribute != null)
+			{
+				MetadataAttribute metaAttribute = new MetadataAttribute()
+				{
+					AttributeName = "TextAreaAttribute",
+					Property = new Dictionary<string, object>()
+				};
+
+				metaAttribute.Property.Add("Cols", textAreaAttribute.Cols);
+				metaAttribute.Property.Add("Rows", textAreaAttribute.Rows);
+				metaAttribute.Property.Add("Wrap", (textAreaAttribute.HardWrap ? "hard" : null));
+				metaAttribute.Property.Add("MinLength", textAreaAttribute.MinLength);
+				metaAttribute.Property.Add("MaxLength", textAreaAttribute.MaxLength);
 
 				metadataAttributes.Add(metaAttribute);
 			}
