@@ -14,6 +14,8 @@ namespace System.ComponentModel.DataAnnotations
 		public TextAreaAttribute(int rows, int cols = -1, int minLength = -1, int maxLength = -1, bool hardWrap = false)
 			: base()
 		{
+			DataTypeAttribute dataType = new DataTypeAttribute(DataType.MultilineText);
+
 			this.Rows = rows;
 			this.Cols = cols >= 0 ? cols : (int?)null;
 			this.HardWrap = hardWrap;
