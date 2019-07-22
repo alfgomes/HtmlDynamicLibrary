@@ -38,6 +38,7 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 
 			/* Adicionar os atributos de acordo com o que for obtido no MetaData... */
 			//TagElement.AddInputTypeAttribute(fieldType);
+			TagElement.AddInputAttributeStaticValue("class", "form-control");
 			TagElement.AddInputAttributeIsNotNull("autofocus", this.ComponentBase.MetadataAttributes.GetValue<object>("Base", "Autofocus"));
 			TagElement.AddInputAttributeIsNotNull("required", this.ComponentBase.MetadataAttributes.GetValue<object>("Base", "IsRequired"));
 			TagElement.AddInputAttributeIsNotNull("readonly", this.ComponentBase.FieldIsReadOnly || (bool)this.ComponentBase.MetadataAttributes.GetValue<object>("Base", "IsReadOnly"));
