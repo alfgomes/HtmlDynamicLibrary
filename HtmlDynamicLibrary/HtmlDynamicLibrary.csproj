@@ -106,6 +106,7 @@
     <Compile Include="CustomTagBuilders\TagBuilder_Label.cs" />
     <Compile Include="CustomTagBuilders\TagBuilder_Select.cs" />
     <Compile Include="CustomValidateAttributes\CurrencyAttribute.cs" />
+    <Compile Include="CustomValidateAttributes\DataTypeFieldAttribute.cs" />
     <Compile Include="CustomValidateAttributes\_DynamicValidateAttribute.cs" />
     <Compile Include="CustomValidateAttributes\NIFAttribute.cs" />
     <Compile Include="CustomValidateAttributes\NoEspecialCharsAttribute.cs" />

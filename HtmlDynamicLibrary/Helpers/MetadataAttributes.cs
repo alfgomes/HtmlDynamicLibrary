@@ -67,6 +67,7 @@ namespace HtmlDynamicLibrary.Helpers
 			}
 
 			DataTypeAttribute dataTypeAttribute = GetModelMetadataAttributes(metadata).OfType<DataTypeAttribute>().FirstOrDefault();
+			DataTypeFieldAttribute dataTypeFieldAttribute = GetModelMetadataAttributes(metadata).OfType<DataTypeFieldAttribute>().FirstOrDefault();
 			RegularExpressionAttribute regularExpressionAttribute = GetModelMetadataAttributes(metadata).OfType<RegularExpressionAttribute>().FirstOrDefault();
 			StringLengthAttribute stringLengthAttribute = GetModelMetadataAttributes(metadata).OfType<StringLengthAttribute>().FirstOrDefault();
 			MinLengthAttribute minLengthAttribute = GetModelMetadataAttributes(metadata).OfType<MinLengthAttribute>().FirstOrDefault();
@@ -99,6 +100,27 @@ namespace HtmlDynamicLibrary.Helpers
 				metaAttribute.Property.Add("ErrorMessage", dataTypeAttribute.ErrorMessage);
 				metaAttribute.Property.Add("ErrorMessageResourceName", dataTypeAttribute.ErrorMessageResourceName);
 				metaAttribute.Property.Add("RequiresValidationContext", dataTypeAttribute.RequiresValidationContext);
+
+				metadataAttributes.Add(metaAttribute);
+			}
+
+			if (dataTypeFieldAttribute != null)
+			{
+				MetadataAttribute metaAttribute = new MetadataAttribute()
+				{
+					AttributeName = "DataTypeFieldAttribute",
+					Property = new Dictionary<string, object>()
+				};
+
+				metaAttribute.Property.Add("DataType", dataTypeFieldAttribute.DataType);
+				metaAttribute.Property.Add("ErrorMessage", dataTypeFieldAttribute.ErrorMessage);
+				metaAttribute.Property.Add("ErrorMessageResourceName", dataTypeFieldAttribute.ErrorMessageResourceName);
+				metaAttribute.Property.Add("RequiresValidationContext", dataTypeFieldAttribute.RequiresValidationContext);
+				metaAttribute.Property.Add("Cols", dataTypeFieldAttribute.Cols);
+				metaAttribute.Property.Add("Rows", dataTypeFieldAttribute.Rows);
+				metaAttribute.Property.Add("Wrap", (dataTypeFieldAttribute.HardWrap ? "hard" : null));
+				metaAttribute.Property.Add("MinLength", dataTypeFieldAttribute.MinLength);
+				metaAttribute.Property.Add("MaxLength", dataTypeFieldAttribute.MaxLength);
 
 				metadataAttributes.Add(metaAttribute);
 			}
