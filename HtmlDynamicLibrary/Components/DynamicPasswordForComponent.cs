@@ -43,15 +43,15 @@ namespace System.Web.Mvc
 			/*Adicionar os atributos de acordo com o que for obtido no MetaData...*/
 			//tagInput.AddInputTypeAttribute(fieldType);
 			tagInput.AddInputAttributeIsNotNull("type", "password");
-			tagInput.AddInputAttributeIsNotNull("autofocus", metadataAttributes.GetValue<object>("Base", "Autofocus"));
-			tagInput.AddInputAttributeIsNotNull("required", metadataAttributes.GetValue<object>("Base", "IsRequired"));
-			tagInput.AddInputAttributeIsNotNull("readonly", readOnly || (bool)metadataAttributes.GetValue<object>("Base", "IsReadOnly"));
+			tagInput.AddInputAttributeIsNotNull("autofocus", metadataAttributes.GetValue<object>("Common", "Autofocus"));
+			tagInput.AddInputAttributeIsNotNull("required", metadataAttributes.GetValue<object>("Common", "IsRequired"));
+			tagInput.AddInputAttributeIsNotNull("readonly", readOnly || (bool)metadataAttributes.GetValue<object>("Common", "IsReadOnly"));
 			int? minimumLength = (int?)metadataAttributes.GetValue<DataType>("Minimum", "Length") ?? (int?)metadataAttributes.GetValue<DataType>("StringLength", "MinimumLength");
 			tagInput.AddInputAttributeIsNotNullAndExpressionIsTrue("minlength", minimumLength, minimumLength.HasValue && minimumLength.Value > 0);
 			int? maximumLength = (int?)metadataAttributes.GetValue<DataType>("Maximum", "Length") ?? (int?)metadataAttributes.GetValue<DataType>("StringLength", "MaximumLength");
 			tagInput.AddInputAttributeIsNotNullAndExpressionIsTrue("maxlength", maximumLength, maximumLength.HasValue && maximumLength.Value > 0);
-			tagInput.AddInputAttributeIsNotNull("title", metadataAttributes.GetValue<object>("Base", "Description"));
-			tagInput.AddInputAttributeIsNotNull("placeholder", metadataAttributes.GetValue<object>("Base", "Watermark"));
+			tagInput.AddInputAttributeIsNotNull("title", metadataAttributes.GetValue<object>("Common", "Description"));
+			tagInput.AddInputAttributeIsNotNull("placeholder", metadataAttributes.GetValue<object>("Common", "Watermark"));
 			tagInput.AddInputAttributeIsNotNull("class", metadataAttributes.GetValue<object>("OnlyNumber", "ClassDecorator"));
 			tagInput.AddInputAttributeIsNotNull("class", metadataAttributes.GetValue<object>("NoEspecialChars", "ClassDecorator"));
 			/*Adicionar os atributos de acordo com o que for obtido no HtmlAttributes...*/

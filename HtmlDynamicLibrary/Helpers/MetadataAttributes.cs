@@ -54,7 +54,7 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
 				{
-					AttributeName = "BaseAttribute",
+					AttributeName = "CommonAttribute",
 					Property = new Dictionary<string, object>()
 				};
 

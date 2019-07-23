@@ -39,13 +39,13 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 			/* Adicionar os atributos de acordo com o que for obtido no MetaData... */
 			//TagElement.AddInputTypeAttribute(fieldType);
 			TagElement.AddInputAttributeStaticValue("class", "form-control");
-			TagElement.AddInputAttributeIsNotNull("autofocus", this.ComponentBase.MetadataAttributes.GetValue<object>("Base", "Autofocus"));
-			TagElement.AddInputAttributeIsNotNull("required", this.ComponentBase.MetadataAttributes.GetValue<object>("Base", "IsRequired"));
-			TagElement.AddInputAttributeIsNotNull("readonly", this.ComponentBase.FieldIsReadOnly || (bool)this.ComponentBase.MetadataAttributes.GetValue<object>("Base", "IsReadOnly"));
-			TagElement.AddInputAttributeIsNotNull("title", this.ComponentBase.MetadataAttributes.GetValue<object>("Base", "Description"));
-			TagElement.AddInputAttributeIsNotNull("placeholder", this.ComponentBase.MetadataAttributes.GetValue<object>("Base", "Watermark"));
+			TagElement.AddInputAttributeIsNotNull("autofocus", this.ComponentBase.MetadataAttributes.GetValue<object>("Common", "Autofocus"));
+			TagElement.AddInputAttributeIsNotNull("required", this.ComponentBase.MetadataAttributes.GetValue<object>("Common", "IsRequired"));
+			TagElement.AddInputAttributeIsNotNull("readonly", this.ComponentBase.FieldIsReadOnly || (bool)this.ComponentBase.MetadataAttributes.GetValue<object>("Common", "IsReadOnly"));
+			TagElement.AddInputAttributeIsNotNull("title", this.ComponentBase.MetadataAttributes.GetValue<object>("Common", "Description"));
+			TagElement.AddInputAttributeIsNotNull("placeholder", this.ComponentBase.MetadataAttributes.GetValue<object>("Common", "Watermark"));
 
-			//...............................................................................................................................................................
+			//...............................................................................................................................................................\\
 
 			/* Adicionar os atributos de acordo com o que for obtido no HtmlAttributes... */
 			TagElement.AddInputAttributeHtmlAttributes("autofocus", this.ComponentBase.HtmlAttributes);
@@ -55,7 +55,7 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 			TagElement.AddInputAttributeHtmlAttributes("title", this.ComponentBase.HtmlAttributes);
 			TagElement.AddInputAttributeHtmlAttributes("placeholder", this.ComponentBase.HtmlAttributes);
 
-			//...............................................................................................................................................................
+			//...............................................................................................................................................................\\
 
 
 			/* Adicionar os atributos de acordo com o que for obtido no Data-Val... */
