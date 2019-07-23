@@ -40,6 +40,7 @@ namespace HtmlDynamicLibrary.Helpers
 			if (customTypeDescriptor != null)
 			{
 				var descriptor = customTypeDescriptor.GetProperties().Find(metadata.PropertyName, true);
+
 				return (new List<Attribute>(descriptor.Attributes.OfType<Attribute>())).ToList<Attribute>();
 			}
 
@@ -52,42 +53,21 @@ namespace HtmlDynamicLibrary.Helpers
 
 			if (metadata != null)
 			{
-				MetadataAttribute metaAttribute = new MetadataAttribute()
+				MetadataAttribute commonAttribute = new MetadataAttribute()
 				{
 					AttributeName = "CommonAttribute",
 					Property = new Dictionary<string, object>()
 				};
 
-				metaAttribute.Property.Add("IsRequired", metadata.IsRequired);
-				metaAttribute.Property.Add("IsReadOnly", metadata.IsReadOnly);
-				metaAttribute.Property.Add("Description", metadata.Description);
-				metaAttribute.Property.Add("Watermark", metadata.Watermark);
+				commonAttribute.Property.Add("IsRequired", metadata.IsRequired);
+				commonAttribute.Property.Add("IsReadOnly", metadata.IsReadOnly);
+				commonAttribute.Property.Add("Description", metadata.Description);
+				commonAttribute.Property.Add("Watermark", metadata.Watermark);
 
-				metadataAttributes.Add(metaAttribute);
+				metadataAttributes.Add(commonAttribute);
 			}
 
 			DataTypeAttribute dataTypeAttribute = GetModelMetadataAttributes(metadata).OfType<DataTypeAttribute>().FirstOrDefault();
-			DataTypeFieldAttribute dataTypeFieldAttribute = GetModelMetadataAttributes(metadata).OfType<DataTypeFieldAttribute>().FirstOrDefault();
-			RegularExpressionAttribute regularExpressionAttribute = GetModelMetadataAttributes(metadata).OfType<RegularExpressionAttribute>().FirstOrDefault();
-			StringLengthAttribute stringLengthAttribute = GetModelMetadataAttributes(metadata).OfType<StringLengthAttribute>().FirstOrDefault();
-			MinLengthAttribute minLengthAttribute = GetModelMetadataAttributes(metadata).OfType<MinLengthAttribute>().FirstOrDefault();
-			MaxLengthAttribute maxLengthAttribute = GetModelMetadataAttributes(metadata).OfType<MaxLengthAttribute>().FirstOrDefault();
-			DisplayAttribute displayAttribute = GetModelMetadataAttributes(metadata).OfType<DisplayAttribute>().FirstOrDefault();
-			RequiredAttribute requiredAttribute = GetModelMetadataAttributes(metadata).OfType<RequiredAttribute>().FirstOrDefault();
-			RangeAttribute rangeAttribute = GetModelMetadataAttributes(metadata).OfType<RangeAttribute>().FirstOrDefault();
-			DisplayFormatAttribute displayFormatAttribute = GetModelMetadataAttributes(metadata).OfType<DisplayFormatAttribute>().FirstOrDefault();
-			CreditCardAttribute creditCardAttribute = GetModelMetadataAttributes(metadata).OfType<CreditCardAttribute>().FirstOrDefault();
-			CustomValidationAttribute customValidationAttribute = GetModelMetadataAttributes(metadata).OfType<CustomValidationAttribute>().FirstOrDefault();
-			EmailAddressAttribute emailAddressAttribute = GetModelMetadataAttributes(metadata).OfType<EmailAddressAttribute>().FirstOrDefault();
-			FileExtensionsAttribute fileExtensionsAttribute = GetModelMetadataAttributes(metadata).OfType<FileExtensionsAttribute>().FirstOrDefault();
-			TimestampAttribute timestampAttribute = GetModelMetadataAttributes(metadata).OfType<TimestampAttribute>().FirstOrDefault();
-			ViewDisabledAttribute viewDisabledAttribute = GetModelMetadataAttributes(metadata).OfType<ViewDisabledAttribute>().FirstOrDefault();
-			TextAreaAttribute textAreaAttribute = GetModelMetadataAttributes(metadata).OfType<TextAreaAttribute>().FirstOrDefault();
-
-			OnlyNumberAttribute onlyNumberAttribute = GetModelMetadataAttributes(metadata).OfType<OnlyNumberAttribute>().FirstOrDefault();
-			CurrencyAttribute currencyAttribute = GetModelMetadataAttributes(metadata).OfType<CurrencyAttribute>().FirstOrDefault();
-			NoEspecialCharsAttribute noEspecialCharsAttribute = GetModelMetadataAttributes(metadata).OfType<NoEspecialCharsAttribute>().FirstOrDefault();
-
 			if (dataTypeAttribute != null)
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
@@ -104,6 +84,7 @@ namespace HtmlDynamicLibrary.Helpers
 				metadataAttributes.Add(metaAttribute);
 			}
 
+			DataTypeFieldAttribute dataTypeFieldAttribute = GetModelMetadataAttributes(metadata).OfType<DataTypeFieldAttribute>().FirstOrDefault();
 			if (dataTypeFieldAttribute != null)
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
@@ -125,6 +106,7 @@ namespace HtmlDynamicLibrary.Helpers
 				metadataAttributes.Add(metaAttribute);
 			}
 
+			RegularExpressionAttribute regularExpressionAttribute = GetModelMetadataAttributes(metadata).OfType<RegularExpressionAttribute>().FirstOrDefault();
 			if (regularExpressionAttribute != null)
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
@@ -141,6 +123,7 @@ namespace HtmlDynamicLibrary.Helpers
 				metadataAttributes.Add(metaAttribute);
 			}
 
+			StringLengthAttribute stringLengthAttribute = GetModelMetadataAttributes(metadata).OfType<StringLengthAttribute>().FirstOrDefault();
 			if (stringLengthAttribute != null)
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
@@ -159,6 +142,7 @@ namespace HtmlDynamicLibrary.Helpers
 				metadataAttributes.Add(metaAttribute);
 			}
 
+			MinLengthAttribute minLengthAttribute = GetModelMetadataAttributes(metadata).OfType<MinLengthAttribute>().FirstOrDefault();
 			if (minLengthAttribute != null)
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
@@ -176,6 +160,7 @@ namespace HtmlDynamicLibrary.Helpers
 				metadataAttributes.Add(metaAttribute);
 			}
 
+			MaxLengthAttribute maxLengthAttribute = GetModelMetadataAttributes(metadata).OfType<MaxLengthAttribute>().FirstOrDefault();
 			if (maxLengthAttribute != null)
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
@@ -193,6 +178,7 @@ namespace HtmlDynamicLibrary.Helpers
 				metadataAttributes.Add(metaAttribute);
 			}
 
+			DisplayAttribute displayAttribute = GetModelMetadataAttributes(metadata).OfType<DisplayAttribute>().FirstOrDefault();
 			if (displayAttribute != null)
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
@@ -210,6 +196,7 @@ namespace HtmlDynamicLibrary.Helpers
 				metadataAttributes.Add(metaAttribute);
 			}
 
+			RequiredAttribute requiredAttribute = GetModelMetadataAttributes(metadata).OfType<RequiredAttribute>().FirstOrDefault();
 			if (requiredAttribute != null)
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
@@ -227,6 +214,7 @@ namespace HtmlDynamicLibrary.Helpers
 				metadataAttributes.Add(metaAttribute);
 			}
 
+			RangeAttribute rangeAttribute = GetModelMetadataAttributes(metadata).OfType<RangeAttribute>().FirstOrDefault();
 			if (rangeAttribute != null)
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
@@ -245,6 +233,7 @@ namespace HtmlDynamicLibrary.Helpers
 				metadataAttributes.Add(metaAttribute);
 			}
 
+			DisplayFormatAttribute displayFormatAttribute = GetModelMetadataAttributes(metadata).OfType<DisplayFormatAttribute>().FirstOrDefault();
 			if (displayFormatAttribute != null)
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
@@ -263,6 +252,7 @@ namespace HtmlDynamicLibrary.Helpers
 				metadataAttributes.Add(metaAttribute);
 			}
 
+			CreditCardAttribute creditCardAttribute = GetModelMetadataAttributes(metadata).OfType<CreditCardAttribute>().FirstOrDefault();
 			if (creditCardAttribute != null)
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
@@ -283,6 +273,7 @@ namespace HtmlDynamicLibrary.Helpers
 				metadataAttributes.Add(metaAttribute);
 			}
 
+			CustomValidationAttribute customValidationAttribute = GetModelMetadataAttributes(metadata).OfType<CustomValidationAttribute>().FirstOrDefault();
 			if (customValidationAttribute != null)
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
@@ -302,6 +293,7 @@ namespace HtmlDynamicLibrary.Helpers
 				metadataAttributes.Add(metaAttribute);
 			}
 
+			EmailAddressAttribute emailAddressAttribute = GetModelMetadataAttributes(metadata).OfType<EmailAddressAttribute>().FirstOrDefault();
 			if (emailAddressAttribute != null)
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
@@ -322,6 +314,7 @@ namespace HtmlDynamicLibrary.Helpers
 				metadataAttributes.Add(metaAttribute);
 			}
 
+			FileExtensionsAttribute fileExtensionsAttribute = GetModelMetadataAttributes(metadata).OfType<FileExtensionsAttribute>().FirstOrDefault();
 			if (fileExtensionsAttribute != null)
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
@@ -342,6 +335,7 @@ namespace HtmlDynamicLibrary.Helpers
 				metadataAttributes.Add(metaAttribute);
 			}
 
+			TimestampAttribute timestampAttribute = GetModelMetadataAttributes(metadata).OfType<TimestampAttribute>().FirstOrDefault();
 			if (timestampAttribute != null)
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
@@ -355,6 +349,7 @@ namespace HtmlDynamicLibrary.Helpers
 				metadataAttributes.Add(metaAttribute);
 			}
 
+			ViewDisabledAttribute viewDisabledAttribute = GetModelMetadataAttributes(metadata).OfType<ViewDisabledAttribute>().FirstOrDefault();
 			if (viewDisabledAttribute != null)
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
@@ -368,6 +363,7 @@ namespace HtmlDynamicLibrary.Helpers
 				metadataAttributes.Add(metaAttribute);
 			}
 
+			TextAreaAttribute textAreaAttribute = GetModelMetadataAttributes(metadata).OfType<TextAreaAttribute>().FirstOrDefault();
 			if (textAreaAttribute != null)
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
@@ -385,6 +381,7 @@ namespace HtmlDynamicLibrary.Helpers
 				metadataAttributes.Add(metaAttribute);
 			}
 
+			OnlyNumberAttribute onlyNumberAttribute = GetModelMetadataAttributes(metadata).OfType<OnlyNumberAttribute>().FirstOrDefault();
 			if (onlyNumberAttribute != null)
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
@@ -399,6 +396,7 @@ namespace HtmlDynamicLibrary.Helpers
 				metadataAttributes.Add(metaAttribute);
 			}
 
+			CurrencyAttribute currencyAttribute = GetModelMetadataAttributes(metadata).OfType<CurrencyAttribute>().FirstOrDefault();
 			if (currencyAttribute != null)
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
@@ -414,6 +412,7 @@ namespace HtmlDynamicLibrary.Helpers
 				metadataAttributes.Add(metaAttribute);
 			}
 
+			NoEspecialCharsAttribute noEspecialCharsAttribute = GetModelMetadataAttributes(metadata).OfType<NoEspecialCharsAttribute>().FirstOrDefault();
 			if (noEspecialCharsAttribute != null)
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
@@ -436,6 +435,7 @@ namespace HtmlDynamicLibrary.Helpers
 			try
 			{
 				var ret = metadataAttributes.FirstOrDefault(a => a.AttributeName == attributeName);
+
 				return true;
 			}
 			catch (Exception ex)
@@ -451,6 +451,7 @@ namespace HtmlDynamicLibrary.Helpers
 			try
 			{
 				var ret = metadataAttributes.FirstOrDefault(a => a.AttributeName == attributeName).Property[parameterName];
+
 				return true;
 			}
 			catch (Exception ex)
@@ -467,6 +468,7 @@ namespace HtmlDynamicLibrary.Helpers
 			try
 			{
 				ret = (TResult)metadataAttributes.FirstOrDefault(a => a.AttributeName == attributeName).Property[parameterName];
+
 				return ret;
 			}
 			catch (Exception ex)
