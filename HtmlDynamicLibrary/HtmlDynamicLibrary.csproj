@@ -94,6 +94,7 @@
     <Compile Include="Components\DynamicValidationMessageForComponent.cs" />
     <Compile Include="Components\_DynamicComponentBase.cs" />
     <Compile Include="Components\_DynamicComponentBaseFor.cs" />
+    <Compile Include="CustomAttributes\VersionAttribute.cs" />
     <Compile Include="CustomAttributes\AuthorAttribute.cs" />
     <Compile Include="CustomAttributes\TextAreaAttribute.cs" />
     <Compile Include="CustomAttributes\ViewDisabledAttribute.cs" />

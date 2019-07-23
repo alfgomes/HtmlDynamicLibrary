@@ -2,7 +2,7 @@
 
 namespace System.ComponentModel.DataAnnotations
 {
-	[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = true, Inherited = false)]
+	[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
 	public class TextAreaAttribute : DynamicAttribute
 	{
 		public int Rows { get; private set; }

@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace System.ComponentModel.DataAnnotations
 {
-	[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = true, Inherited = false)]
+	[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
 	public class DataTypeFieldAttribute : DataTypeAttribute
 	{
 		public int Rows { get; private set; }

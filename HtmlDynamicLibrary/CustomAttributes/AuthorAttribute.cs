@@ -5,19 +5,21 @@ using System.Web;
 
 namespace System.ComponentModel.DataAnnotations
 {
-	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum)]
+	[AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Delegate | AttributeTargets.Enum
+		| AttributeTargets.Interface | AttributeTargets.Module | AttributeTargets.Struct, AllowMultiple = false, Inherited = false)]
 	public class AuthorAttribute : DynamicAttribute
 	{
 		public string Name { get; private set; }
-		public double Version { get; set; }
-		public string Comments { get; set; }
+		public DateTime Creation { get; private set; }
+		public string Description { get; set; }
 
-		public AuthorAttribute(string name)
+		public AuthorAttribute(string name, string creation)
 			: base()
 		{
 			this.Name = name;
-			Version = 1.0;
-			Comments = "";
+			DateTime parsedDate;
+			DateTime.TryParse(creation, out parsedDate);
+			this.Creation = parsedDate;
 		}
 	}
 }

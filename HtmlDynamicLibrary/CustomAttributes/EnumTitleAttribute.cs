@@ -2,7 +2,7 @@
 
 namespace System.ComponentModel.DataAnnotations
 {
-	[AttributeUsage(AttributeTargets.Field, AllowMultiple = true, Inherited = false)]
+	[AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
 	public class EnumTitleAttribute : DynamicAttribute
 	{
 		public string Title { get; private set; }

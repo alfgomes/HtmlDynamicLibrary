@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace System.Web.Mvc
 {
-	[Author("André Gomes", Comments = "Relação de Glyph Icons.")]
+	[Author("André Gomes", "10/07/2019", Description = "Relação de Glyph Icons.")]
 	public enum DynamicGlyphIconEnum
 	{
 		[EnumTitle("icon-glass")]

@@ -19,7 +19,6 @@ namespace HtmlDynamicLibrary.Helpers
 		{
 			public string AttributeName { get; set; }
 			public IDictionary<string, object> Property { get; set; }
-
 		}
 
 		public ModelMetadata Metadata { get; private set; }

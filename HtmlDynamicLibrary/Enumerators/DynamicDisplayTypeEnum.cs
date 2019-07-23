@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace System.Web.Mvc
 {
-	[Author("André Gomes", Comments = "Tipos disponíveis para renderização do Componente DynamicDisplayFor.")]
+	[Author("André Gomes", "10/07/2019", Description = "Tipos disponíveis para renderização do Componente DynamicDisplayFor.")]
 	public enum DynamicDisplayType
 	{
 		OnlyText,
