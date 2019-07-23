@@ -490,5 +490,24 @@ namespace HtmlDynamicLibrary.Helpers
 
 			return ret;
 		}
+
+		public static Dictionary<string, Dictionary<string, string>> GetChangelogs(ModelMetadata metadata)
+		{
+			if (metadata == null) return null;
+
+			VersionAttribute versionAttribute = GetModelMetadataAttributes(metadata).OfType<VersionAttribute>().FirstOrDefault();
+			if (versionAttribute != null)
+			{
+				Dictionary<string, Dictionary<string, string>> versionChangelog = new Dictionary<string, Dictionary<string, string>>();
+				Dictionary<string, string> versions = new Dictionary<string, string>();
+
+				versions.Add($"{versionAttribute.MajorVersion}.{versionAttribute.MinorVersion}.{versionAttribute.PathVersion}", versionAttribute.ChangeLog);
+				versionChangelog.Add(metadata.PropertyName, versions);
+
+				return versionChangelog;
+			}
+
+			return null;
+		}
 	}
 }
