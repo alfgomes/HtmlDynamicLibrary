@@ -14,14 +14,14 @@ using HtmlDynamicLibrary.Helpers;
 
 namespace HtmlDynamicLibrary.CustomTagBuilders
 {
-	public class TagBuilder_Input<TModel, TProperty> : CustomTagBuilder<TModel, TProperty>
+	public class TagBuilder_Password<TModel, TProperty> : CustomTagBuilder<TModel, TProperty>
 	{
-		public TagBuilder_Input(DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase, string inputType = null)
-			: base(CustomAttributesHelpers.GetInputElementTypeByDataType((DataType)dynamicComponentBase.MetadataAttributes.GetValue<DataType>("DataType", "DataType")), dynamicComponentBase)
+		public TagBuilder_Password(DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase)
+			: base("input", dynamicComponentBase)
 		{
 			/* Adicionar os atributos de acordo com o que for obtido no MetaData... */
 			//TagElement.AddInputTypeAttribute(fieldType);
-			TagElement.AddInputAttributeIsNotNull("type", CustomAttributesHelpers.ConvertDataTypeToHtmlType((DataType)this.ComponentBase.MetadataAttributes.GetValue<DataType>("DataType", "DataType"), this.ComponentBase.FieldType));
+			TagElement.AddInputAttributeStaticValue("type", "password");
 			int? minimumLength = (int?)this.ComponentBase.MetadataAttributes.GetValue<DataType>("Minimum", "Length") ?? (int?)this.ComponentBase.MetadataAttributes.GetValue<DataType>("StringLength", "MinimumLength");
 			TagElement.AddInputAttributeIsNotNullAndExpressionIsTrue("minlength", minimumLength, minimumLength.HasValue && minimumLength.Value > 0);
 			int? maximumLength = (int?)this.ComponentBase.MetadataAttributes.GetValue<DataType>("Maximum", "Length") ?? (int?)this.ComponentBase.MetadataAttributes.GetValue<DataType>("StringLength", "MaximumLength");
@@ -34,11 +34,8 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 			/* Adicionar os atributos de acordo com o que for obtido no HtmlAttributes... */
 			TagElement.MergeInputAttributeHtmlAttributes("class", this.ComponentBase.HtmlAttributes);
 			TagElement.MergeInputAttributeHtmlAttributes("style", this.ComponentBase.HtmlAttributes);
-			TagElement.AddInputAttributeHtmlAttributes("type", this.ComponentBase.HtmlAttributes);
 			TagElement.AddInputAttributeHtmlAttributes("minlength", this.ComponentBase.HtmlAttributes);
 			TagElement.AddInputAttributeHtmlAttributes("maxlength", this.ComponentBase.HtmlAttributes);
-
-			TagElement.AddInputAttributeIsNotNull("type", inputType);
 
 			/* Injetando o Valor no Input... */
 			this.Value = this.ComponentBase.FieldValue;

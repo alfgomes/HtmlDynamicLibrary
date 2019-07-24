@@ -14,7 +14,7 @@ using HtmlDynamicLibrary.Helpers;
 
 namespace System.Web.Mvc
 {
-	public class DynamicComponentBaseFor<TModel, TProperty>
+	public class DynamicComponentBaseFor<TModel, TProperty> //: DynamicComponentBase<TModel>
 	{
 		#region Properties...
 
@@ -36,6 +36,7 @@ namespace System.Web.Mvc
 		#endregion
 
 		public DynamicComponentBaseFor(HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object viewData = null, bool readOnly = false, bool disabled = false, bool visible = true)
+			//: base(helper, TagBuilder.CreateSanitizedId(helper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(ExpressionHelper.GetExpressionText(expression))), ExpressionHelper.GetExpressionText(expression), ((FieldInfo[])((TypeInfo)expression.Body.Type).DeclaredFields)[1].FieldType.ToString(), viewData, HtmlHelpers.IsNullable((expression.Body as MemberExpression).Member), readOnly, disabled, visible)
 		{
 			TypedExpression = (Expression<Func<TModel, TProperty>>)(object)expression;
 

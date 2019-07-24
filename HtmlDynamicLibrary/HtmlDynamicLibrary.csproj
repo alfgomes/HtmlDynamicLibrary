@@ -102,6 +102,7 @@
     <Compile Include="CustomAttributes\EnumTitleAttribute.cs" />
     <Compile Include="CustomTagBuilders\CustomTagBuilder.cs" />
     <Compile Include="CustomTagBuilders\TagBuilder_Checkbox.cs" />
+    <Compile Include="CustomTagBuilders\TagBuilder_Password.cs" />
     <Compile Include="CustomTagBuilders\TagBuilder_TextArea.cs" />
     <Compile Include="CustomTagBuilders\TagBuilder_Input.cs" />
     <Compile Include="CustomTagBuilders\TagBuilder_Label.cs" />

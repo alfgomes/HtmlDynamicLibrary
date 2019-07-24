@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
+using HtmlDynamicLibrary.CustomTagBuilders;
 using HtmlDynamicLibrary.Helpers;
 
 namespace System.Web.Mvc
@@ -18,62 +19,9 @@ namespace System.Web.Mvc
 	{
 		public static MvcHtmlString DynamicPasswordFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object viewData = null, bool readOnly = false, bool disabled = false, bool visible = true)
 		{
-			var typedExpression = (Expression<Func<TModel, TProperty>>)(object)expression;
+			DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase = new DynamicComponentBaseFor<TModel, TProperty>(helper, expression, viewData, readOnly, disabled, visible);
 
-			MemberInfo field = (expression.Body as MemberExpression).Member;
-			var fieldName = ExpressionHelper.GetExpressionText(expression);
-			Type fieldType = ((FieldInfo[])((TypeInfo)expression.Body.Type).DeclaredFields)[1].FieldType;
-			bool fieldIsNullable = HtmlHelpers.IsNullable(field);
-			TProperty fieldValue = expression.Compile().Invoke(helper.ViewData.Model);
-			string fieldFullName = helper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(fieldName);
-			string sanitizedId = TagBuilder.CreateSanitizedId(fieldFullName);
-			ModelMetadata modelMetadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
-
-			RouteValueDictionary viewDataObj = HtmlHelper.AnonymousObjectToHtmlAttributes(viewData);
-			RouteValueDictionary htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(viewDataObj["htmlAttributes"]);
-			htmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(htmlAttributes, viewDataObj, new RouteValueDictionary() { { "class", "control-password" } });
-
-			//Obter Atributos Adicionados ao Metadata...
-			MetadataAttributes metadataAttributes = new MetadataAttributes(modelMetadata);
-
-			TagBuilder tagInput = new TagBuilder("input");
-			//tagInput.GenerateId(fieldFullName);
-			tagInput.AddInputAttributeIsNotNull("id", sanitizedId);
-			tagInput.AddInputAttributeIsNotNull("name", fieldFullName);
-			/*Adicionar os atributos de acordo com o que for obtido no MetaData...*/
-			//tagInput.AddInputTypeAttribute(fieldType);
-			tagInput.AddInputAttributeIsNotNull("type", "password");
-			tagInput.AddInputAttributeIsNotNull("autofocus", metadataAttributes.GetValue<object>("Common", "Autofocus"));
-			tagInput.AddInputAttributeIsNotNull("required", metadataAttributes.GetValue<object>("Common", "IsRequired"));
-			tagInput.AddInputAttributeIsNotNull("readonly", readOnly || (bool)metadataAttributes.GetValue<object>("Common", "IsReadOnly"));
-			int? minimumLength = (int?)metadataAttributes.GetValue<DataType>("Minimum", "Length") ?? (int?)metadataAttributes.GetValue<DataType>("StringLength", "MinimumLength");
-			tagInput.AddInputAttributeIsNotNullAndExpressionIsTrue("minlength", minimumLength, minimumLength.HasValue && minimumLength.Value > 0);
-			int? maximumLength = (int?)metadataAttributes.GetValue<DataType>("Maximum", "Length") ?? (int?)metadataAttributes.GetValue<DataType>("StringLength", "MaximumLength");
-			tagInput.AddInputAttributeIsNotNullAndExpressionIsTrue("maxlength", maximumLength, maximumLength.HasValue && maximumLength.Value > 0);
-			tagInput.AddInputAttributeIsNotNull("title", metadataAttributes.GetValue<object>("Common", "Description"));
-			tagInput.AddInputAttributeIsNotNull("placeholder", metadataAttributes.GetValue<object>("Common", "Watermark"));
-			tagInput.AddInputAttributeIsNotNull("class", metadataAttributes.GetValue<object>("OnlyNumber", "ClassDecorator"));
-			tagInput.AddInputAttributeIsNotNull("class", metadataAttributes.GetValue<object>("NoEspecialChars", "ClassDecorator"));
-			/*Adicionar os atributos de acordo com o que for obtido no HtmlAttributes...*/
-			tagInput.MergeInputAttributeHtmlAttributes("class", htmlAttributes);
-			tagInput.MergeInputAttributeHtmlAttributes("style", htmlAttributes);
-			tagInput.AddInputAttributeHtmlAttributes("autofocus", htmlAttributes);
-			tagInput.AddInputAttributeHtmlAttributes("required", htmlAttributes);
-			tagInput.AddInputAttributeHtmlAttributes("readonly", htmlAttributes);
-			tagInput.AddInputAttributeHtmlAttributes("disabled", htmlAttributes);
-			tagInput.AddInputAttributeHtmlAttributes("minlength", htmlAttributes);
-			tagInput.AddInputAttributeHtmlAttributes("maxlength", htmlAttributes);
-			tagInput.AddInputAttributeHtmlAttributes("title", htmlAttributes);
-			tagInput.AddInputAttributeHtmlAttributes("placeholder", htmlAttributes);
-			/*Injetando o Valor no Input...*/
-			tagInput.AddInputAttributeIsNotNull("value", fieldValue);
-			///*Adicionar os atributos de acordo com o que for obtido no Data-Val...*/
-			//tagInput.AddInputAttributeStaticValue("data-val", "true");
-			//tagInput.AddInputAttributeStaticValue("data-val-required", "");
-			//tagInput.AddInputAttributeStaticValue("data-val-regex-pattern", "");
-			//tagInput.AddInputAttributeStaticValue("data-val-regex", "");
-
-			return tagInput.ToMvcHtmlString(TagRenderMode.Normal);
+			return new TagBuilder_Password<TModel, TProperty>(dynamicComponentBase).GenerateElementMvcString(TagRenderMode.Normal);
 		}
 	}
 }
