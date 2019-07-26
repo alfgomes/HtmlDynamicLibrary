@@ -16,33 +16,45 @@ namespace System.Web.Mvc
 {
 	public static class DynamicEnumDropDownListForComponent
 	{
-		public static MvcHtmlString DynamicEnumDropDownListFor<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TEnum>> expression)
+		public static MvcHtmlString DynamicEnumDropDownListFor<TModel, TEnum>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TEnum>> expression)
 		{
+			DynamicComponentBaseFor<TModel, TEnum> dynamicComponentBase = new DynamicComponentBaseFor<TModel, TEnum>(helper, expression);
+
 			return null;
 		}
 
-		public static MvcHtmlString DynamicEnumDropDownListFor<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TEnum>> expression, object htmlAttributes)
+		public static MvcHtmlString DynamicEnumDropDownListFor<TModel, TEnum>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TEnum>> expression, object htmlAttributes)
 		{
+			DynamicComponentBaseFor<TModel, TEnum> dynamicComponentBase = new DynamicComponentBaseFor<TModel, TEnum>(helper, expression, htmlAttributes);
+
 			return null;
 		}
 
-		public static MvcHtmlString DynamicEnumDropDownListFor<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TEnum>> expression, IDictionary<string, object> htmlAttributes)
+		public static MvcHtmlString DynamicEnumDropDownListFor<TModel, TEnum>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TEnum>> expression, IDictionary<string, object> htmlAttributes)
 		{
+			DynamicComponentBaseFor<TModel, TEnum> dynamicComponentBase = new DynamicComponentBaseFor<TModel, TEnum>(helper, expression, htmlAttributes);
+
 			return null;
 		}
 
-		public static MvcHtmlString DynamicEnumDropDownListFor<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TEnum>> expression, string optionLabel)
+		public static MvcHtmlString DynamicEnumDropDownListFor<TModel, TEnum>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TEnum>> expression, string optionLabel)
 		{
+			DynamicComponentBaseFor<TModel, TEnum> dynamicComponentBase = new DynamicComponentBaseFor<TModel, TEnum>(helper, expression);
+
 			return null;
 		}
 
-		public static MvcHtmlString DynamicEnumDropDownListFor<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TEnum>> expression, string optionLabel, object htmlAttributes)
+		public static MvcHtmlString DynamicEnumDropDownListFor<TModel, TEnum>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TEnum>> expression, string optionLabel, object htmlAttributes)
 		{
+			DynamicComponentBaseFor<TModel, TEnum> dynamicComponentBase = new DynamicComponentBaseFor<TModel, TEnum>(helper, expression, htmlAttributes);
+
 			return null;
 		}
 
-		public static MvcHtmlString DynamicEnumDropDownListFor<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TEnum>> expression, string optionLabel, IDictionary<string, object> htmlAttributes)
+		public static MvcHtmlString DynamicEnumDropDownListFor<TModel, TEnum>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TEnum>> expression, string optionLabel, IDictionary<string, object> htmlAttributes)
 		{
+			DynamicComponentBaseFor<TModel, TEnum> dynamicComponentBase = new DynamicComponentBaseFor<TModel, TEnum>(helper, expression, htmlAttributes);
+
 			return null;
 		}
 

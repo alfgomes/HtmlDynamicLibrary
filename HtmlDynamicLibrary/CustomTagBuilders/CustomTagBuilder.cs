@@ -40,6 +40,7 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 			bool _IsRequired = !this.ComponentBase.FieldIsNullable || this.ComponentBase.MetadataAttributes.GetValue<bool>("Common", "IsRequired");
 			if (_IsRequired)
 				TagElement.AddInputAttributeIsNotNull("required", true);
+			bool _IsNullable = this.ComponentBase.FieldIsNullable || this.ComponentBase.MetadataAttributes.GetValue<bool>("Common", "IsNullable") || this.ComponentBase.MetadataAttributes.GetValue<bool>("Common", "IsNullableValueType");
 			//...............................................................................................................................................................\\
 
 

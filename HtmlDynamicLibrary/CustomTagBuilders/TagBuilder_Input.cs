@@ -19,17 +19,17 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 		public TagBuilder_Input(DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase, string inputType = null)
 			: base(CustomAttributesHelpers.GetInputElementTypeByDataType((DataType)dynamicComponentBase.MetadataAttributes.GetValue<DataType>("DataType", "DataType")), dynamicComponentBase)
 		{
-			/* Adicionar os atributos de acordo com o que for obtido no MetaData... */
+			/* Adicionar os atributos de acordo com o que for obtido no Metadata... */
 			//TagElement.AddInputTypeAttribute(fieldType);
 			TagElement.AddInputAttributeIsNotNull("type", CustomAttributesHelpers.ConvertDataTypeToHtmlType((DataType)this.ComponentBase.MetadataAttributes.GetValue<DataType>("DataType", "DataType"), this.ComponentBase.FieldType));
 			int? minimumLength = (int?)this.ComponentBase.MetadataAttributes.GetValue<DataType>("Minimum", "Length") ?? (int?)this.ComponentBase.MetadataAttributes.GetValue<DataType>("StringLength", "MinimumLength");
 			TagElement.AddInputAttributeIsNotNullAndExpressionIsTrue("minlength", minimumLength, minimumLength.HasValue && minimumLength.Value > 0);
 			int? maximumLength = (int?)this.ComponentBase.MetadataAttributes.GetValue<DataType>("Maximum", "Length") ?? (int?)this.ComponentBase.MetadataAttributes.GetValue<DataType>("StringLength", "MaximumLength");
 			TagElement.AddInputAttributeIsNotNullAndExpressionIsTrue("maxlength", maximumLength, maximumLength.HasValue && maximumLength.Value > 0);
-			TagElement.AddInputAttributeIsNotNull("class", this.ComponentBase.MetadataAttributes.GetValue<object>("OnlyNumber", "ClassDecorator"));
-			TagElement.AddInputAttributeIsNotNull("class", this.ComponentBase.MetadataAttributes.GetValue<object>("Currency", "ClassDecorator"));
-			TagElement.AddInputAttributeIsNotNull("pattern", this.ComponentBase.MetadataAttributes.GetValue<object>("Currency", "Pattern"));
-			TagElement.AddInputAttributeIsNotNull("class", this.ComponentBase.MetadataAttributes.GetValue<object>("NoEspecialChars", "ClassDecorator"));
+			TagElement.MergeInputAttributeIsNotNull("class", this.ComponentBase.MetadataAttributes.GetValue<object>("OnlyNumber", "ClassDecorator"));
+			TagElement.MergeInputAttributeIsNotNull("class", this.ComponentBase.MetadataAttributes.GetValue<object>("Currency", "ClassDecorator"));
+			TagElement.MergeInputAttributeIsNotNull("pattern", this.ComponentBase.MetadataAttributes.GetValue<object>("Currency", "Pattern"));
+			TagElement.MergeInputAttributeIsNotNull("class", this.ComponentBase.MetadataAttributes.GetValue<object>("NoEspecialChars", "ClassDecorator"));
 
 			/* Adicionar os atributos de acordo com o que for obtido no HtmlAttributes... */
 			TagElement.MergeInputAttributeHtmlAttributes("class", this.ComponentBase.HtmlAttributes);

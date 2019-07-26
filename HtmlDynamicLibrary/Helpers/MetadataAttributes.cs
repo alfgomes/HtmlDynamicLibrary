@@ -33,8 +33,6 @@ namespace HtmlDynamicLibrary.Helpers
 
 		private static IList<Attribute> GetModelMetadataAttributes(ModelMetadata metadata)
 		{
-			string retVal = String.Empty;
-
 			var customTypeDescriptor = new AssociatedMetadataTypeTypeDescriptionProvider(metadata.ContainerType).GetTypeDescriptor(metadata.ContainerType);
 			if (customTypeDescriptor != null)
 			{
@@ -54,16 +52,52 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				MetadataAttribute commonAttribute = new MetadataAttribute()
 				{
-					AttributeName = "CommonAttribute",
+					AttributeName = "Common" + "Attribute",
 					Property = new Dictionary<string, object>()
+					{
+						{ "DisplayName", metadata.DisplayName },
+						{ "ShortDisplayName", metadata.ShortDisplayName },
+						{ "IsRequired", metadata.IsRequired },
+						{ "IsReadOnly", metadata.IsReadOnly },
+						{ "IsNullableValueType", metadata.IsNullableValueType },
+						{ "Description", metadata.Description },
+						{ "Watermark", metadata.Watermark },
+						{ "ShowForDisplay", metadata.ShowForDisplay },
+						{ "ShowForEdit", metadata.ShowForEdit },
+
+						{ "DataTypeName", metadata.DataTypeName },
+						{ "IsComplexType", metadata.IsComplexType },
+						{ "EditFormatString", metadata.EditFormatString },
+						{ "HideSurroundingHtml", metadata.HideSurroundingHtml },
+						{ "HtmlEncode", metadata.HtmlEncode },
+						{ "ConvertEmptyStringToNull", metadata.ConvertEmptyStringToNull },
+						{ "NullDisplayText", metadata.NullDisplayText },
+						{ "SimpleDisplayText", metadata.SimpleDisplayText },
+						{ "TemplateHint", metadata.TemplateHint },
+						{ "DisplayFormatString", metadata.DisplayFormatString },
+					}
 				};
-
-				commonAttribute.Property.Add("IsRequired", metadata.IsRequired);
-				commonAttribute.Property.Add("IsReadOnly", metadata.IsReadOnly);
-				commonAttribute.Property.Add("Description", metadata.Description);
-				commonAttribute.Property.Add("Watermark", metadata.Watermark);
-
 				metadataAttributes.Add(commonAttribute);
+			}
+
+			HtmlAttributesAttribute htmlAttributesAttribute = GetModelMetadataAttributes(metadata).OfType<HtmlAttributesAttribute>().FirstOrDefault();
+			if (htmlAttributesAttribute != null)
+			{
+				MetadataAttribute metaAttribute = new MetadataAttribute()
+				{
+					AttributeName = "HtmlAttributes" + "Attribute",
+					Property = new Dictionary<string, object>()
+					{
+						{ "ID", htmlAttributesAttribute.ID },
+						{ "Name", htmlAttributesAttribute.Name },
+						{ "Class", htmlAttributesAttribute.Class },
+						{ "Style", htmlAttributesAttribute.Style },
+						{ "Width", htmlAttributesAttribute.Width },
+						{ "Height", htmlAttributesAttribute.Height },
+						{ "Placeholder", htmlAttributesAttribute.Placeholder },
+					}
+				};
+				metadataAttributes.Add(metaAttribute);
 			}
 
 			DataTypeAttribute dataTypeAttribute = GetModelMetadataAttributes(metadata).OfType<DataTypeAttribute>().FirstOrDefault();
@@ -71,15 +105,15 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
 				{
-					AttributeName = "DataTypeAttribute",
+					AttributeName = "DataType" + "Attribute",
 					Property = new Dictionary<string, object>()
+					{
+						{ "DataType", dataTypeAttribute.DataType },
+						{ "ErrorMessage", dataTypeAttribute.ErrorMessage },
+						{ "ErrorMessageResourceName", dataTypeAttribute.ErrorMessageResourceName },
+						{ "RequiresValidationContext", dataTypeAttribute.RequiresValidationContext },
+					}
 				};
-
-				metaAttribute.Property.Add("DataType", dataTypeAttribute.DataType);
-				metaAttribute.Property.Add("ErrorMessage", dataTypeAttribute.ErrorMessage);
-				metaAttribute.Property.Add("ErrorMessageResourceName", dataTypeAttribute.ErrorMessageResourceName);
-				metaAttribute.Property.Add("RequiresValidationContext", dataTypeAttribute.RequiresValidationContext);
-
 				metadataAttributes.Add(metaAttribute);
 			}
 
@@ -88,20 +122,20 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
 				{
-					AttributeName = "DataTypeFieldAttribute",
+					AttributeName = "DataTypeField" + "Attribute",
 					Property = new Dictionary<string, object>()
+					{
+						{ "DataType", dataTypeFieldAttribute.DataType },
+						{ "ErrorMessage", dataTypeFieldAttribute.ErrorMessage },
+						{ "ErrorMessageResourceName", dataTypeFieldAttribute.ErrorMessageResourceName },
+						{ "RequiresValidationContext", dataTypeFieldAttribute.RequiresValidationContext },
+						{ "Cols", dataTypeFieldAttribute.Cols },
+						{ "Rows", dataTypeFieldAttribute.Rows },
+						{ "Wrap", (dataTypeFieldAttribute.HardWrap ? "hard" : null) },
+						{ "MinLength", dataTypeFieldAttribute.MinLength },
+						{ "MaxLength", dataTypeFieldAttribute.MaxLength },
+					}
 				};
-
-				metaAttribute.Property.Add("DataType", dataTypeFieldAttribute.DataType);
-				metaAttribute.Property.Add("ErrorMessage", dataTypeFieldAttribute.ErrorMessage);
-				metaAttribute.Property.Add("ErrorMessageResourceName", dataTypeFieldAttribute.ErrorMessageResourceName);
-				metaAttribute.Property.Add("RequiresValidationContext", dataTypeFieldAttribute.RequiresValidationContext);
-				metaAttribute.Property.Add("Cols", dataTypeFieldAttribute.Cols);
-				metaAttribute.Property.Add("Rows", dataTypeFieldAttribute.Rows);
-				metaAttribute.Property.Add("Wrap", (dataTypeFieldAttribute.HardWrap ? "hard" : null));
-				metaAttribute.Property.Add("MinLength", dataTypeFieldAttribute.MinLength);
-				metaAttribute.Property.Add("MaxLength", dataTypeFieldAttribute.MaxLength);
-
 				metadataAttributes.Add(metaAttribute);
 			}
 
@@ -110,15 +144,15 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
 				{
-					AttributeName = "RegularExpressionAttribute",
+					AttributeName = "RegularExpression" + "Attribute",
 					Property = new Dictionary<string, object>()
+					{
+						{ "Pattern", regularExpressionAttribute.Pattern },
+						{ "ErrorMessage", regularExpressionAttribute.ErrorMessage },
+						{ "ErrorMessageResourceName", regularExpressionAttribute.ErrorMessageResourceName },
+						{ "RequiresValidationContext", regularExpressionAttribute.RequiresValidationContext },
+					}
 				};
-
-				metaAttribute.Property.Add("Pattern", regularExpressionAttribute.Pattern);
-				metaAttribute.Property.Add("ErrorMessage", regularExpressionAttribute.ErrorMessage);
-				metaAttribute.Property.Add("ErrorMessageResourceName", regularExpressionAttribute.ErrorMessageResourceName);
-				metaAttribute.Property.Add("RequiresValidationContext", regularExpressionAttribute.RequiresValidationContext);
-
 				metadataAttributes.Add(metaAttribute);
 			}
 
@@ -127,17 +161,17 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
 				{
-					AttributeName = "StringLengthAttribute",
+					AttributeName = "StringLength" + "Attribute",
 					Property = new Dictionary<string, object>()
+					{
+						{ "MinimumLength", stringLengthAttribute.MinimumLength },
+						{ "MaximumLength", stringLengthAttribute.MaximumLength },
+						{ "ErrorMessage", stringLengthAttribute.ErrorMessage },
+						{ "FormatErrorMessage", stringLengthAttribute.FormatErrorMessage(metadata.PropertyName) },
+						{ "ErrorMessageResourceName", stringLengthAttribute.ErrorMessageResourceName },
+						{ "RequiresValidationContext", stringLengthAttribute.RequiresValidationContext },
+					}
 				};
-
-				metaAttribute.Property.Add("MinimumLength", stringLengthAttribute.MinimumLength);
-				metaAttribute.Property.Add("MaximumLength", stringLengthAttribute.MaximumLength);
-				metaAttribute.Property.Add("ErrorMessage", stringLengthAttribute.ErrorMessage);
-				metaAttribute.Property.Add("FormatErrorMessage", stringLengthAttribute.FormatErrorMessage(metadata.PropertyName));
-				metaAttribute.Property.Add("ErrorMessageResourceName", stringLengthAttribute.ErrorMessageResourceName);
-				metaAttribute.Property.Add("RequiresValidationContext", stringLengthAttribute.RequiresValidationContext);
-
 				metadataAttributes.Add(metaAttribute);
 			}
 
@@ -146,16 +180,16 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
 				{
-					AttributeName = "MinLengthAttribute",
+					AttributeName = "MinLength" + "Attribute",
 					Property = new Dictionary<string, object>()
+					{
+						{ "Length", minLengthAttribute.Length },
+						{ "TypeId", minLengthAttribute.TypeId },
+						{ "ErrorMessage", minLengthAttribute.ErrorMessage },
+						{ "ErrorMessageResourceName", minLengthAttribute.ErrorMessageResourceName },
+						{ "RequiresValidationContext", minLengthAttribute.RequiresValidationContext },
+					}
 				};
-
-				metaAttribute.Property.Add("Length", minLengthAttribute.Length);
-				metaAttribute.Property.Add("TypeId", minLengthAttribute.TypeId);
-				metaAttribute.Property.Add("ErrorMessage", minLengthAttribute.ErrorMessage);
-				metaAttribute.Property.Add("ErrorMessageResourceName", minLengthAttribute.ErrorMessageResourceName);
-				metaAttribute.Property.Add("RequiresValidationContext", minLengthAttribute.RequiresValidationContext);
-
 				metadataAttributes.Add(metaAttribute);
 			}
 
@@ -164,16 +198,16 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
 				{
-					AttributeName = "MaxLengthAttribute",
+					AttributeName = "MaxLength" + "Attribute",
 					Property = new Dictionary<string, object>()
+					{
+						{ "Length", maxLengthAttribute.Length },
+						{ "TypeId", maxLengthAttribute.TypeId },
+						{ "ErrorMessage", maxLengthAttribute.ErrorMessage },
+						{ "ErrorMessageResourceName", maxLengthAttribute.ErrorMessageResourceName },
+						{ "RequiresValidationContext", maxLengthAttribute.RequiresValidationContext },
+					}
 				};
-
-				metaAttribute.Property.Add("Length", maxLengthAttribute.Length);
-				metaAttribute.Property.Add("TypeId", maxLengthAttribute.TypeId);
-				metaAttribute.Property.Add("ErrorMessage", maxLengthAttribute.ErrorMessage);
-				metaAttribute.Property.Add("ErrorMessageResourceName", maxLengthAttribute.ErrorMessageResourceName);
-				metaAttribute.Property.Add("RequiresValidationContext", maxLengthAttribute.RequiresValidationContext);
-
 				metadataAttributes.Add(metaAttribute);
 			}
 
@@ -182,16 +216,16 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
 				{
-					AttributeName = "DisplayAttribute",
+					AttributeName = "Display" + "Attribute",
 					Property = new Dictionary<string, object>()
+					{
+						{ "ShortName", displayAttribute.ShortName },
+						{ "Name", displayAttribute.Name },
+						{ "Prompt", displayAttribute.Prompt },
+						{ "GroupName", displayAttribute.GroupName },
+						{ "Description", displayAttribute.Description },
+					}
 				};
-
-				metaAttribute.Property.Add("ShortName", displayAttribute.ShortName);
-				metaAttribute.Property.Add("Name", displayAttribute.Name);
-				metaAttribute.Property.Add("Prompt", displayAttribute.Prompt);
-				metaAttribute.Property.Add("GroupName", displayAttribute.GroupName);
-				metaAttribute.Property.Add("Description", displayAttribute.Description);
-
 				metadataAttributes.Add(metaAttribute);
 			}
 
@@ -200,16 +234,16 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
 				{
-					AttributeName = "RequiredAttribute",
+					AttributeName = "Required" + "Attribute",
 					Property = new Dictionary<string, object>()
+					{
+						{ "IsRequired", true },
+						{ "AllowEmptyStrings", requiredAttribute.AllowEmptyStrings },
+						{ "ErrorMessage", requiredAttribute.ErrorMessage },
+						{ "ErrorMessageResourceName", requiredAttribute.ErrorMessageResourceName },
+						{ "RequiresValidationContext", requiredAttribute.RequiresValidationContext },
+					}
 				};
-
-				metaAttribute.Property.Add("IsRequired", true);
-				metaAttribute.Property.Add("AllowEmptyStrings", requiredAttribute.AllowEmptyStrings);
-				metaAttribute.Property.Add("ErrorMessage", requiredAttribute.ErrorMessage);
-				metaAttribute.Property.Add("ErrorMessageResourceName", requiredAttribute.ErrorMessageResourceName);
-				metaAttribute.Property.Add("RequiresValidationContext", requiredAttribute.RequiresValidationContext);
-
 				metadataAttributes.Add(metaAttribute);
 			}
 
@@ -218,17 +252,17 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
 				{
-					AttributeName = "RangeAttribute",
+					AttributeName = "Range" + "Attribute",
 					Property = new Dictionary<string, object>()
+					{
+						{ "OperandType", rangeAttribute.OperandType },
+						{ "AllowEmptyStrings", rangeAttribute.Minimum },
+						{ "Maximum", rangeAttribute.Maximum },
+						{ "ErrorMessage", rangeAttribute.ErrorMessage },
+						{ "ErrorMessageResourceName", rangeAttribute.ErrorMessageResourceName },
+						{ "RequiresValidationContext", rangeAttribute.RequiresValidationContext },
+					}
 				};
-
-				metaAttribute.Property.Add("OperandType", rangeAttribute.OperandType);
-				metaAttribute.Property.Add("AllowEmptyStrings", rangeAttribute.Minimum);
-				metaAttribute.Property.Add("Maximum", rangeAttribute.Maximum);
-				metaAttribute.Property.Add("ErrorMessage", rangeAttribute.ErrorMessage);
-				metaAttribute.Property.Add("ErrorMessageResourceName", rangeAttribute.ErrorMessageResourceName);
-				metaAttribute.Property.Add("RequiresValidationContext", rangeAttribute.RequiresValidationContext);
-
 				metadataAttributes.Add(metaAttribute);
 			}
 
@@ -237,17 +271,17 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
 				{
-					AttributeName = "DisplayFormatAttribute",
+					AttributeName = "DisplayFormat" + "Attribute",
 					Property = new Dictionary<string, object>()
+					{
+						{ "DataFormatString", displayFormatAttribute.DataFormatString },
+						{ "ApplyFormatInEditMode", displayFormatAttribute.ApplyFormatInEditMode },
+						{ "ConvertEmptyStringToNull", displayFormatAttribute.ConvertEmptyStringToNull },
+						{ "HtmlEncode", displayFormatAttribute.HtmlEncode },
+						{ "NullDisplayText", displayFormatAttribute.NullDisplayText },
+						{ "IsDefault" + "Attribute", displayFormatAttribute.IsDefaultAttribute() },
+					}
 				};
-
-				metaAttribute.Property.Add("DataFormatString", displayFormatAttribute.DataFormatString);
-				metaAttribute.Property.Add("ApplyFormatInEditMode", displayFormatAttribute.ApplyFormatInEditMode);
-				metaAttribute.Property.Add("ConvertEmptyStringToNull", displayFormatAttribute.ConvertEmptyStringToNull);
-				metaAttribute.Property.Add("HtmlEncode", displayFormatAttribute.HtmlEncode);
-				metaAttribute.Property.Add("NullDisplayText", displayFormatAttribute.NullDisplayText);
-				metaAttribute.Property.Add("IsDefaultAttribute", displayFormatAttribute.IsDefaultAttribute());
-
 				metadataAttributes.Add(metaAttribute);
 			}
 
@@ -256,19 +290,19 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
 				{
-					AttributeName = "CreditCardAttribute",
+					AttributeName = "CreditCard" + "Attribute",
 					Property = new Dictionary<string, object>()
+					{
+						{ "DataType", creditCardAttribute.DataType },
+						{ "CustomDataType", creditCardAttribute.CustomDataType },
+						{ "DisplayFormat", creditCardAttribute.DisplayFormat },
+						{ "ErrorMessage", creditCardAttribute.ErrorMessage },
+						{ "FormatErrorMessage", stringLengthAttribute.FormatErrorMessage(metadata.PropertyName) },
+						{ "ErrorMessageResourceName", creditCardAttribute.ErrorMessageResourceName },
+						{ "ErrorMessageResourceType", creditCardAttribute.ErrorMessageResourceType },
+						{ "RequiresValidationContext", creditCardAttribute.RequiresValidationContext },
+					}
 				};
-
-				metaAttribute.Property.Add("DataType", creditCardAttribute.DataType);
-				metaAttribute.Property.Add("CustomDataType", creditCardAttribute.CustomDataType);
-				metaAttribute.Property.Add("DisplayFormat", creditCardAttribute.DisplayFormat);
-				metaAttribute.Property.Add("ErrorMessage", creditCardAttribute.ErrorMessage);
-				metaAttribute.Property.Add("FormatErrorMessage", stringLengthAttribute.FormatErrorMessage(metadata.PropertyName));
-				metaAttribute.Property.Add("ErrorMessageResourceName", creditCardAttribute.ErrorMessageResourceName);
-				metaAttribute.Property.Add("ErrorMessageResourceType", creditCardAttribute.ErrorMessageResourceType);
-				metaAttribute.Property.Add("RequiresValidationContext", creditCardAttribute.RequiresValidationContext);
-
 				metadataAttributes.Add(metaAttribute);
 			}
 
@@ -277,18 +311,18 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
 				{
-					AttributeName = "CustomValidationAttribute",
+					AttributeName = "CustomValidation" + "Attribute",
 					Property = new Dictionary<string, object>()
+					{
+						{ "ValidatorType", customValidationAttribute.ValidatorType },
+						{ "Method", customValidationAttribute.Method },
+						{ "ErrorMessage", creditCardAttribute.ErrorMessage },
+						{ "FormatErrorMessage", stringLengthAttribute.FormatErrorMessage(metadata.PropertyName) },
+						{ "ErrorMessageResourceName", creditCardAttribute.ErrorMessageResourceName },
+						{ "ErrorMessageResourceType", creditCardAttribute.ErrorMessageResourceType },
+						{ "RequiresValidationContext", creditCardAttribute.RequiresValidationContext },
+					}
 				};
-
-				metaAttribute.Property.Add("ValidatorType", customValidationAttribute.ValidatorType);
-				metaAttribute.Property.Add("Method", customValidationAttribute.Method);
-				metaAttribute.Property.Add("ErrorMessage", customValidationAttribute.ErrorMessage);
-				metaAttribute.Property.Add("FormatErrorMessage", customValidationAttribute.FormatErrorMessage(metadata.PropertyName));
-				metaAttribute.Property.Add("ErrorMessageResourceName", customValidationAttribute.ErrorMessageResourceName);
-				metaAttribute.Property.Add("ErrorMessageResourceType", customValidationAttribute.ErrorMessageResourceType);
-				metaAttribute.Property.Add("RequiresValidationContext", customValidationAttribute.RequiresValidationContext);
-
 				metadataAttributes.Add(metaAttribute);
 			}
 
@@ -297,19 +331,19 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
 				{
-					AttributeName = "EmailAddressAttribute",
+					AttributeName = "EmailAddress" + "Attribute",
 					Property = new Dictionary<string, object>()
+					{
+						{ "DataType", emailAddressAttribute.DataType },
+						{ "CustomDataType", emailAddressAttribute.CustomDataType },
+						{ "DisplayFormat", emailAddressAttribute.DisplayFormat },
+						{ "ErrorMessage", creditCardAttribute.ErrorMessage },
+						{ "FormatErrorMessage", stringLengthAttribute.FormatErrorMessage(metadata.PropertyName) },
+						{ "ErrorMessageResourceName", creditCardAttribute.ErrorMessageResourceName },
+						{ "ErrorMessageResourceType", creditCardAttribute.ErrorMessageResourceType },
+						{ "RequiresValidationContext", creditCardAttribute.RequiresValidationContext },
+					}
 				};
-
-				metaAttribute.Property.Add("DataType", emailAddressAttribute.DataType);
-				metaAttribute.Property.Add("CustomDataType", emailAddressAttribute.CustomDataType);
-				metaAttribute.Property.Add("DisplayFormat", emailAddressAttribute.DisplayFormat);
-				metaAttribute.Property.Add("ErrorMessage", emailAddressAttribute.ErrorMessage);
-				metaAttribute.Property.Add("FormatErrorMessage", emailAddressAttribute.FormatErrorMessage(metadata.PropertyName));
-				metaAttribute.Property.Add("ErrorMessageResourceName", emailAddressAttribute.ErrorMessageResourceName);
-				metaAttribute.Property.Add("ErrorMessageResourceType", emailAddressAttribute.ErrorMessageResourceType);
-				metaAttribute.Property.Add("RequiresValidationContext", emailAddressAttribute.RequiresValidationContext);
-
 				metadataAttributes.Add(metaAttribute);
 			}
 
@@ -318,19 +352,19 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
 				{
-					AttributeName = "FileExtensionsAttribute",
+					AttributeName = "FileExtensions" + "Attribute",
 					Property = new Dictionary<string, object>()
+					{
+						{ "DataType", emailAddressAttribute.DataType },
+						{ "CustomDataType", emailAddressAttribute.CustomDataType },
+						{ "DisplayFormat", emailAddressAttribute.DisplayFormat },
+						{ "ErrorMessage", creditCardAttribute.ErrorMessage },
+						{ "FormatErrorMessage", stringLengthAttribute.FormatErrorMessage(metadata.PropertyName) },
+						{ "ErrorMessageResourceName", creditCardAttribute.ErrorMessageResourceName },
+						{ "ErrorMessageResourceType", creditCardAttribute.ErrorMessageResourceType },
+						{ "RequiresValidationContext", creditCardAttribute.RequiresValidationContext },
+					}
 				};
-
-				metaAttribute.Property.Add("DataType", fileExtensionsAttribute.DataType);
-				metaAttribute.Property.Add("CustomDataType", fileExtensionsAttribute.CustomDataType);
-				metaAttribute.Property.Add("DisplayFormat", fileExtensionsAttribute.DisplayFormat);
-				metaAttribute.Property.Add("ErrorMessage", fileExtensionsAttribute.ErrorMessage);
-				metaAttribute.Property.Add("FormatErrorMessage", fileExtensionsAttribute.FormatErrorMessage(metadata.PropertyName));
-				metaAttribute.Property.Add("ErrorMessageResourceName", fileExtensionsAttribute.ErrorMessageResourceName);
-				metaAttribute.Property.Add("ErrorMessageResourceType", fileExtensionsAttribute.ErrorMessageResourceType);
-				metaAttribute.Property.Add("RequiresValidationContext", fileExtensionsAttribute.RequiresValidationContext);
-
 				metadataAttributes.Add(metaAttribute);
 			}
 
@@ -339,12 +373,12 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
 				{
-					AttributeName = "FileExtensionsAttribute",
+					AttributeName = "FileExtensions" + "Attribute",
 					Property = new Dictionary<string, object>()
+					{
+						{ "TypeId", timestampAttribute.TypeId },
+					}
 				};
-
-				metaAttribute.Property.Add("TypeId", timestampAttribute.TypeId);
-
 				metadataAttributes.Add(metaAttribute);
 			}
 
@@ -353,12 +387,12 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
 				{
-					AttributeName = "ViewDisabledAttribute",
+					AttributeName = "ViewDisabled" + "Attribute",
 					Property = new Dictionary<string, object>()
+					{
+						{ "Declared", true },
+					}
 				};
-
-				metaAttribute.Property.Add("Declared", true);
-
 				metadataAttributes.Add(metaAttribute);
 			}
 
@@ -367,16 +401,16 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
 				{
-					AttributeName = "TextAreaAttribute",
+					AttributeName = "TextArea" + "Attribute",
 					Property = new Dictionary<string, object>()
+					{
+						{ "Cols", textAreaAttribute.Cols },
+						{ "Rows", textAreaAttribute.Rows },
+						{ "Wrap", (textAreaAttribute.HardWrap ? "hard" : null) },
+						{ "MinLength", textAreaAttribute.MinLength },
+						{ "MaxLength", textAreaAttribute.MaxLength },
+					}
 				};
-
-				metaAttribute.Property.Add("Cols", textAreaAttribute.Cols);
-				metaAttribute.Property.Add("Rows", textAreaAttribute.Rows);
-				metaAttribute.Property.Add("Wrap", (textAreaAttribute.HardWrap ? "hard" : null));
-				metaAttribute.Property.Add("MinLength", textAreaAttribute.MinLength);
-				metaAttribute.Property.Add("MaxLength", textAreaAttribute.MaxLength);
-
 				metadataAttributes.Add(metaAttribute);
 			}
 
@@ -385,13 +419,13 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
 				{
-					AttributeName = "OnlyNumberAttribute",
+					AttributeName = "OnlyNumber" + "Attribute",
 					Property = new Dictionary<string, object>()
+					{
+						{ "Declared", true },
+						{ "ClassDecorator", "onlyNumber" },
+					}
 				};
-
-				metaAttribute.Property.Add("Declared", true);
-				metaAttribute.Property.Add("ClassDecorator", "onlyNumber");
-
 				metadataAttributes.Add(metaAttribute);
 			}
 
@@ -400,14 +434,14 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
 				{
-					AttributeName = "CurrencyAttribute",
+					AttributeName = "Currency" + "Attribute",
 					Property = new Dictionary<string, object>()
+					{
+						{ "Declared", true },
+						{ "ClassDecorator", "onlyNumber" },
+						{ "Pattern", "currency" },
+					}
 				};
-
-				metaAttribute.Property.Add("Declared", true);
-				metaAttribute.Property.Add("ClassDecorator", "onlyNumber");
-				metaAttribute.Property.Add("Pattern", "currency");
-
 				metadataAttributes.Add(metaAttribute);
 			}
 
@@ -416,24 +450,47 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				MetadataAttribute metaAttribute = new MetadataAttribute()
 				{
-					AttributeName = "NoEspecialCharsAttribute",
+					AttributeName = "NoEspecialChars" + "Attribute",
 					Property = new Dictionary<string, object>()
+					{
+						{ "Declared", true },
+						{ "ClassDecorator", "noCaracEsp" },
+					}
 				};
-
-				metaAttribute.Property.Add("Declared", true);
-				metaAttribute.Property.Add("ClassDecorator", "NoCaracEsp");
-
 				metadataAttributes.Add(metaAttribute);
 			}
 		}
 
+		private static Dictionary<string, object> GetPropertyAttributes(PropertyInfo property)
+		{
+			Dictionary<string, object> attribs = new Dictionary<string, object>();
+			if (property == null) return attribs;
+			
+			foreach (CustomAttributeData attribData in property?.GetCustomAttributesData())
+			{
+				if (attribData.ConstructorArguments.Count == 1)
+				{
+					string typeName = attribData.Constructor.DeclaringType.Name;
+					if (typeName.EndsWith("Attribute")) typeName = typeName.Substring(0, typeName.Length - 9);
+					attribs[typeName] = attribData.ConstructorArguments[0].Value;
+				}
+			}
+
+			return attribs;
+		}
+
+		private string ReturnCorrectedAttributeName(string attributeName)
+		{
+			if (!attributeName.Contains("Attribute") || attributeName.Contains("Attributes"))
+				return attributeName += "Attribute";
+			return attributeName;
+		}
+
 		public bool HasAttribute<TResult>(string attributeName)
 		{
-			if (!attributeName.Contains("Attribute")) attributeName += "Attribute";
-
 			try
 			{
-				var ret = metadataAttributes.FirstOrDefault(a => a.AttributeName == attributeName);
+				var ret = metadataAttributes.FirstOrDefault(a => a.AttributeName == ReturnCorrectedAttributeName(attributeName));
 
 				return true;
 			}
@@ -445,11 +502,9 @@ namespace HtmlDynamicLibrary.Helpers
 
 		public bool HasParameter<TResult>(string attributeName, string parameterName)
 		{
-			if (!attributeName.Contains("Attribute")) attributeName += "Attribute";
-
 			try
 			{
-				var ret = metadataAttributes.FirstOrDefault(a => a.AttributeName == attributeName).Property[parameterName];
+				var ret = metadataAttributes.FirstOrDefault(a => a.AttributeName == ReturnCorrectedAttributeName(attributeName)).Property[parameterName];
 
 				return true;
 			}
@@ -461,12 +516,10 @@ namespace HtmlDynamicLibrary.Helpers
 
 		public TResult GetValue<TResult>(string attributeName, string parameterName)
 		{
-			if (!attributeName.Contains("Attribute")) attributeName += "Attribute";
-
 			TResult ret = default(TResult);
 			try
 			{
-				ret = (TResult)metadataAttributes.FirstOrDefault(a => a.AttributeName == attributeName).Property[parameterName];
+				ret = (TResult)metadataAttributes.FirstOrDefault(a => a.AttributeName == ReturnCorrectedAttributeName(attributeName)).Property[parameterName];
 
 				return ret;
 			}
@@ -479,8 +532,6 @@ namespace HtmlDynamicLibrary.Helpers
 		public static TResult GetValueDirect<TResult>(ModelMetadata metadata, string attributeName, string parameterName)
 		{
 			TResult ret = default(TResult);
-
-			if (!attributeName.Contains("Attribute")) attributeName += "Attribute";
 
 			if (metadata != null)
 			{

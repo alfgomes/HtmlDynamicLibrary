@@ -1,0 +1,78 @@
+﻿@model MvcTest.Models.SampleVM
+@{ ViewBag.Title = "Details"; }
+
+<h2>@ViewBag.Title</h2>
+<div>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DynamicDisplayNameFor(model => model.Brand, DynamicDisplayType.Label)
+		</dt>
+
+		<dd>
+			@Html.DynamicDisplayFor(model => model.Brand, DynamicDisplayType.Label)
+		</dd>
+
+		<dt>
+			@Html.DynamicDisplayNameFor(model => model.EquipmentId, DynamicDisplayType.Label)
+		</dt>
+
+		<dd>
+			@Html.DynamicDisplayFor(model => model.EquipmentId, DynamicDisplayType.Label)
+		</dd>
+
+		<dt>
+			@Html.DynamicDisplayNameFor(model => model.InstalledBy, DynamicDisplayType.Label)
+		</dt>
+
+		<dd>
+			@Html.DynamicDisplayListFor(model => model.InstalledBy, new SelectList(ViewBag.InstalledByList, "Value", "Text"), "Selecione a instalação", DynamicDisplayListTypeEnum.DropDownList, new { @class = "form-control", @style = "min-width: 80px;" })
+		</dd>
+
+		<dt>
+			@Html.DynamicDisplayNameFor(model => model.Quantity, DynamicDisplayType.Label)
+		</dt>
+
+		<dd>
+			@Html.DynamicDisplayFor(model => model.Quantity, DynamicDisplayType.Label)
+		</dd>
+
+		<dt>
+			@Html.DynamicDisplayNameFor(model => model.MensalValueStr, DynamicDisplayType.Label)
+		</dt>
+
+		<dd>
+			@Html.DynamicDisplayFor(model => model.MensalValueStr, DynamicDisplayType.Label)
+		</dd>
+
+		<dt>
+			@Html.DynamicDisplayNameFor(model => model.MSISDN, DynamicDisplayType.Label)
+		</dt>
+
+		<dd>
+			@Html.DynamicDisplayFor(model => model.MSISDN, DynamicDisplayType.Label)
+		</dd>
+
+		<dt>
+			@Html.DynamicDisplayNameFor(model => model.PhoneNumber, DynamicDisplayType.Label)
+		</dt>
+
+		<dd>
+			@Html.DynamicDisplayFor(model => model.PhoneNumber, DynamicDisplayType.Label)
+		</dd>
+
+		<dt>
+			@Html.DynamicDisplayNameFor(model => model.Observations, DynamicDisplayType.Label)
+		</dt>
+
+		<dd>
+			@Html.DynamicDisplayFor(model => model.Observations, DynamicDisplayType.Label)
+		</dd>
+
+	</dl>
+</div>
+<p>
+	@Html.ActionLink("Edit", "Edit", new { id = 1 }) |
+	@*@Html.ActionLink("Back to List", "Index")*@
+	@Html.DynamicLink(DynamicLinkAction.GoBack, null, "Voltar")
+</p>

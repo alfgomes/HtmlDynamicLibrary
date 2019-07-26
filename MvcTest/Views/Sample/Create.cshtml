@@ -1,0 +1,103 @@
+﻿@model MvcTest.Models.SampleVM
+@{ ViewBag.Title = "Create Sample Dynamic Inputs"; }
+
+<h2>@ViewBag.Title</h2>
+@using (@Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+
+	<div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.DynamicDisplayNameFor(model => model.Brand, DynamicDisplayType.Label, new { htmlAttributes = new { @class = "control-label col-md-2" } })
+			<div class="col-md-10">
+				@Html.DynamicPasswordFor(model => model.Brand, new { htmlAttributes = new { @class = "col-12 maxlength120", @style = "min-width: 70px;" } })
+				@Html.ValidationMessageFor(model => model.Brand, "", new { @class = "text-danger" })
+			</div>
+        </div>
+
+        <div class="form-group">
+            @Html.DynamicDisplayNameFor(model => model.EquipmentId, DynamicDisplayType.Label, new { htmlAttributes = new { @class = "control-label col-md-2" } })
+			<div class="col-md-10">
+				@Html.DynamicPasswordFor(model => model.EquipmentId, new { @class = "text-truncate col-12" }, disabled: true)
+				@Html.ValidationMessageFor(model => model.EquipmentId, "", new { @class = "text-danger" })
+			</div>
+        </div>
+
+        <div class="form-group">
+            @Html.DynamicDisplayNameFor(model => model.InstalledBy, DynamicDisplayType.Label, new { htmlAttributes = new { @class = "control-label col-md-2" } })
+			<div class="col-md-10">
+				@Html.DynamicDropDownListFor(model => model.InstalledBy, new SelectList(ViewBag.InstalledByList, "Value", "Text"), "Selecione a instalação", new { @class = "form-control", @style = "min-width: 80px;" })
+				@Html.ValidationMessageFor(model => model.InstalledBy, "", new { @class = "text-danger" })
+			</div>
+        </div>
+
+        <div class="form-group">
+            @Html.DynamicDisplayNameFor(model => model.Quantity, DynamicDisplayType.Label, new { htmlAttributes = new { @class = "control-label col-md-2" } })
+			<div class="col-md-10">
+				@Html.DynamicEditorFor(model => model.Quantity, new { @class = "text-truncate col-12" })
+				@Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+			</div>
+        </div>
+
+        <div class="form-group">
+            @Html.DynamicDisplayNameFor(model => model.MensalValueStr, DynamicDisplayType.Label, new { htmlAttributes = new { @class = "control-label col-md-2" } })
+			<div class="col-md-10">
+				@Html.DynamicEditorFor(model => model.MensalValueStr, new { @class = "text-truncate col-12" })
+				@Html.ValidationMessageFor(model => model.MensalValueStr, "", new { @class = "text-danger" })
+			</div>
+        </div>
+
+        <div class="form-group">
+            @Html.DynamicDisplayNameFor(model => model.MSISDN, DynamicDisplayType.Label, new { htmlAttributes = new { @class = "control-label col-md-2" } })
+			<div class="col-md-10">
+				@Html.DynamicEditorFor(model => model.MSISDN, new { htmlAttributes = new { @class = "col-12" } }, true, true)
+				@Html.ValidationMessageFor(model => model.MSISDN, "", new { @class = "text-danger" })
+			</div>
+        </div>
+
+        <div class="form-group">
+            @Html.DynamicDisplayNameFor(model => model.PhoneNumber, DynamicDisplayType.Label, new { htmlAttributes = new { @class = "control-label col-md-2" } })
+			<div class="col-md-10">
+				@Html.DynamicEditorFor(model => model.PhoneNumber, new
+					{
+						@autofocus = "true",
+						@class = "text-truncate col-12",
+						@style = "min-width:90px;",
+						//@required = "false",
+						//@type = "number",
+						//@minlength = "3",
+						//@maxlength = "9",
+						//@disabled = "true",
+						//@placeholder = "Telefone",
+						//@title = "Indique o contacto telefónico"
+					}
+				)
+				@Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+			</div>
+        </div>
+
+        <div class="form-group">
+            @Html.DynamicDisplayNameFor(model => model.Observations, DynamicDisplayType.Label, new { htmlAttributes = new { @class = "control-label col-md-2" } })
+			<div class="col-md-10">
+				@Html.DynamicEditorFor(model => model.Observations, new { htmlAttributes = new { @placeholder = "Insira as observações" } })
+				@Html.ValidationMessageFor(model => model.Observations, "", new { @class = "text-danger" })
+			</div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+	@Html.DynamicButton(DynamicLinkAction.GoBack, null, "Voltar")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

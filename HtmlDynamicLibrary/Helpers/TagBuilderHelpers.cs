@@ -17,7 +17,9 @@ namespace HtmlDynamicLibrary.Helpers
 	public static class TagBuilderHelpers
 	{
 		#region Extension Methods By TagBuilder...
-		
+
+		#region For HtmlAttributes...
+
 		public static void AddInputAttributeHtmlAttributes(this TagBuilder tagInput, string attributeName, RouteValueDictionary htmlAttributes)
 		{
 			if (htmlAttributes[attributeName] == null) return;
@@ -34,6 +36,10 @@ namespace HtmlDynamicLibrary.Helpers
 
 			tagInput.AddInputAttributeHtmlAttributes(attributeName, htmlAttributes);
 		}
+
+		#endregion
+
+		#region For ValueAttributes...
 
 		public static void AddInputAttributeIsNotNull(this TagBuilder tagInput, string attributeName, object value)
 		{
@@ -83,6 +89,60 @@ namespace HtmlDynamicLibrary.Helpers
 
 			tagInput.Attributes.Add(attributeName.ToLowerInvariant(), valueTreated.ToString().Trim());
 		}
+
+		public static void MergeInputAttributeIsNotNull(this TagBuilder tagInput, string attributeName, object value)
+		{
+			MergeInputAttributeIsNotNullAndExpressionIsTrue(tagInput, attributeName, value, value != null);
+		}
+
+		public static void MergeInputAttributeIsNotNullAndExpressionIsTrue(this TagBuilder tagInput, string attributeName, object value, bool validateExpression)
+		{
+			if (!validateExpression) return;
+			if (value == null) return;
+
+			MergeInputAttributeStaticValue(tagInput, attributeName, value);
+		}
+
+		public static void MergeInputAttributeStaticValue(this TagBuilder tagInput, string attributeName, object value)
+		{
+			bool testBool;
+			Boolean.TryParse(value.GetType().IsArray ? ((string[])value)[0] : value.ToString(), out testBool);
+			if (!testBool)
+			{
+				switch (attributeName.ToLowerInvariant())
+				{
+					case "autofocus":
+					case "required":
+					case "readonly":
+					case "disabled":
+					case "spellcheck":
+						return;
+				}
+			}
+
+			object valueTreated;
+
+			if (value.GetType().IsArray)
+			{
+				valueTreated = "";
+				foreach (var item in (Array)value)
+					valueTreated += item.ToString() + " ";
+			}
+			else
+			{
+				valueTreated = value;
+			}
+
+			RouteValueDictionary htmlAttributes = new RouteValueDictionary();
+			foreach (var item in tagInput.Attributes)
+				htmlAttributes.Add(item.Key, item.Value);
+			RouteValueDictionary tagRouteValueDictionary = new RouteValueDictionary(new Dictionary<string, object>() { { attributeName.ToLowerInvariant(), valueTreated } });
+			htmlAttributes = HtmlHelpers.MergeHtmlAttributes(htmlAttributes, tagRouteValueDictionary);
+
+			tagInput.AddInputAttributeHtmlAttributes(attributeName, htmlAttributes);
+		} 
+
+		#endregion
 
 		public static void AddInputTypeAttribute(this TagBuilder tagInput, Type fieldType)
 		{

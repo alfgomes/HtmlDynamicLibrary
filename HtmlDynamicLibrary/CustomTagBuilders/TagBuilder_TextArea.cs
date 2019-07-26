@@ -19,15 +19,15 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 		public TagBuilder_TextArea(DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase)
 			: base("textarea", dynamicComponentBase)
 		{
-			/* Adicionar os atributos de acordo com o que for obtido no MetaData... */
+			/* Adicionar os atributos de acordo com o que for obtido no Metadata... */
 			//TagElement.AddInputTypeAttribute(fieldType);
 			TagElement.AddInputAttributeIsNotNull("type", CustomAttributesHelpers.ConvertDataTypeToHtmlType((DataType)this.ComponentBase.MetadataAttributes.GetValue<DataType>("DataType", "DataType"), this.ComponentBase.FieldType));
 			int? minimumLength = (int?)this.ComponentBase.MetadataAttributes.GetValue<DataType>("Minimum", "Length") ?? (int?)this.ComponentBase.MetadataAttributes.GetValue<DataType>("StringLength", "MinimumLength");
 			TagElement.AddInputAttributeIsNotNullAndExpressionIsTrue("minlength", minimumLength, minimumLength.HasValue && minimumLength.Value > 0);
 			int? maximumLength = (int?)this.ComponentBase.MetadataAttributes.GetValue<DataType>("Maximum", "Length") ?? (int?)this.ComponentBase.MetadataAttributes.GetValue<DataType>("StringLength", "MaximumLength");
 			TagElement.AddInputAttributeIsNotNullAndExpressionIsTrue("maxlength", maximumLength, maximumLength.HasValue && maximumLength.Value > 0);
-			TagElement.AddInputAttributeIsNotNull("class", this.ComponentBase.MetadataAttributes.GetValue<object>("OnlyNumber", "ClassDecorator"));
-			TagElement.AddInputAttributeIsNotNull("class", this.ComponentBase.MetadataAttributes.GetValue<object>("NoEspecialChars", "ClassDecorator"));
+			TagElement.MergeInputAttributeIsNotNull("class", this.ComponentBase.MetadataAttributes.GetValue<object>("OnlyNumber", "ClassDecorator"));
+			TagElement.MergeInputAttributeIsNotNull("class", this.ComponentBase.MetadataAttributes.GetValue<object>("NoEspecialChars", "ClassDecorator"));
 			TagElement.AddInputAttributeIsNotNull("cols", this.ComponentBase.MetadataAttributes.GetValue<object>("TextArea", "Cols"));
 			TagElement.AddInputAttributeIsNotNull("rows", this.ComponentBase.MetadataAttributes.GetValue<object>("TextArea", "Rows"));
 			TagElement.AddInputAttributeIsNotNull("wrap", this.ComponentBase.MetadataAttributes.GetValue<object>("TextArea", "Wrap"));
@@ -47,6 +47,7 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 			/* Injetando o Valor no Input... */
 			this.Value = this.ComponentBase.FieldValue;
 			TagElement.AddInputAttributeIsNotNull("value", this.Value);
+			TagElement.InnerHtml = this.Value?.ToString();
 		}
 
 		public override MvcHtmlString GenerateElementMvcString(TagRenderMode renderMode)

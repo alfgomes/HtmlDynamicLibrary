@@ -21,12 +21,9 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 		{
 			TagBuilder tagSpan = /*this.ComponentBase.FieldIsReadOnly ? GenerateTagSpanRequired(requiredSymbol, requiredClass) :*/ null;
 
-			/* Adicionar os atributos de acordo com o que for obtido no MetaData... */
+			/* Adicionar os atributos de acordo com os parâmetros informados... */
 			TagElement.AddInputAttributeIsNotNullAndExpressionIsTrue("id", id ?? $"label.{forInput}", (id ?? $"label.{forInput}") != null);
 			TagElement.AddInputAttributeIsNotNullAndExpressionIsTrue("for", forInput, forInput != null);
-			TagElement.AddInputAttributeHtmlAttributes("class", this.ComponentBase.HtmlAttributes);
-			TagElement.AddInputAttributeHtmlAttributes("style", this.ComponentBase.HtmlAttributes);
-
 			if (tooltip != null && !string.IsNullOrEmpty(tooltip))
 			{
 				TagElement.AddInputAttributeStaticValue("data-toggle", "tooltip");
@@ -35,7 +32,8 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 			}
 
 			/* Adicionar os atributos de acordo com o que for obtido no HtmlAttributes... */
-
+			TagElement.AddInputAttributeHtmlAttributes("class", this.ComponentBase.HtmlAttributes);
+			TagElement.AddInputAttributeHtmlAttributes("style", this.ComponentBase.HtmlAttributes);
 
 			/* Injetando o Valor no Input... */
 			TagElement.InnerHtml = caption;

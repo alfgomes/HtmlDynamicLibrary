@@ -18,6 +18,8 @@ namespace System.Web.Mvc
 	{
 		public static MvcHtmlString DynamicRequiredSymbolForComponent<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object viewData = null, bool readOnly = false, string symbol = "*", string cssClass = "req editor-field-required")
 		{
+			DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase = new DynamicComponentBaseFor<TModel, TProperty>(helper, expression, viewData, readOnly);
+
 			ModelMetadata modelMetadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
 
 			if (modelMetadata.IsRequired && !readOnly)

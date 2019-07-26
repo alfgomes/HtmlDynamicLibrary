@@ -19,7 +19,7 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 		public TagBuilder_Checkbox(DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase)
 			: base(CustomAttributesHelpers.GetInputElementTypeByDataType((DataType)dynamicComponentBase.MetadataAttributes.GetValue<DataType>("DataType", "DataType")), dynamicComponentBase)
 		{
-			/* Adicionar os atributos de acordo com o que for obtido no MetaData... */
+			/* Adicionar os atributos de acordo com o que for obtido no Metadata... */
 			TagElement.AddInputAttributeStaticValue("type", "checkbox");
 
 			/* Adicionar os atributos de acordo com o que for obtido no HtmlAttributes... */

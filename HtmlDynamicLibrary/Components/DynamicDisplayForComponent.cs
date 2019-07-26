@@ -24,12 +24,12 @@ namespace System.Web.Mvc
 			{
 				case DynamicDisplayType.Label:
 					dynamicComponentBase.HtmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(dynamicComponentBase.HtmlAttributes, new RouteValueDictionary() { { "class", "control-label" } });
-					return TagBuilderGenerators.GenerateTagLabel(dynamicComponentBase.SanitizedId, dynamicComponentBase.FieldValue.ToString(), dynamicComponentBase.SanitizedId, dynamicComponentBase.HtmlAttributes, dynamicComponentBase.FieldModelMetadata.Description, !blockShowRequiredSymbol && dynamicComponentBase.FieldModelMetadata.IsRequired, requiredSymbol, requiredClass).ToMvcHtmlString(TagRenderMode.Normal);
+					return TagBuilderGenerators.GenerateTagLabel(dynamicComponentBase.SanitizedId, dynamicComponentBase.FieldValue.ToString(), dynamicComponentBase.SanitizedId, dynamicComponentBase.HtmlAttributes, dynamicComponentBase.FieldModelMetadata.Description, false /*!blockShowRequiredSymbol && dynamicComponentBase.FieldModelMetadata.IsRequired*/, requiredSymbol, requiredClass).ToMvcHtmlString(TagRenderMode.Normal);
 				case DynamicDisplayType.Span:
 					dynamicComponentBase.HtmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(dynamicComponentBase.HtmlAttributes, new RouteValueDictionary() { { "class", "control-span" } });
-					return TagBuilderGenerators.GenerateTagDisplay(dynamicComponentBase.SanitizedId, dynamicComponentBase.FieldValue.ToString(), dynamicComponentBase.HtmlAttributes, dynamicComponentBase.FieldModelMetadata.Description, !blockShowRequiredSymbol && dynamicComponentBase.FieldModelMetadata.IsRequired, requiredSymbol, requiredClass).ToMvcHtmlString(TagRenderMode.Normal);
+					return TagBuilderGenerators.GenerateTagDisplay(dynamicComponentBase.SanitizedId, dynamicComponentBase.FieldValue.ToString(), dynamicComponentBase.HtmlAttributes, dynamicComponentBase.FieldModelMetadata.Description, false /*!blockShowRequiredSymbol && dynamicComponentBase.FieldModelMetadata.IsRequired*/, requiredSymbol, requiredClass).ToMvcHtmlString(TagRenderMode.Normal);
 				default:
-					return TagBuilderGenerators.GenerateOnlyText(dynamicComponentBase.FieldValue.ToString(), dynamicComponentBase.HtmlAttributes, !blockShowRequiredSymbol && dynamicComponentBase.FieldModelMetadata.IsRequired, requiredSymbol, requiredClass);
+					return TagBuilderGenerators.GenerateOnlyText(dynamicComponentBase.FieldValue.ToString(), dynamicComponentBase.HtmlAttributes, false /*!blockShowRequiredSymbol && dynamicComponentBase.FieldModelMetadata.IsRequired*/, requiredSymbol, requiredClass);
 			}
 		}
 	}

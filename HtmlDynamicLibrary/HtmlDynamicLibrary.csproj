@@ -38,7 +38,10 @@
     <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.Composition.Registration" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
     <Reference Include="System.Web" />
@@ -80,10 +83,12 @@
     <Compile Include="Components\DynamicButtonComponent.cs" />
     <Compile Include="Components\DynamicCheckBoxListComponent.cs" />
     <Compile Include="Components\DynamicDisplayForComponent.cs" />
+    <Compile Include="Components\DynamicDisplayListForComponent.cs" />
     <Compile Include="Components\DynamicDisplayNameForComponent.cs" />
     <Compile Include="Components\DynamicDropDownListComponent.cs" />
     <Compile Include="Components\DynamicDropDownListForComponent.cs" />
     <Compile Include="Components\DynamicEditorForComponent.cs" />
+    <Compile Include="Components\DynamicEditorListForComponent.cs" />
     <Compile Include="Components\DynamicEnumDropDownListForComponent.cs" />
     <Compile Include="Components\DynamicLinkComponent.cs" />
     <Compile Include="Components\DynamicListBoxComponent.cs" />
@@ -94,7 +99,7 @@
     <Compile Include="Components\DynamicValidationMessageForComponent.cs" />
     <Compile Include="Components\_DynamicComponentBase.cs" />
     <Compile Include="Components\_DynamicComponentBaseFor.cs" />
-    <Compile Include="CustomAttributes\HtmlAttributesAttributes.cs" />
+    <Compile Include="CustomAttributes\HtmlAttributesAttribute.cs" />
     <Compile Include="CustomAttributes\VersionAttribute.cs" />
     <Compile Include="CustomAttributes\AuthorAttribute.cs" />
     <Compile Include="CustomAttributes\TextAreaAttribute.cs" />
@@ -114,6 +119,7 @@
     <Compile Include="CustomValidateAttributes\NIFAttribute.cs" />
     <Compile Include="CustomValidateAttributes\NoEspecialCharsAttribute.cs" />
     <Compile Include="CustomValidateAttributes\OnlyNumberAttribute.cs" />
+    <Compile Include="Enumerators\DynamicDisplayListTypeEnum.cs" />
     <Compile Include="Enumerators\DynamicDisplayTypeEnum.cs" />
     <Compile Include="Enumerators\DynamicGlyphIconEnum.cs" />
     <Compile Include="Enumerators\DynamicLinkActionEnum.cs" />
