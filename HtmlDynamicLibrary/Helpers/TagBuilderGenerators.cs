@@ -17,19 +17,28 @@ namespace HtmlDynamicLibrary.Helpers
 	{
 		#region TagBuilder Generators...
 
-		public static TagBuilder GenerateTagSpanRequired(string requiredSymbol = "*", string requiredClass = "req editor-field-required")
+		public static TagBuilder GenerateTagSpanRequired(string requiredSymbol, string requiredMessage, string requiredClass)
 		{
+			if (requiredSymbol == null)
+				requiredSymbol = "*";
+			if (requiredMessage == null)
+				requiredMessage = "Esse campo é obrigatório!";
+			if (requiredClass == null)
+				requiredClass = "req editor-field-required";
+
 			TagBuilder tagSpan = null;
-			tagSpan = new TagBuilder("span");
+			tagSpan = new TagBuilder("sup");
 			tagSpan.AddCssClass(requiredClass);
+			tagSpan.AddInputAttributeStaticValue("style", "color:red");
+			tagSpan.AddInputAttributeStaticValue("title", requiredMessage);
 			tagSpan.InnerHtml = requiredSymbol;
 
 			return tagSpan;
 		}
 
-		public static TagBuilder GenerateTagLabel(string id, string caption, string forInput, RouteValueDictionary htmlAttributes, string tooltip = null, bool isRequired = false, string requiredSymbol = "*", string requiredClass = "req editor-field-required")
+		public static TagBuilder GenerateTagLabel(string id, string caption, string forInput, RouteValueDictionary htmlAttributes, string tooltip = null, bool isRequired = false, string requiredSymbol = null, string requiredMessage = null, string requiredClass = null)
 		{
-			TagBuilder tagSpan = isRequired ? GenerateTagSpanRequired(requiredSymbol, requiredClass) : null;
+			TagBuilder tagSpan = isRequired ? GenerateTagSpanRequired(requiredSymbol, requiredMessage, requiredClass) : null;
 
 			TagBuilder tagLabel = new TagBuilder("label");
 			tagLabel.AddInputAttributeIsNotNullAndExpressionIsTrue("id", id ?? $"label.{forInput}", (id ?? $"label.{forInput}") != null);
@@ -49,9 +58,9 @@ namespace HtmlDynamicLibrary.Helpers
 			return tagLabel;
 		}
 
-		public static TagBuilder GenerateTagDisplay(string id, string caption, RouteValueDictionary htmlAttributes, string tooltip = null, bool isRequired = false, string requiredSymbol = "*", string requiredClass = "req editor-field-required")
+		public static TagBuilder GenerateTagDisplay(string id, string caption, RouteValueDictionary htmlAttributes, string tooltip = null, bool isRequired = false, string requiredSymbol = null, string requiredMessage = null, string requiredClass = null)
 		{
-			TagBuilder tagSpan = isRequired ? GenerateTagSpanRequired(requiredSymbol, requiredClass) : null;
+			TagBuilder tagSpan = isRequired ? GenerateTagSpanRequired(requiredSymbol, requiredMessage, requiredClass) : null;
 
 			TagBuilder tagLabel = new TagBuilder("span");
 			tagLabel.AddInputAttributeIsNotNullAndExpressionIsTrue("id", id, id != null);
@@ -70,9 +79,9 @@ namespace HtmlDynamicLibrary.Helpers
 			return tagLabel;
 		}
 
-		public static MvcHtmlString GenerateOnlyText(string caption, RouteValueDictionary htmlAttributes, bool isRequired = false, string requiredSymbol = "*", string requiredClass = "req editor-field-required")
+		public static MvcHtmlString GenerateOnlyText(string caption, RouteValueDictionary htmlAttributes, bool isRequired = false, string requiredSymbol = null, string requiredMessage = null, string requiredClass = null)
 		{
-			TagBuilder tagSpan = isRequired ? GenerateTagSpanRequired(requiredSymbol, requiredClass) : null;
+			TagBuilder tagSpan = isRequired ? GenerateTagSpanRequired(requiredSymbol, requiredMessage, requiredClass) : null;
 
 			string tagText = caption + (tagSpan != null ? tagSpan.ToMvcHtmlString(TagRenderMode.Normal).ToString() : "");
 

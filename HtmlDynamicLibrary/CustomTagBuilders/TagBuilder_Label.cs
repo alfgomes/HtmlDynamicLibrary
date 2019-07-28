@@ -19,8 +19,6 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 		public TagBuilder_Label(DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase, string id, string caption, string forInput, string tooltip = null)
 			: base("label", dynamicComponentBase)
 		{
-			TagBuilder tagSpan = /*this.ComponentBase.FieldIsReadOnly ? GenerateTagSpanRequired(requiredSymbol, requiredClass) :*/ null;
-
 			/* Adicionar os atributos de acordo com os parâmetros informados... */
 			TagElement.AddInputAttributeIsNotNullAndExpressionIsTrue("id", id ?? $"label.{forInput}", (id ?? $"label.{forInput}") != null);
 			TagElement.AddInputAttributeIsNotNullAndExpressionIsTrue("for", forInput, forInput != null);
@@ -37,8 +35,6 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 
 			/* Injetando o Valor no Input... */
 			TagElement.InnerHtml = caption;
-			if (tagSpan != null)
-				TagElement.InnerHtml += tagSpan.ToMvcHtmlString(TagRenderMode.Normal).ToString();
 		}
 
 		public override MvcHtmlString GenerateElementMvcString(TagRenderMode renderMode)
