@@ -17,11 +17,10 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 	public class TagBuilder_Progress<TModel, TProperty> : CustomTagBuilder<TModel, TProperty>
 	{
 		public TagBuilder_Progress(DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase)
-			: base("input", dynamicComponentBase)
+			: base("progress", dynamicComponentBase)
 		{
 			/* Adicionar os atributos de acordo com o que for obtido no Metadata... */
 			//TagElement.AddInputTypeAttribute(fieldType);
-			TagElement.AddInputAttributeStaticValue("type", "progress");
 			int? minimumLength = (int?)this.ComponentBase.MetadataAttributes.GetValue<DataType>("Minimum", "Length") ?? (int?)this.ComponentBase.MetadataAttributes.GetValue<DataType>("StringLength", "MinimumLength");
 			TagElement.AddInputAttributeIsNotNullAndExpressionIsTrue("minlength", minimumLength, minimumLength.HasValue && minimumLength.Value > 0);
 			int? maximumLength = (int?)this.ComponentBase.MetadataAttributes.GetValue<DataType>("Maximum", "Length") ?? (int?)this.ComponentBase.MetadataAttributes.GetValue<DataType>("StringLength", "MaximumLength");
@@ -34,9 +33,10 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 			TagElement.AddInputAttributeHtmlAttributes("maxlength", this.ComponentBase.HtmlAttributes);
 
 			/* Injetando o Valor no Input... */
-			TagElement.AddInputAttributeIsNotNull("max", this.ComponentBase.MetadataAttributes.GetValue<DataType>("ProgressAttribute", "MaxValue"));
+			TagElement.AddInputAttributeIsNotNull("max", this.ComponentBase.MetadataAttributes.GetValue<double>("ProgressAttribute", "MaxValue"));
 			this.Value = this.ComponentBase.FieldValue;
 			TagElement.AddInputAttributeStaticValue("value", this.Value);
+			TagElement.AddInputAttributeStaticValue("title", $"{this.Value}%");
 		}
 
 		public override MvcHtmlString GenerateElementMvcString(TagRenderMode renderMode)

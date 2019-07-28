@@ -6,67 +6,75 @@
 	<hr />
 	<dl class="dl-horizontal">
 		<dt>
-			@Html.DynamicDisplayNameFor(model => model.Brand, DynamicDisplayType.Label)
+			@Html.DynamicDisplayNameFor(model => model.Brand, Rendering.Label)
 		</dt>
 
 		<dd>
-			@Html.DynamicDisplayFor(model => model.Brand, DynamicDisplayType.Label)
+			@Html.DynamicDisplayFor(model => model.Brand, Rendering.Label)
 		</dd>
 
 		<dt>
-			@Html.DynamicDisplayNameFor(model => model.EquipmentId, DynamicDisplayType.Label)
+			@Html.DynamicDisplayNameFor(model => model.EquipmentId, Rendering.Label)
 		</dt>
 
 		<dd>
-			@Html.DynamicDisplayFor(model => model.EquipmentId, DynamicDisplayType.Label)
+			@Html.DynamicDisplayFor(model => model.EquipmentId, Rendering.Label)
 		</dd>
 
 		<dt>
-			@Html.DynamicDisplayNameFor(model => model.InstalledBy, DynamicDisplayType.Label)
+			@Html.DynamicDisplayNameFor(model => model.InstalledBy, Rendering.Label)
 		</dt>
 
 		<dd>
-			@Html.DynamicDisplayListFor(model => model.InstalledBy, new SelectList(ViewBag.InstalledByList, "Value", "Text"), "Selecione a instalação", DynamicDisplayListTypeEnum.DropDownList, new { @class = "form-control", @style = "min-width: 80px;" })
+			@Html.DynamicDisplayListFor(model => model.InstalledBy, new SelectList(ViewBag.InstalledByList, "Value", "Text"), "Selecione a instalação", DisplayListType.DropDownList, new { @class = "form-control", @style = "min-width: 80px;" })
 		</dd>
 
 		<dt>
-			@Html.DynamicDisplayNameFor(model => model.Quantity, DynamicDisplayType.Label)
+			@Html.DynamicDisplayNameFor(model => model.Quantity, Rendering.Label)
 		</dt>
 
 		<dd>
-			@Html.DynamicDisplayFor(model => model.Quantity, DynamicDisplayType.Label)
+			@Html.DynamicDisplayFor(model => model.Quantity, Rendering.Label)
 		</dd>
 
 		<dt>
-			@Html.DynamicDisplayNameFor(model => model.MensalValueStr, DynamicDisplayType.Label)
+			@Html.DynamicDisplayNameFor(model => model.MensalValueStr, Rendering.Label)
 		</dt>
 
 		<dd>
-			@Html.DynamicDisplayFor(model => model.MensalValueStr, DynamicDisplayType.Label)
+			@Html.DynamicDisplayFor(model => model.MensalValueStr, Rendering.Label)
 		</dd>
 
 		<dt>
-			@Html.DynamicDisplayNameFor(model => model.MSISDN, DynamicDisplayType.Label)
+			@Html.DynamicDisplayNameFor(model => model.MSISDN, Rendering.Label)
 		</dt>
 
 		<dd>
-			@Html.DynamicDisplayFor(model => model.MSISDN, DynamicDisplayType.Label)
+			@Html.DynamicDisplayFor(model => model.MSISDN, Rendering.Label)
 		</dd>
 
 		<dt>
-			@Html.DynamicDisplayNameFor(model => model.PhoneNumber, DynamicDisplayType.Label)
+			@Html.DynamicDisplayNameFor(model => model.PhoneNumber, Rendering.Label)
 		</dt>
 
 		<dd>
-			@Html.DynamicDisplayFor(model => model.PhoneNumber, DynamicDisplayType.Label)
+			@Html.DynamicDisplayFor(model => model.PhoneNumber, Rendering.Label)
 		</dd>
 
 		<dt>
-			@Html.DynamicDisplayNameFor(model => model.Observations, DynamicDisplayType.Label)
+			@Html.DynamicDisplayNameFor(model => model.Progress, Rendering.Label)
 		</dt>
 
 		<dd>
-			@Html.DynamicDisplayFor(model => model.Observations, DynamicDisplayType.Label)
+			@Html.DynamicDisplayFor(model => model.Progress, Rendering.Label)
+		</dd>
+
+		<dt>
+			@Html.DynamicDisplayNameFor(model => model.Observations, Rendering.Label)
+		</dt>
+
+		<dd>
+			@Html.DynamicDisplayFor(model => model.Observations, Rendering.Label)
 		</dd>
 
 	</dl>
@@ -74,5 +82,5 @@
 <p>
 	@Html.ActionLink("Edit", "Edit", new { id = 1 }) |
 	@*@Html.ActionLink("Back to List", "Index")*@
-	@Html.DynamicLink(DynamicLinkAction.GoBack, null, "Voltar")
+	@Html.DynamicLink(LinkAction.GoBack, null, "Voltar")
 </p>

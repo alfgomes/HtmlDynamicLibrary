@@ -39,7 +39,7 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 			//...............................................................................................................................................................\\
 			bool _IsRequired = !this.ComponentBase.FieldIsNullable || this.ComponentBase.MetadataAttributes.GetValue<bool>("Common", "IsRequired");
 			if (_IsRequired)
-				TagElement.AddInputAttributeIsNotNull("required", true);
+				TagElement.AddInputAttributeStaticValue("required", null);
 			bool _IsNullable = this.ComponentBase.FieldIsNullable || this.ComponentBase.MetadataAttributes.GetValue<bool>("Common", "IsNullable") || this.ComponentBase.MetadataAttributes.GetValue<bool>("Common", "IsNullableValueType");
 			//...............................................................................................................................................................\\
 
@@ -48,16 +48,16 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 			//TagElement.AddInputTypeAttribute(fieldType);
 			TagElement.AddInputAttributeStaticValue("class", "form-control");
 			TagElement.AddInputAttributeIsNotNull("autofocus", this.ComponentBase.MetadataAttributes.GetValue<object>("Common", "Autofocus"));
-			TagElement.AddInputAttributeIsNotNull("required", this.ComponentBase.MetadataAttributes.GetValue<object>("Common", "IsRequired"));
-			TagElement.AddInputAttributeIsNotNull("readonly", this.ComponentBase.FieldIsReadOnly || (bool)this.ComponentBase.MetadataAttributes.GetValue<object>("Common", "IsReadOnly"));
+			TagElement.AddInputAttributeIsNotNullAndExpressionIsTrue("required", null, (bool)this.ComponentBase.MetadataAttributes.GetValue<object>("Common", "IsRequired"));
+			TagElement.AddInputAttributeIsNotNullAndExpressionIsTrue("readonly", null, this.ComponentBase.FieldIsReadOnly || (bool)this.ComponentBase.MetadataAttributes.GetValue<object>("Common", "IsReadOnly"));
 			TagElement.AddInputAttributeIsNotNull("title", this.ComponentBase.MetadataAttributes.GetValue<object>("Common", "Description"));
 			TagElement.AddInputAttributeIsNotNull("placeholder", this.ComponentBase.MetadataAttributes.GetValue<object>("Common", "Watermark"));
 
 			//...............................................................................................................................................................\\
 
-			TagElement.AddInputAttributeIsNotNullAndExpressionIsTrue("required", true, !this.ComponentBase.FieldIsNullable);
-			TagElement.AddInputAttributeIsNotNull("readonly", this.ComponentBase.FieldIsReadOnly);
-			TagElement.AddInputAttributeIsNotNull("disabled", this.ComponentBase.FieldIsDisabled);
+			TagElement.AddInputAttributeIsNotNullAndExpressionIsTrue("required", null, !this.ComponentBase.FieldIsNullable);
+			TagElement.AddInputAttributeIsNotNullAndExpressionIsTrue("readonly", null, this.ComponentBase.FieldIsReadOnly);
+			TagElement.AddInputAttributeIsNotNullAndExpressionIsTrue("disabled", null, this.ComponentBase.FieldIsDisabled);
 
 			//...............................................................................................................................................................\\
 

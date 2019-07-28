@@ -48,8 +48,8 @@ namespace HtmlDynamicLibrary.Helpers
 
 		public static void AddInputAttributeIsNotNullAndExpressionIsTrue(this TagBuilder tagInput, string attributeName, object value, bool validateExpression)
 		{
-			if (!validateExpression) return;
 			if (value == null) return;
+			if (!validateExpression) return;
 
 			AddInputAttributeStaticValue(tagInput, attributeName, value);
 		}
@@ -59,35 +59,41 @@ namespace HtmlDynamicLibrary.Helpers
 			if (tagInput.Attributes.ContainsKey(attributeName.ToLowerInvariant()))
 				tagInput.Attributes.Remove(attributeName.ToLowerInvariant());
 
-			bool testBool;
-			Boolean.TryParse(value.GetType().IsArray ? ((string[])value)[0] : value.ToString(), out testBool);
-			if (!testBool)
+			object valueTreated = null;
+
+			if (value != null)
 			{
-				switch (attributeName.ToLowerInvariant())
+				bool testBool;
+				Boolean.TryParse(value.GetType().IsArray ? ((string[])value)[0] : value.ToString(), out testBool);
+				if (testBool)
 				{
-					case "autofocus":
-					case "required":
-					case "readonly":
-					case "disabled":
-					case "spellcheck":
-						return;
+					switch (attributeName.ToLowerInvariant())
+					{
+						case "autofocus":
+						case "required":
+						case "readonly":
+						case "disabled":
+						case "spellcheck":
+							valueTreated = null;
+							break;
+					}
+				}
+				else
+				{
+					if (value != null && value.GetType().IsArray)
+					{
+						valueTreated = "";
+						foreach (var item in (Array)value)
+							valueTreated += item.ToString() + " ";
+					}
+					else
+					{
+						valueTreated = value;
+					}
 				}
 			}
 
-			object valueTreated;
-
-			if (value.GetType().IsArray)
-			{
-				valueTreated = "";
-				foreach (var item in (Array)value)
-					valueTreated += item.ToString() + " ";
-			}
-			else
-			{
-				valueTreated = value;
-			}
-
-			tagInput.Attributes.Add(attributeName.ToLowerInvariant(), valueTreated.ToString().Trim());
+			tagInput.Attributes.Add(attributeName.ToLowerInvariant(), valueTreated?.ToString().Trim());
 		}
 
 		public static void MergeInputAttributeIsNotNull(this TagBuilder tagInput, string attributeName, object value)
@@ -105,9 +111,11 @@ namespace HtmlDynamicLibrary.Helpers
 
 		public static void MergeInputAttributeStaticValue(this TagBuilder tagInput, string attributeName, object value)
 		{
+			object valueTreated = null;
+
 			bool testBool;
 			Boolean.TryParse(value.GetType().IsArray ? ((string[])value)[0] : value.ToString(), out testBool);
-			if (!testBool)
+			if (testBool)
 			{
 				switch (attributeName.ToLowerInvariant())
 				{
@@ -116,21 +124,22 @@ namespace HtmlDynamicLibrary.Helpers
 					case "readonly":
 					case "disabled":
 					case "spellcheck":
-						return;
+						valueTreated = null;
+						break;
 				}
-			}
-
-			object valueTreated;
-
-			if (value.GetType().IsArray)
-			{
-				valueTreated = "";
-				foreach (var item in (Array)value)
-					valueTreated += item.ToString() + " ";
 			}
 			else
 			{
-				valueTreated = value;
+				if (value.GetType().IsArray)
+				{
+					valueTreated = "";
+					foreach (var item in (Array)value)
+						valueTreated += item.ToString() + " ";
+				}
+				else
+				{
+					valueTreated = value;
+				}
 			}
 
 			RouteValueDictionary htmlAttributes = new RouteValueDictionary();

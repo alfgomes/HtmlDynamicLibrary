@@ -26,11 +26,12 @@ namespace MvcTest.Controllers
 				Brand = "Marca",
 				EquipmentId = "YGIY7Y7867",
 				InstalledBy = (long)2,
+				Quantity = 10,
 				MensalValueStr = "23.45",
+				Progress = 50,
 				MSISDN = "123456789",
 				PhoneNumber = "999999999",
-				Quantity = 10,
-				Observations = "Nada a informar!"
+				Observations = "Nada a informar 1!"
 			});
 			mockData.Add(new Sample()
 			{
@@ -38,10 +39,11 @@ namespace MvcTest.Controllers
 				Brand = "Marca 2",
 				EquipmentId = "YUHVBKUT9Y",
 				InstalledBy = (long)3,
+				Quantity = 1,
 				MensalValueStr = "87.99",
+				Progress = 80,
 				MSISDN = "987654321",
 				PhoneNumber = "988888888",
-				Quantity = 1,
 				Observations = "Nada a informar 2!"
 			});
 			mockData.Add(new Sample()
@@ -50,10 +52,11 @@ namespace MvcTest.Controllers
 				Brand = "Marca 3",
 				EquipmentId = "7GH78GO78I",
 				InstalledBy = (long)2,
+				Quantity = 2,
 				MensalValueStr = "29.99",
+				Progress = 20,
 				MSISDN = "12345",
 				PhoneNumber = "988888889",
-				Quantity = 2,
 				Observations = "Nada a informar 3!"
 			});
 		}

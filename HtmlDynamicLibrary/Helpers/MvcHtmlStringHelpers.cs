@@ -22,10 +22,6 @@ namespace HtmlDynamicLibrary.Helpers
 			MvcHtmlString mvcHtmlString = new MvcHtmlString(tagBuilder.ToString(renderMode));
 
 			string ret = mvcHtmlString.ToHtmlString();
-			ret = ret.Replace("autofocus=\"True\"", "autofocus");
-			ret = ret.Replace("required=\"True\"", "required");
-			ret = ret.Replace("disabled=\"True\"", "disabled");
-			ret = ret.Replace("readonly=\"True\"", "readonly");
 
 			return new MvcHtmlString(ret);
 		}

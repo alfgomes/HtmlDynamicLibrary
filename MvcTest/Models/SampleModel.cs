@@ -14,6 +14,7 @@ namespace MvcTest.Models
 		public long InstalledBy { get; set; }
 		public long? Quantity { get; set; }
 		public string MensalValueStr { get; set; }
+		public decimal? Progress { get; set; }
 		public string MSISDN { get; set; }
 		public string PhoneNumber { get; set; }
 		public string Observations { get; set; }
@@ -24,11 +25,15 @@ namespace MvcTest.Models
 		}
 	}
 
+
+
 	[MetadataType(typeof(SampleMetadata))]
 	public class SampleVM : Sample
 	{
 
 	}
+
+
 
 	[Version(1, 0, 0, "26/07/2019", "Primeiro Teste")]
 	[Version(1, 1, 0, "26/07/2019", "Segundo Teste")]
@@ -72,11 +77,16 @@ namespace MvcTest.Models
 		[RegularExpression(@"^\d*", ErrorMessage = "Insira apenas valores numéricos")]
 		//[Range(0, 999999999, ErrorMessage = "Máximo 9 dígitos")]
 		//[Range(typeof(decimal), "0", "10000000000000000000000000")]
-		[Required(ErrorMessage = "Nº Contacto é obrigatório")]
+		//[Required(ErrorMessage = "Nº Contacto é obrigatório")]
 		[StringLength(25, ErrorMessage = "Máximo 25 dígitos")]
 		[OnlyNumber]
 		[Display(Name = "Contacto Telefónico", ShortName = "Telefone", Description = "Indique o contacto telefónico", GroupName = "Contacto do Cliente", Prompt = "Inserir valor")]
 		public string PhoneNumber { get; set; }
+
+		//[Range(0, 100, ErrorMessage = "Valor incorreto")]
+		[Display(Name = "Avanço")]
+		[Progress(100)]
+		public decimal? Progress { get; set; }
 
 		[TextArea(6, 90, MaxLength = 600)]
 		[DataType(DataType.MultilineText)]
