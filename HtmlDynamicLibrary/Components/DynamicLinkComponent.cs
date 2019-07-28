@@ -16,7 +16,7 @@ namespace System.Web.Mvc
 {
 	public static class DynamicLinkComponent
 	{
-		public static MvcHtmlString DynamicLink(this HtmlHelper helper, DynamicLinkAction action, string id, string caption, object viewData = null, string href = null)
+		public static MvcHtmlString DynamicLink(this HtmlHelper helper, LinkAction action, string id, string caption, object viewData = null, string href = null)
 		{
 			href = HtmlHelpers.ActionToCommand(action, href);
 

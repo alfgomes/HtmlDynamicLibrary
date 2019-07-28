@@ -17,7 +17,7 @@ namespace System.Web.Mvc
 {
 	public static class DynamicDisplayListForComponent
 	{
-		public static MvcHtmlString DynamicDisplayListFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, DynamicDisplayListTypeEnum displayType, object viewData = null)
+		public static MvcHtmlString DynamicDisplayListFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, DisplayListType displayType, object viewData = null)
 		{
 			DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase = new DynamicComponentBaseFor<TModel, TProperty>(helper, expression, viewData, true, true);
 			object selectedValue = dynamicComponentBase.FieldValue;
@@ -25,20 +25,20 @@ namespace System.Web.Mvc
 
 			switch (displayType)
 			{
-				case DynamicDisplayListTypeEnum.DropDownList:
+				case DisplayListType.DropDownList:
 					TagBuilder_Select<TModel, TProperty> tagBuilder = new TagBuilder_Select<TModel, TProperty>(dynamicComponentBase);
 					tagBuilder.AddOptionLabel(optionLabel);
 					tagBuilder.AddOptions(selectList);
 					return tagBuilder.GenerateElementMvcString(TagRenderMode.Normal);
-				case DynamicDisplayListTypeEnum.OptionsList:
+				case DisplayListType.OptionsList:
 					return null;
-				case DynamicDisplayListTypeEnum.SelectedLabel:
+				case DisplayListType.SelectedLabel:
 					dynamicComponentBase.HtmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(dynamicComponentBase.HtmlAttributes, new RouteValueDictionary() { { "class", "control-label" } });
 					return TagBuilderGenerators.GenerateTagLabel(dynamicComponentBase.SanitizedId, selectedText, dynamicComponentBase.SanitizedId, dynamicComponentBase.HtmlAttributes, dynamicComponentBase.FieldModelMetadata.Description).ToMvcHtmlString(TagRenderMode.Normal);
-				case DynamicDisplayListTypeEnum.SelectedSpan:
+				case DisplayListType.SelectedSpan:
 					dynamicComponentBase.HtmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(dynamicComponentBase.HtmlAttributes, new RouteValueDictionary() { { "class", "control-span" } });
 					return TagBuilderGenerators.GenerateTagDisplay(dynamicComponentBase.SanitizedId, selectedText, dynamicComponentBase.HtmlAttributes, dynamicComponentBase.FieldModelMetadata.Description).ToMvcHtmlString(TagRenderMode.Normal);
-				case DynamicDisplayListTypeEnum.SelectedOnlyText:
+				case DisplayListType.SelectedOnlyText:
 				default:
 					return TagBuilderGenerators.GenerateOnlyText(selectedText, dynamicComponentBase.HtmlAttributes);
 			}

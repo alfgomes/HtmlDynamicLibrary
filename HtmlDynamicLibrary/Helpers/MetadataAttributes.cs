@@ -459,6 +459,20 @@ namespace HtmlDynamicLibrary.Helpers
 				};
 				metadataAttributes.Add(metaAttribute);
 			}
+
+			ProgressAttribute progressAttribute = GetModelMetadataAttributes(metadata).OfType<ProgressAttribute>().FirstOrDefault();
+			if (progressAttribute != null)
+			{
+				MetadataAttribute metaAttribute = new MetadataAttribute()
+				{
+					AttributeName = "Progress" + "Attribute",
+					Property = new Dictionary<string, object>()
+					{
+						{ "MaxValue", progressAttribute.MaxValue },
+					}
+				};
+				metadataAttributes.Add(metaAttribute);
+			}
 		}
 
 		private static Dictionary<string, object> GetPropertyAttributes(PropertyInfo property)

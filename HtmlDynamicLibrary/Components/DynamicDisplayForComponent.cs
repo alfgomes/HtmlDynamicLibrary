@@ -16,16 +16,16 @@ namespace System.Web.Mvc
 {
 	public static class DynamicDisplayForComponent
 	{
-		public static MvcHtmlString DynamicDisplayFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, DynamicDisplayType displayType, object viewData = null, bool blockShowRequiredSymbol = false, string requiredSymbol = "*", string requiredClass = "req editor-field-required")
+		public static MvcHtmlString DynamicDisplayFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, Rendering displayType, object viewData = null, bool blockShowRequiredSymbol = false, string requiredSymbol = "*", string requiredClass = "req editor-field-required")
 		{
 			DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase = new DynamicComponentBaseFor<TModel, TProperty>(helper, expression, viewData);
 
 			switch (displayType)
 			{
-				case DynamicDisplayType.Label:
+				case Rendering.Label:
 					dynamicComponentBase.HtmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(dynamicComponentBase.HtmlAttributes, new RouteValueDictionary() { { "class", "control-label" } });
 					return TagBuilderGenerators.GenerateTagLabel(dynamicComponentBase.SanitizedId, dynamicComponentBase.FieldValue.ToString(), dynamicComponentBase.SanitizedId, dynamicComponentBase.HtmlAttributes, dynamicComponentBase.FieldModelMetadata.Description, false /*!blockShowRequiredSymbol && dynamicComponentBase.FieldModelMetadata.IsRequired*/, requiredSymbol, requiredClass).ToMvcHtmlString(TagRenderMode.Normal);
-				case DynamicDisplayType.Span:
+				case Rendering.Span:
 					dynamicComponentBase.HtmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(dynamicComponentBase.HtmlAttributes, new RouteValueDictionary() { { "class", "control-span" } });
 					return TagBuilderGenerators.GenerateTagDisplay(dynamicComponentBase.SanitizedId, dynamicComponentBase.FieldValue.ToString(), dynamicComponentBase.HtmlAttributes, dynamicComponentBase.FieldModelMetadata.Description, false /*!blockShowRequiredSymbol && dynamicComponentBase.FieldModelMetadata.IsRequired*/, requiredSymbol, requiredClass).ToMvcHtmlString(TagRenderMode.Normal);
 				default:

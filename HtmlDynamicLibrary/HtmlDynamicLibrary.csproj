@@ -95,11 +95,13 @@
     <Compile Include="Components\DynamicListBoxForComponent.cs" />
     <Compile Include="Components\DynamicGlyphIconComponent.cs" />
     <Compile Include="Components\DynamicPasswordForComponent.cs" />
+    <Compile Include="Components\DynamicProgressForComponent.cs" />
     <Compile Include="Components\DynamicRequiredSymbolForComponent.cs" />
     <Compile Include="Components\DynamicValidationMessageForComponent.cs" />
     <Compile Include="Components\_DynamicComponentBase.cs" />
     <Compile Include="Components\_DynamicComponentBaseFor.cs" />
     <Compile Include="CustomAttributes\HtmlAttributesAttribute.cs" />
+    <Compile Include="CustomAttributes\ProgressAttribute.cs" />
     <Compile Include="CustomAttributes\VersionAttribute.cs" />
     <Compile Include="CustomAttributes\AuthorAttribute.cs" />
     <Compile Include="CustomAttributes\TextAreaAttribute.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="CustomAttributes\EnumTitleAttribute.cs" />
     <Compile Include="CustomTagBuilders\CustomTagBuilder.cs" />
     <Compile Include="CustomTagBuilders\TagBuilder_Checkbox.cs" />
+    <Compile Include="CustomTagBuilders\TagBuilder_Progress.cs" />
     <Compile Include="CustomTagBuilders\TagBuilder_Password.cs" />
     <Compile Include="CustomTagBuilders\TagBuilder_TextArea.cs" />
     <Compile Include="CustomTagBuilders\TagBuilder_Input.cs" />
@@ -119,10 +122,11 @@
     <Compile Include="CustomValidateAttributes\NIFAttribute.cs" />
     <Compile Include="CustomValidateAttributes\NoEspecialCharsAttribute.cs" />
     <Compile Include="CustomValidateAttributes\OnlyNumberAttribute.cs" />
-    <Compile Include="Enumerators\DynamicDisplayListTypeEnum.cs" />
-    <Compile Include="Enumerators\DynamicDisplayTypeEnum.cs" />
-    <Compile Include="Enumerators\DynamicGlyphIconEnum.cs" />
-    <Compile Include="Enumerators\DynamicLinkActionEnum.cs" />
+    <Compile Include="Enumerators\EditorListType.cs" />
+    <Compile Include="Enumerators\DisplayListType.cs" />
+    <Compile Include="Enumerators\RenderingEnum.cs" />
+    <Compile Include="Enumerators\GlyphIconType.cs" />
+    <Compile Include="Enumerators\LinkActionEnum.cs" />
     <Compile Include="ExtensionMethods\AjaxHelperExtensions.cs" />
     <Compile Include="ExtensionMethods\IDictionaryExtensions.cs" />
     <Compile Include="ExtensionMethods\ObjectExtensions.cs" />

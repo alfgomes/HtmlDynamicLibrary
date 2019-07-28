@@ -15,12 +15,12 @@ namespace System.Web.Mvc
 {
 	public static class DynamicGlyphIconComponent
 	{
-		private static string GetEnumTitle(this DynamicGlyphIconEnum @self)
+		private static string GetEnumTitle(this GlyphIconType @self)
 		{
 			return @self.GetAttribute<EnumTitleAttribute>() != null ? @self.GetAttribute<EnumTitleAttribute>().Title : null;
 		}
 
-		public static MvcHtmlString DynamicGlyphIcon(this HtmlHelper helper, DynamicGlyphIconEnum glyphs, string text = null, IDictionary<string, object> htmlAttributes = null)
+		public static MvcHtmlString DynamicGlyphIcon(this HtmlHelper helper, GlyphIconType glyphs, string text = null, IDictionary<string, object> htmlAttributes = null)
 		{
 			TagBuilder i = new TagBuilder("i");
 			i.MergeAttribute("class", glyphs.GetEnumTitle());

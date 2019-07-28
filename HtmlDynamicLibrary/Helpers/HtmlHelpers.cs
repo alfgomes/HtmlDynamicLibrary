@@ -69,17 +69,17 @@ namespace HtmlDynamicLibrary.Helpers
 			return MergeHtmlAttributes(htmlAttributesObject, defaultHtmlAttributesObjects);
 		}
 
-		public static string ActionToCommand(DynamicLinkAction action, string customCommand = null)
+		public static string ActionToCommand(LinkAction action, string customCommand = null)
 		{
 			switch (action)
 			{
-				case DynamicLinkAction.Custom:
+				case LinkAction.Custom:
 					return customCommand;
-				case DynamicLinkAction.Refresh:
+				case LinkAction.Refresh:
 					return "javascript:location.reload();";
-				case DynamicLinkAction.GoBack:
+				case LinkAction.GoBack:
 					return "javascript:window.history.back();";
-				case DynamicLinkAction.GoForward:
+				case LinkAction.GoForward:
 					return "javascript:window.history.forward();";
 				default:
 					return null;

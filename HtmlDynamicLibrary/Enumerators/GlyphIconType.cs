@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace System.Web.Mvc
 {
 	[Author("André Gomes", "10/07/2019", Description = "Relação de Glyph Icons.")]
-	public enum DynamicGlyphIconEnum
+	public enum GlyphIconType
 	{
 		[EnumTitle("icon-glass")]
 		glass,

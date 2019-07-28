@@ -17,13 +17,24 @@ namespace System.Web.Mvc
 {
 	public static class DynamicEditorListForComponent
 	{
-		public static MvcHtmlString DynamicEditorListFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, DynamicDisplayListTypeEnum displayType, object viewData = null)
+		public static MvcHtmlString DynamicEditorListFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, EditorListType editorType, object viewData = null)
 		{
 			DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase = new DynamicComponentBaseFor<TModel, TProperty>(helper, expression, viewData, true, true);
 			object selectedValue = dynamicComponentBase.FieldValue;
 			string selectedText = selectList.Where(w => w.Value == selectedValue?.ToString()).FirstOrDefault().Text;
 
-			return null;
+			switch (editorType)
+			{
+				case EditorListType.DropDownList:
+					TagBuilder_Select<TModel, TProperty> tagBuilder = new TagBuilder_Select<TModel, TProperty>(dynamicComponentBase);
+					tagBuilder.AddOptionLabel(optionLabel);
+					tagBuilder.AddOptions(selectList);
+					return tagBuilder.GenerateElementMvcString(TagRenderMode.Normal);
+				case EditorListType.OptionsList:
+				default:
+					return null;
+					
+			}
 		}
 	}
 }

@@ -17,7 +17,7 @@ namespace System.Web.Mvc
 {
 	public static class DynamicButtonComponent
 	{
-		public static MvcHtmlString DynamicButton(this HtmlHelper helper, DynamicLinkAction action, string id, string caption, bool printable = true, object viewData = null, string function = null)
+		public static MvcHtmlString DynamicButton(this HtmlHelper helper, LinkAction action, string id, string caption, bool printable = true, object viewData = null, string function = null)
 		{
 			function = HtmlHelpers.ActionToCommand(action, function);
 
