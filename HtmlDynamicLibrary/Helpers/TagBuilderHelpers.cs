@@ -46,6 +46,13 @@ namespace HtmlDynamicLibrary.Helpers
 			AddInputAttributeIsNotNullAndExpressionIsTrue(tagInput, attributeName, value, value != null);
 		}
 
+		public static void AddInputAttributeIfExpressionIsTrue(this TagBuilder tagInput, string attributeName, object value, bool validateExpression)
+		{
+			if (!validateExpression) return;
+
+			AddInputAttributeStaticValue(tagInput, attributeName, value);
+		}
+
 		public static void AddInputAttributeIsNotNullAndExpressionIsTrue(this TagBuilder tagInput, string attributeName, object value, bool validateExpression)
 		{
 			if (value == null) return;

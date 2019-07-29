@@ -8,7 +8,7 @@ using System.Web.Routing;
 
 namespace MvcTest
 {
-	public class MvcApplication : System.Web.HttpApplication
+	public class MvcApplication : HttpApplication
 	{
 		protected void Application_Start()
 		{
@@ -16,6 +16,16 @@ namespace MvcTest
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+			GlobalFilters.Filters.Add(new DynamicActionFilter(), 0);
+		}
+	}
+
+	public class DynamicActionFilter : ActionFilterAttribute
+	{
+		public override void OnResultExecuting(ResultExecutingContext filterContext)
+		{
+			filterContext.Controller.ViewBag.AppName = "Dynamic Components Samples";
 		}
 	}
 }

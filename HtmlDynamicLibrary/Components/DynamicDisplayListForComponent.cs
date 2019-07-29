@@ -29,7 +29,12 @@ namespace System.Web.Mvc
 					TagBuilder_Select<TModel, TProperty> tagBuilder = new TagBuilder_Select<TModel, TProperty>(dynamicComponentBase);
 					tagBuilder.AddOptionLabel(optionLabel);
 					tagBuilder.AddOptions(selectList);
+					tagBuilder.TagElement.AddInputAttributeStaticValue("disabled", null);
+					tagBuilder.TagElement.AddInputAttributeStaticValue("class", "");
 					return tagBuilder.GenerateElementMvcString(TagRenderMode.Normal);
+				case DisplayListType.SelectedEdit:
+					dynamicComponentBase.HtmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(dynamicComponentBase.HtmlAttributes, new RouteValueDictionary() { { "class", "control-input" } });
+					return TagBuilderGenerators.GenerateTagEditor(dynamicComponentBase.SanitizedId, selectedText, dynamicComponentBase.HtmlAttributes, dynamicComponentBase.FieldModelMetadata.Description, false, true).ToMvcHtmlString(TagRenderMode.Normal);
 				case DisplayListType.OptionsList:
 					return null;
 				case DisplayListType.SelectedLabel:

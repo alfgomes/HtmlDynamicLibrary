@@ -36,7 +36,7 @@ namespace System.Web.Mvc
 		#endregion
 
 		public DynamicComponentBaseFor(HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object viewData = null, bool readOnly = false, bool disabled = false, bool visible = true)
-			//: base(helper, TagBuilder.CreateSanitizedId(helper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(ExpressionHelper.GetExpressionText(expression))), ExpressionHelper.GetExpressionText(expression), ((FieldInfo[])((TypeInfo)expression.Body.Type).DeclaredFields)[1].FieldType.ToString(), viewData, HtmlHelpers.IsNullable((expression.Body as MemberExpression).Member), readOnly, disabled, visible)
+		//: base(helper, TagBuilder.CreateSanitizedId(helper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(ExpressionHelper.GetExpressionText(expression))), ExpressionHelper.GetExpressionText(expression), ((FieldInfo[])((TypeInfo)expression.Body.Type).DeclaredFields)[1].FieldType.ToString(), viewData, HtmlHelpers.IsNullable((expression.Body as MemberExpression).Member), readOnly, disabled, visible)
 		{
 			TypedExpression = (Expression<Func<TModel, TProperty>>)(object)expression;
 
@@ -50,6 +50,33 @@ namespace System.Web.Mvc
 
 			//Obter Atributos Adicionados ao Metadata...
 			MetadataAttributes = new MetadataAttributes(FieldModelMetadata);
+
+			RouteValueDictionary viewDataObj = HtmlHelper.AnonymousObjectToHtmlAttributes(viewData);
+			HtmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(viewDataObj["htmlAttributes"]);
+			HtmlAttributes = (RouteValueDictionary)helper.MergeHtmlAttributes(HtmlAttributes, viewDataObj);
+
+			FieldIsNullable = HtmlHelpers.IsNullable(Field);
+			FieldIsReadOnly = readOnly;
+			FieldIsDisabled = disabled;
+			FieldIsVisible = visible;
+		}
+
+		public DynamicComponentBaseFor(HtmlHelper<IEnumerable<TModel>> helper, Expression<Func<TModel, TProperty>> expression, object viewData = null, bool readOnly = false, bool disabled = false, bool visible = true)
+		{
+			TypedExpression = (Expression<Func<TModel, TProperty>>)(object)expression;
+
+			var firstViewData = helper.ViewData.FirstOrDefault();
+
+			Field = (expression.Body as MemberExpression).Member;
+			FieldName = ExpressionHelper.GetExpressionText(expression);
+			FieldType = ((FieldInfo[])((TypeInfo)expression.Body.Type).DeclaredFields)[1].FieldType;
+			//FieldValue = expression.Compile().Invoke(firstViewData);
+			FieldFullName = helper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(FieldName);
+			SanitizedId = TagBuilder.CreateSanitizedId(FieldFullName);
+			//FieldModelMetadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
+
+			//Obter Atributos Adicionados ao Metadata...
+			//MetadataAttributes = new MetadataAttributes(FieldModelMetadata);
 
 			RouteValueDictionary viewDataObj = HtmlHelper.AnonymousObjectToHtmlAttributes(viewData);
 			HtmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(viewDataObj["htmlAttributes"]);

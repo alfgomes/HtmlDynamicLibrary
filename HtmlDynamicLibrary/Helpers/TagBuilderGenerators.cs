@@ -88,6 +88,35 @@ namespace HtmlDynamicLibrary.Helpers
 			return new MvcHtmlString(tagText);
 		}
 
+		public static TagBuilder GenerateTagEditor(string id, string text, RouteValueDictionary htmlAttributes, string tooltip = null, bool isRequired = false, bool disabled = false)
+		{
+			TagBuilder tagEdit = new TagBuilder("input");
+			tagEdit.AddInputAttributeStaticValue("type", "text");
+			tagEdit.AddInputAttributeIsNotNullAndExpressionIsTrue("id", id, id != null);
+			tagEdit.AddInputAttributeHtmlAttributes("class", htmlAttributes);
+			tagEdit.AddInputAttributeHtmlAttributes("style", htmlAttributes);
+			tagEdit.AddInputAttributeIfExpressionIsTrue("required", null, isRequired);
+			tagEdit.AddInputAttributeIfExpressionIsTrue("disabled", null, disabled);
+
+			if (tooltip != null && !string.IsNullOrEmpty(tooltip))
+			{
+				tagEdit.AddInputAttributeStaticValue("data-toggle", "tooltip");
+				tagEdit.AddInputAttributeStaticValue("data-placement", "top");
+				tagEdit.AddInputAttributeIsNotNullAndExpressionIsTrue("data-original-title", tooltip, tooltip != null);
+			}
+
+			tagEdit.AddInputAttributeStaticValue("value", text);
+
+			return tagEdit;
+		}
+
+		public static TagBuilder GenerateTagSelect(string id, string text, IEnumerable<SelectListItem> selectList, string optionLabel, RouteValueDictionary htmlAttributes, string tooltip = null, bool isRequired = false, bool disabled = false)
+		{
+			TagBuilder tagEdit = new TagBuilder("input");
+
+			return tagEdit;
+		}
+
 		#endregion
 	}
 }

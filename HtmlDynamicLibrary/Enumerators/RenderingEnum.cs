@@ -8,6 +8,7 @@ namespace System.Web.Mvc
 	{
 		OnlyText,
 		Label,
+		Edit,
 		Span
 	}
 }

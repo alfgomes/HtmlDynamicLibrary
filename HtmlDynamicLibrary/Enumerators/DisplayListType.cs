@@ -8,6 +8,7 @@ namespace System.Web.Mvc
 	{
 		DropDownList,
 		OptionsList,
+		SelectedEdit,
 		SelectedOnlyText,
 		SelectedLabel,
 		SelectedSpan

@@ -74,11 +74,30 @@ namespace MvcTest.Controllers
 			return vm;
 		}
 
+		private IList<SampleVM> Clone(IList<Sample> sampleList)
+		{
+			IList<SampleVM> sampleVMs = new List<SampleVM>();
+
+			foreach (Sample sample in sampleList)
+			{
+				SampleVM sampleVM = new SampleVM();
+				foreach (PropertyInfo sourcePropertyInfo in sample.GetType().GetProperties())
+				{
+					PropertyInfo destPropertyInfo = sampleVM.GetType().GetProperty(sourcePropertyInfo.Name);
+					destPropertyInfo.SetValue(sampleVM, sourcePropertyInfo.GetValue(sample, null), null);
+				}
+				sampleVMs.Add(sampleVM);
+			}
+
+			return sampleVMs;
+		}
+
 		// GET: Sample
 		public ActionResult Index()
         {
-            return View();
-        }
+			IList<SampleVM> samplesData = Clone(mockData.ToList());
+			return View(samplesData);
+		}
 
         // GET: Sample/Details/5
         public ActionResult Details(int id)
