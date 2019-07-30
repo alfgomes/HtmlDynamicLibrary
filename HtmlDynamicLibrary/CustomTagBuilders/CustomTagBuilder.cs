@@ -76,6 +76,8 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 			TagElement.AddInputAttributeIsNotNull("data-val-required", this.ComponentBase.MetadataAttributes.GetValue<object>("Required", "ErrorMessage"));
 			//TagElement.AddInputAttributeStaticValue("data-val-regex-pattern", "");
 			//TagElement.AddInputAttributeStaticValue("data-val-regex", "");
+
+			this.Value = this.ComponentBase.FieldValue;
 		}
 
 		public abstract MvcHtmlString GenerateElementMvcString(TagRenderMode renderMode);

@@ -156,7 +156,24 @@ namespace HtmlDynamicLibrary.Helpers
 			htmlAttributes = HtmlHelpers.MergeHtmlAttributes(htmlAttributes, tagRouteValueDictionary);
 
 			tagInput.AddInputAttributeHtmlAttributes(attributeName, htmlAttributes);
-		} 
+		}
+
+		public static void RemoveAttribute(this TagBuilder tagInput, string attributeName)
+		{
+			if (tagInput.Attributes.ContainsKey(attributeName.ToLowerInvariant()))
+				tagInput.Attributes.Remove(attributeName.ToLowerInvariant());
+		}
+
+		public static void DeleteValueInAttribute(this TagBuilder tagInput, string attributeName, object value)
+		{
+			if (tagInput.Attributes.ContainsKey(attributeName.ToLowerInvariant()))
+			{
+				string temp;
+				tagInput.Attributes.TryGetValue(attributeName.ToLowerInvariant(), out temp);
+				if (temp.Contains(value.ToString()))
+					tagInput.Attributes[attributeName.ToLowerInvariant()] = temp.Replace(value.ToString(), "").Trim();
+			}
+		}
 
 		#endregion
 

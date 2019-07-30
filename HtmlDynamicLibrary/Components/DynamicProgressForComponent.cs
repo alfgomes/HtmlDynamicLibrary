@@ -20,7 +20,6 @@ namespace System.Web.Mvc
 		public static MvcHtmlString DynamicProgressFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object viewData = null, decimal maxValue = 100, bool readOnly = false, bool disabled = false, bool visible = true)
 		{
 			DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase = new DynamicComponentBaseFor<TModel, TProperty>(helper, expression, viewData, readOnly, disabled, visible);
-
 			return new TagBuilder_Progress<TModel, TProperty>(dynamicComponentBase).GenerateElementMvcString(TagRenderMode.Normal);
 		}
 	}

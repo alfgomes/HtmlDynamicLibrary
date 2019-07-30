@@ -6,7 +6,7 @@
 	<hr />
 	<dl class="dl-horizontal">
 		<dt>
-			@Html.DynamicDisplayNameFor(model => model.Brand, Rendering.Label)
+			@Html.DynamicDisplayNameFor(model => model.Brand)
 		</dt>
 
 		<dd>
@@ -14,7 +14,7 @@
 		</dd>
 
 		<dt>
-			@Html.DynamicDisplayNameFor(model => model.EquipmentId, Rendering.Label)
+			@Html.DynamicDisplayNameFor(model => model.EquipmentId)
 		</dt>
 
 		<dd>
@@ -22,7 +22,7 @@
 		</dd>
 
 		<dt>
-			@Html.DynamicDisplayNameFor(model => model.InstalledBy, Rendering.Label)
+			@Html.DynamicDisplayNameFor(model => model.InstalledBy)
 		</dt>
 
 		<dd>
@@ -30,7 +30,7 @@
 		</dd>
 
 		<dt>
-			@Html.DynamicDisplayNameFor(model => model.Quantity, Rendering.Label)
+			@Html.DynamicDisplayNameFor(model => model.Quantity)
 		</dt>
 
 		<dd>
@@ -38,7 +38,7 @@
 		</dd>
 
 		<dt>
-			@Html.DynamicDisplayNameFor(model => model.MensalValueStr, Rendering.Label)
+			@Html.DynamicDisplayNameFor(model => model.MensalValueStr)
 		</dt>
 
 		<dd>
@@ -46,7 +46,7 @@
 		</dd>
 
 		<dt>
-			@Html.DynamicDisplayNameFor(model => model.MSISDN, Rendering.Label)
+			@Html.DynamicDisplayNameFor(model => model.MSISDN)
 		</dt>
 
 		<dd>
@@ -54,7 +54,7 @@
 		</dd>
 
 		<dt>
-			@Html.DynamicDisplayNameFor(model => model.PhoneNumber, Rendering.Label)
+			@Html.DynamicDisplayNameFor(model => model.PhoneNumber)
 		</dt>
 
 		<dd>
@@ -62,15 +62,15 @@
 		</dd>
 
 		<dt>
-			@Html.DynamicDisplayNameFor(model => model.Progress, Rendering.Label)
+			@Html.DynamicDisplayNameFor(model => model.Progress)
 		</dt>
 
 		<dd>
-			@Html.DynamicDisplayFor(model => model.Progress, Rendering.Edit)
+			@Html.DynamicDisplayFor(model => model.Progress, Rendering.Progress, new { @class = "col-md-2" })
 		</dd>
 
 		<dt>
-			@Html.DynamicDisplayNameFor(model => model.Observations, Rendering.Label)
+			@Html.DynamicDisplayNameFor(model => model.Observations)
 		</dt>
 
 		<dd>

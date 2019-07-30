@@ -14,26 +14,16 @@ using HtmlDynamicLibrary.Helpers;
 
 namespace HtmlDynamicLibrary.CustomTagBuilders
 {
-	public class TagBuilder_Select<TModel, TProperty> : CustomTagBuilder<TModel, TProperty>
+	public class TagBuilder_RadioGroup<TModel, TProperty> : CustomTagBuilder<TModel, TProperty>
 	{
 		IList<SelectListItem> selectListItems = new List<SelectListItem>();
-		SelectListItem optionLabel;
 
-		public TagBuilder_Select(DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase)
-			: base("select", dynamicComponentBase)
+		public TagBuilder_RadioGroup(DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase)
+			: base("fieldset", dynamicComponentBase)
 		{
 			/* Adicionar os atributos de acordo com o que for obtido no HtmlAttributes... */
 			TagElement.MergeInputAttributeHtmlAttributes("class", this.ComponentBase.HtmlAttributes);
 			TagElement.MergeInputAttributeHtmlAttributes("style", this.ComponentBase.HtmlAttributes);
-			
-			/* Injetando o Valor no Input... */
-			this.Value = this.ComponentBase.FieldValue;
-			TagElement.AddInputAttributeIsNotNull("value", this.Value);
-		}
-
-		public void AddOptionLabel(string text)
-		{
-			this.optionLabel = new SelectListItem() { Text = $"{text.Trim()}" };
 		}
 
 		public void AddOptions(IEnumerable<SelectListItem> selectListItems)
@@ -57,23 +47,18 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 			string options = "";
 
 			TagBuilder option;
-			if (this.optionLabel != null)
-			{
-				option = new TagBuilder("option");
-				option.SetInnerText(this.optionLabel.Text);
-				options += option.ToString(TagRenderMode.Normal) + "\n";
-			}
-
 			foreach (SelectListItem item in this.selectListItems)
 			{
-				option = new TagBuilder("option");
+				option = new TagBuilder("input");
+				option.AddInputAttributeStaticValue("type", "radio");
+				option.AddInputAttributeStaticValue("name", this.ComponentBase.SanitizedId);
 				if (this.Value != null && (item.Value.ToString().Trim() == this.Value.ToString().Trim()))
-					option.MergeAttribute("selected", null);
+					option.MergeAttribute("checked", null);
 				option.MergeAttribute("value", item.Value.ToString());
 				option.MergeAttribute("data-value", item.Value.ToString());
 				if (item.Disabled)
 					option.MergeAttribute("disabled", null);
-				option.SetInnerText(item.Text);
+				option.SetInnerText($" {item.Text}");
 				options += option.ToString(TagRenderMode.Normal) + "\n";
 			}
 

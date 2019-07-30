@@ -28,15 +28,17 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 
 			/* Adicionar os atributos de acordo com o que for obtido no HtmlAttributes... */
 			TagElement.MergeInputAttributeHtmlAttributes("class", this.ComponentBase.HtmlAttributes);
+			//TagElement.DeleteValueInAttribute("class", "form-control");
 			TagElement.MergeInputAttributeHtmlAttributes("style", this.ComponentBase.HtmlAttributes);
 			TagElement.AddInputAttributeHtmlAttributes("minlength", this.ComponentBase.HtmlAttributes);
 			TagElement.AddInputAttributeHtmlAttributes("maxlength", this.ComponentBase.HtmlAttributes);
 
 			/* Injetando o Valor no Input... */
-			TagElement.AddInputAttributeIsNotNull("max", this.ComponentBase.MetadataAttributes.GetValue<double>("ProgressAttribute", "MaxValue"));
+			double? maxValue = this.ComponentBase.MetadataAttributes.GetValue<double>("ProgressAttribute", "MaxValue");
+			TagElement.AddInputAttributeIsNotNullAndExpressionIsTrue("max", maxValue, maxValue != null);
 			this.Value = this.ComponentBase.FieldValue;
-			TagElement.AddInputAttributeStaticValue("value", this.Value);
-			TagElement.AddInputAttributeStaticValue("title", $"{this.Value}%");
+			TagElement.AddInputAttributeIsNotNullAndExpressionIsTrue("value", this.Value, this.Value != null);
+
 		}
 
 		public override MvcHtmlString GenerateElementMvcString(TagRenderMode renderMode)

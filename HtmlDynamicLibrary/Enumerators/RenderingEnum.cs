@@ -7,6 +7,7 @@ namespace System.Web.Mvc
 	public enum Rendering
 	{
 		OnlyText,
+		Progress,
 		Label,
 		Edit,
 		Span

@@ -17,23 +17,26 @@ namespace System.Web.Mvc
 {
 	public static class DynamicEditorListForComponent
 	{
-		public static MvcHtmlString DynamicEditorListFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, EditorListType editorType, object viewData = null)
+		public static MvcHtmlString DynamicEditorListFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, EditorListType editorType = EditorListType.DropDownList, object viewData = null)
 		{
 			DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase = new DynamicComponentBaseFor<TModel, TProperty>(helper, expression, viewData, true, true);
 			object selectedValue = dynamicComponentBase.FieldValue;
-			string selectedText = selectList.Where(w => w.Value == selectedValue?.ToString()).FirstOrDefault().Text;
+			string selectedText = selectList.Where(w => w.Value == selectedValue?.ToString()).FirstOrDefault()?.Text;
 
 			switch (editorType)
 			{
 				case EditorListType.DropDownList:
-					TagBuilder_Select<TModel, TProperty> tagBuilder = new TagBuilder_Select<TModel, TProperty>(dynamicComponentBase);
-					tagBuilder.AddOptionLabel(optionLabel);
-					tagBuilder.AddOptions(selectList);
-					return tagBuilder.GenerateElementMvcString(TagRenderMode.Normal);
+					TagBuilder_Select<TModel, TProperty> tagSelBuilder = new TagBuilder_Select<TModel, TProperty>(dynamicComponentBase);
+					tagSelBuilder.AddOptionLabel(optionLabel);
+					tagSelBuilder.AddOptions(selectList);
+					return tagSelBuilder.GenerateElementMvcString(TagRenderMode.Normal);
 				case EditorListType.OptionsList:
+					//<input type="radio" name="group2" value="male" checked> Male
+					TagBuilder_RadioGroup<TModel, TProperty> tagRadBuilder = new TagBuilder_RadioGroup<TModel, TProperty>(dynamicComponentBase);
+					tagRadBuilder.AddOptions(selectList);
+					return tagRadBuilder.GenerateElementMvcString(TagRenderMode.Normal);
 				default:
 					return null;
-					
 			}
 		}
 	}

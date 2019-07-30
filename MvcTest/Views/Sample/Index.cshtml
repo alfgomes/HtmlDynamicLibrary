@@ -6,75 +6,72 @@
 	@Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-	@foreach (var item in Model)
-	{
-		<tr>
-			<th>
-				@Html.DynamicDisplayNameFor(modelItem => item.Brand, Rendering.OnlyText)
-			</th>
-			<th>
-				@Html.DynamicDisplayNameFor(modelItem => item.EquipmentId, Rendering.OnlyText)
-			</th>
-			<th>
-				@Html.DynamicDisplayNameFor(modelItem => item.InstalledBy, Rendering.OnlyText)
-			</th>
-			<th>
-				@Html.DynamicDisplayNameFor(modelItem => item.Quantity, Rendering.OnlyText)
-			</th>
-			<th>
-				@Html.DynamicDisplayNameFor(modelItem => item.MensalValueStr, Rendering.OnlyText)
-			</th>
-			<th>
-				@Html.DynamicDisplayNameFor(modelItem => item.Progress, Rendering.OnlyText)
-			</th>
-			<th>
-				@Html.DynamicDisplayNameFor(modelItem => item.MSISDN, Rendering.OnlyText)
-			</th>
-			<th>
-				@Html.DynamicDisplayNameFor(modelItem => item.PhoneNumber, Rendering.OnlyText)
-			</th>
-			<th>
-				@Html.DynamicDisplayNameFor(modelItem => item.Observations, Rendering.OnlyText)
-			</th>
-			<th></th>
-		</tr>
-		break;
-	}
+	<tr>
+		<th>
+			@Html.DynamicDisplayNameFor(model => model.FirstOrDefault().Brand)
+		</th>
+		<th>
+			@Html.DynamicDisplayNameFor(model => model.FirstOrDefault().EquipmentId)
+		</th>
+		<th>
+			@Html.DynamicDisplayNameFor(model => model.FirstOrDefault().InstalledBy)
+		</th>
+		<th>
+			@Html.DynamicDisplayNameFor(model => model.FirstOrDefault().Quantity)
+		</th>
+		<th>
+			@Html.DynamicDisplayNameFor(model => model.FirstOrDefault().MensalValueStr)
+		</th>
+		<th>
+			@Html.DynamicDisplayNameFor(model => model.FirstOrDefault().Progress)
+		</th>
+		<th>
+			@Html.DynamicDisplayNameFor(model => model.FirstOrDefault().MSISDN)
+		</th>
+		<th>
+			@Html.DynamicDisplayNameFor(model => model.FirstOrDefault().PhoneNumber)
+		</th>
+		<th>
+			@Html.DynamicDisplayNameFor(model => model.FirstOrDefault().Observations)
+		</th>
+		<th>
+		</th>
+	</tr>
 
 	@foreach (var item in Model)
 	{
 		<tr>
 			<td>
-				@Html.DynamicDisplayFor(modelItem => item.Brand, Rendering.Label)
+				@Html.DynamicDisplayFor(modelItem => item.Brand)
 			</td>
 			<td>
-				@Html.DynamicDisplayFor(modelItem => item.EquipmentId, Rendering.Label)
+				@Html.DynamicDisplayFor(modelItem => item.EquipmentId)
 			</td>
 			<td>
 				@Html.DynamicDisplayListFor(modelItem => item.InstalledBy, new SelectList(ViewBag.InstalledByList, "Value", "Text"), "Selecione a instalação", DisplayListType.SelectedLabel, new { @*@class = "form-control",*@ @style = "min-width: 80px;" })
 			</td>
 			<td>
-				@Html.DynamicDisplayFor(modelItem => item.Quantity, Rendering.Label)
+				@Html.DynamicDisplayFor(modelItem => item.Quantity)
 			</td>
 			<td>
-				@Html.DynamicDisplayFor(modelItem => item.MensalValueStr, Rendering.Label)
+				@Html.DynamicDisplayFor(modelItem => item.MensalValueStr)
 			</td>
 			<td>
-				@Html.DynamicDisplayFor(modelItem => item.Progress, Rendering.Label)
+				@Html.DynamicDisplayFor(modelItem => item.Progress, Rendering.Progress)
 			</td>
 			<td>
-				@Html.DynamicDisplayFor(modelItem => item.MSISDN, Rendering.Label)
+				@Html.DynamicDisplayFor(modelItem => item.MSISDN)
 			</td>
 			<td>
-				@Html.DynamicDisplayFor(modelItem => item.PhoneNumber, Rendering.Label)
+				@Html.DynamicDisplayFor(modelItem => item.PhoneNumber)
 			</td>
 			<td>
-				@Html.DynamicDisplayFor(modelItem => item.Observations, Rendering.Label)
+				@Html.DynamicDisplayFor(modelItem => item.Observations)
 			</td>
 			<td>
-				@Html.ActionLink("Details", "Details", new { id = item.Id }) |
-				@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-				@Html.ActionLink("Delete", "Delete", new { id = item.Id })
+				@Html.ActionLink("Details", "Details", new { id = item.Id })
+				| @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+				@*| @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
 			</td>
 		</tr>
 	}

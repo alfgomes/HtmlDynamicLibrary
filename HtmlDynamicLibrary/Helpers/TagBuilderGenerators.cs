@@ -117,6 +117,30 @@ namespace HtmlDynamicLibrary.Helpers
 			return tagEdit;
 		}
 
+		public static TagBuilder GenerateTagProgress(string id, string caption, RouteValueDictionary htmlAttributes, double? value = null, double? maxValue = null, string tooltip = null, bool isRequired = false, bool disabled = false)
+		{
+			TagBuilder tagEdit = new TagBuilder("progress");
+			tagEdit.AddInputAttributeIsNotNullAndExpressionIsTrue("id", id, id != null);
+			tagEdit.AddInputAttributeHtmlAttributes("class", htmlAttributes);
+			tagEdit.AddInputAttributeHtmlAttributes("style", htmlAttributes);
+			tagEdit.AddInputAttributeIfExpressionIsTrue("required", null, isRequired);
+			tagEdit.AddInputAttributeIfExpressionIsTrue("disabled", null, disabled);
+
+			if (tooltip != null && !string.IsNullOrEmpty(tooltip))
+			{
+				tagEdit.AddInputAttributeStaticValue("data-toggle", "tooltip");
+				tagEdit.AddInputAttributeStaticValue("data-placement", "top");
+				tagEdit.AddInputAttributeIsNotNullAndExpressionIsTrue("data-original-title", tooltip, tooltip != null);
+			}
+
+			/* Injetando o Valor no Input... */
+			tagEdit.AddInputAttributeIsNotNullAndExpressionIsTrue("max", maxValue, maxValue != null);
+			tagEdit.AddInputAttributeIsNotNullAndExpressionIsTrue("value", value, value != null);
+
+			return tagEdit;
+			//return new TagBuilder_Progress<TModel, TProperty>(dynamicComponentBase).GenerateElementMvcString(TagRenderMode.Normal);
+		}
+
 		#endregion
 	}
 }

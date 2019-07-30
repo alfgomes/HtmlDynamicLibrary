@@ -20,5 +20,10 @@ namespace HtmlDynamicLibrary.ExtensionMethods
 			var name = @self.ToString();
 			return objType.GetField(name).GetCustomAttributes(false).OfType<TAttribute>().SingleOrDefault();
 		}
+
+		public static bool IsNull(this object @self)
+		{
+			return @self == null;
+		}
 	}
 }

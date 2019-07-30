@@ -28,7 +28,7 @@
 		<div class="form-group">
 			@Html.DynamicDisplayNameFor(model => model.InstalledBy, Rendering.Label, new { htmlAttributes = new { @class = "control-label col-md-2" } })
 			<div class="col-md-10">
-				@Html.DynamicDropDownListFor(model => model.InstalledBy, new SelectList(ViewBag.InstalledByList, "Value", "Text"), "Selecione a instalação", new { @class = "form-control", @style = "min-width: 80px;", @autofocus = "true" })
+				@Html.DynamicEditorListFor(model => model.InstalledBy, new SelectList(ViewBag.InstalledByList, "Value", "Text"), "Selecione a instalação", EditorListType.OptionsList, new { @class = "form-control", @style = "min-width: 80px;", @autofocus = "true" })
 				@Html.ValidationMessageFor(model => model.InstalledBy, "", new { @class = "text-danger" })
 			</div>
 		</div>

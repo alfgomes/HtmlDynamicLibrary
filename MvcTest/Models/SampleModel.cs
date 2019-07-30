@@ -84,8 +84,8 @@ namespace MvcTest.Models
 		public string PhoneNumber { get; set; }
 
 		//[Range(0, 100, ErrorMessage = "Valor incorreto")]
-		[Display(Name = "Avanço")]
 		[Progress(100)]
+		[Display(Name = "Avanço", ShortName = "Avanço", Description = "Percentual de Avanço do Projecto", GroupName = "Avanço Projecto")]
 		public decimal? Progress { get; set; }
 
 		[TextArea(6, 90, MaxLength = 600)]

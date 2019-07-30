@@ -17,11 +17,11 @@ namespace System.Web.Mvc
 {
 	public static class DynamicDisplayListForComponent
 	{
-		public static MvcHtmlString DynamicDisplayListFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, DisplayListType displayType, object viewData = null)
+		public static MvcHtmlString DynamicDisplayListFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, DisplayListType displayType = DisplayListType.SelectedLabel, object viewData = null)
 		{
 			DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase = new DynamicComponentBaseFor<TModel, TProperty>(helper, expression, viewData, true, true);
 			object selectedValue = dynamicComponentBase.FieldValue;
-			string selectedText = selectList.Where(w => w.Value == selectedValue?.ToString()).FirstOrDefault().Text;
+			string selectedText = selectList.Where(w => w.Value == selectedValue?.ToString()).FirstOrDefault()?.Text;
 
 			switch (displayType)
 			{

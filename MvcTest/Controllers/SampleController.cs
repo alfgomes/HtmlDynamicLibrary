@@ -59,6 +59,19 @@ namespace MvcTest.Controllers
 				PhoneNumber = "988888889",
 				Observations = "Nada a informar 3!"
 			});
+			mockData.Add(new Sample()
+			{
+				Id = 3,
+				Brand = "Marca 4",
+				EquipmentId = "78HGCREUYB7Y8CERBH",
+				InstalledBy = (long)6,
+				Quantity = 2,
+				MensalValueStr = "12.99",
+				Progress = null,
+				MSISDN = "55443",
+				PhoneNumber = "874673632",
+				Observations = "Nada a informar 4!"
+			});
 		}
 
 		private SampleVM Clone(Sample sample)
