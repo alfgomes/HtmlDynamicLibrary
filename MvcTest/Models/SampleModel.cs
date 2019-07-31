@@ -83,8 +83,7 @@ namespace MvcTest.Models
 		[Display(Name = "Contacto Telefónico", ShortName = "Telefone", Description = "Indique o contacto telefónico", GroupName = "Contacto do Cliente", Prompt = "Inserir valor")]
 		public string PhoneNumber { get; set; }
 
-		//[Range(0, 100, ErrorMessage = "Valor incorreto")]
-		[Progress(100)]
+		[Progress(300, Step = 3)]
 		[Display(Name = "Avanço", ShortName = "Avanço", Description = "Percentual de Avanço do Projecto", GroupName = "Avanço Projecto")]
 		public decimal? Progress { get; set; }
 

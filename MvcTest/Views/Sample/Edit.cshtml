@@ -68,7 +68,9 @@
 		<div class="form-group">
 			@Html.DynamicDisplayNameFor(model => model.Progress, Rendering.Label, new { htmlAttributes = new { @class = "control-label col-md-2" } })
 			<div class="col-md-10">
-				@Html.DynamicProgressFor(model => model.Progress, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.DynamicEditorFor(model => model.Progress, new { htmlAttributes = new { @class = "slider" } })
+				@Html.AddScript("setAlert", "function alertar() { alert('Testando a injeção de scripts...') }")
+				@Html.AddScript("runAlert", "alertar()")
 				@Html.ValidationMessageFor(model => model.Progress, "", new { @class = "text-danger" })
 			</div>
 		</div>
@@ -76,7 +78,7 @@
 		<div class="form-group">
 			@Html.DynamicDisplayNameFor(model => model.Observations, Rendering.Label, new { htmlAttributes = new { @class = "control-label col-md-2" } })
 			<div class="col-md-10">
-				@Html.DynamicEditorFor(model => model.Observations, new { htmlAttributes = new { @placeholder = "Insira as observações" } })
+				@Html.DynamicEditorFor(model => model.Observations, new { htmlAttributes = new { @class="slider", @placeholder = "Insira as observações" } })
 				@Html.ValidationMessageFor(model => model.Observations, "", new { @class = "text-danger" })
 			</div>
 		</div>

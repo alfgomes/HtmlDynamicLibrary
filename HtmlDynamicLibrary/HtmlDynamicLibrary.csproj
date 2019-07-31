@@ -114,6 +114,7 @@
     <Compile Include="CustomTagBuilders\TagBuilder_Progress.cs" />
     <Compile Include="CustomTagBuilders\TagBuilder_Password.cs" />
     <Compile Include="CustomTagBuilders\TagBuilder_RadioGroup.cs" />
+    <Compile Include="CustomTagBuilders\TagBuilder_Range.cs" />
     <Compile Include="CustomTagBuilders\TagBuilder_TextArea.cs" />
     <Compile Include="CustomTagBuilders\TagBuilder_Input.cs" />
     <Compile Include="CustomTagBuilders\TagBuilder_Label.cs" />

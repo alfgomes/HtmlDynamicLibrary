@@ -468,7 +468,9 @@ namespace HtmlDynamicLibrary.Helpers
 					AttributeName = "Progress" + "Attribute",
 					Property = new Dictionary<string, object>()
 					{
+						{ "MinValue", progressAttribute.MinValue },
 						{ "MaxValue", progressAttribute.MaxValue },
+						{ "Step", progressAttribute.Step },
 					}
 				};
 				metadataAttributes.Add(metaAttribute);
@@ -506,9 +508,9 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				var ret = metadataAttributes.FirstOrDefault(a => a.AttributeName == ReturnCorrectedAttributeName(attributeName));
 
-				return true;
+				return ret.AttributeName != null;
 			}
-			catch (Exception ex)
+			catch
 			{
 				return false;
 			}
@@ -520,9 +522,9 @@ namespace HtmlDynamicLibrary.Helpers
 			{
 				var ret = metadataAttributes.FirstOrDefault(a => a.AttributeName == ReturnCorrectedAttributeName(attributeName)).Property[parameterName];
 
-				return true;
+				return ret != null;
 			}
-			catch (Exception ex)
+			catch
 			{
 				return false;
 			}
@@ -537,7 +539,7 @@ namespace HtmlDynamicLibrary.Helpers
 
 				return ret;
 			}
-			catch (Exception ex)
+			catch
 			{
 				return ret;
 			}

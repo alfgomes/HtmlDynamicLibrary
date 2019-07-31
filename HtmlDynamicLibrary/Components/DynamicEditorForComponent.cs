@@ -44,6 +44,11 @@ namespace System.Web.Mvc
 				default:
 					if (expression.Body.Type.FullName == "System.Boolean")
 						return DynamicCheckbox(dynamicComponentBase);
+					else if (dynamicComponentBase.MetadataAttributes.HasAttribute<bool>("ProgressAttribute"))
+					{
+						helper.AddScript("slider", "$(function() { $('.slider').on('input change', function() { $(this).next($('.slider_label')).html(this.value); }); $('.slider_label').each(function() { var value = $(this).prev().attr('value'); $(this).html(value); }); })");
+						return DynamicRange(dynamicComponentBase, true);
+					}
 
 					return DynamicInput(dynamicComponentBase);
 			}
@@ -62,6 +67,21 @@ namespace System.Web.Mvc
 		private static MvcHtmlString DynamicTextArea<TModel, TProperty>(DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase)
 		{
 			return new TagBuilder_TextArea<TModel, TProperty>(dynamicComponentBase).GenerateElementMvcString(TagRenderMode.Normal);
+		}
+
+		private static MvcHtmlString DynamicRange<TModel, TProperty>(DynamicComponentBaseFor<TModel, TProperty> dynamicComponentBase, bool showValue = false)
+		{
+			TagBuilder_Range<TModel, TProperty> range = new TagBuilder_Range<TModel, TProperty>(dynamicComponentBase);
+
+			if (showValue)
+			{
+				TagBuilder_Label<TModel, TProperty> label = new TagBuilder_Label<TModel, TProperty>(dynamicComponentBase, null, dynamicComponentBase.FieldValue.ToString(), dynamicComponentBase.SanitizedId);
+				label.TagElement.RemoveAttribute("class");
+				label.TagElement.AddCssClass("slider_label");
+				range.TagElement.InnerHtml = label.TagElement.ToMvcHtmlStringSanitized(TagRenderMode.Normal).ToString();
+			}
+
+			return range.GenerateElementMvcString(TagRenderMode.Normal);
 		}
 	}
 }
