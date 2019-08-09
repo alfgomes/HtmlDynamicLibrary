@@ -71,6 +71,7 @@ namespace MvcTest.Models
 
 		[ViewDisabled]
 		[Display(Name = "MSISDN", ShortName = "MSISDN", Description = "A preencher pelo parceiro IoT")]
+		[PlaceHolder("A preencher pelo parceiro IoT")]
 		public string MSISDN { get; set; }
 
 		[DataType(DataType.PhoneNumber, ErrorMessage = "Número de telefone inválido")]

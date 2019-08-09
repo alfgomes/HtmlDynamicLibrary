@@ -51,7 +51,7 @@ namespace HtmlDynamicLibrary.CustomTagBuilders
 			TagElement.AddInputAttributeIsNotNullAndExpressionIsTrue("required", null, (bool)this.ComponentBase.MetadataAttributes.GetValue<object>("Common", "IsRequired"));
 			TagElement.AddInputAttributeIsNotNullAndExpressionIsTrue("readonly", null, this.ComponentBase.FieldIsReadOnly || (bool)this.ComponentBase.MetadataAttributes.GetValue<object>("Common", "IsReadOnly"));
 			TagElement.AddInputAttributeIsNotNull("title", this.ComponentBase.MetadataAttributes.GetValue<object>("Common", "Description"));
-			TagElement.AddInputAttributeIsNotNull("placeholder", this.ComponentBase.MetadataAttributes.GetValue<object>("Common", "Watermark"));
+			TagElement.AddInputAttributeIsNotNull("placeholder", this.ComponentBase.MetadataAttributes.GetValue<object>("PlaceHolder", "Text") ?? this.ComponentBase.MetadataAttributes.GetValue<object>("Common", "Watermark"));
 
 			//...............................................................................................................................................................\\
 

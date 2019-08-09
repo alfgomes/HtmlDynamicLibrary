@@ -475,6 +475,21 @@ namespace HtmlDynamicLibrary.Helpers
 				};
 				metadataAttributes.Add(metaAttribute);
 			}
+
+			PlaceHolderAttribute placeHolderAttribute = GetModelMetadataAttributes(metadata).OfType<PlaceHolderAttribute>().FirstOrDefault();
+			if (placeHolderAttribute != null)
+			{
+				MetadataAttribute metaAttribute = new MetadataAttribute()
+				{
+					AttributeName = "PlaceHolder" + "Attribute",
+					Property = new Dictionary<string, object>()
+					{
+						{ "Declared", true },
+						{ "Text", placeHolderAttribute.Text },
+					}
+				};
+				metadataAttributes.Add(metaAttribute);
+			}
 		}
 
 		private static Dictionary<string, object> GetPropertyAttributes(PropertyInfo property)

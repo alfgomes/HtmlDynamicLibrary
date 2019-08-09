@@ -102,6 +102,7 @@
     <Compile Include="Components\_DynamicComponentBase.cs" />
     <Compile Include="Components\_DynamicComponentBaseFor.cs" />
     <Compile Include="CustomAttributes\HtmlAttributesAttribute.cs" />
+    <Compile Include="CustomAttributes\PlaceHolderAttribute.cs" />
     <Compile Include="CustomAttributes\ProgressAttribute.cs" />
     <Compile Include="CustomAttributes\VersionAttribute.cs" />
     <Compile Include="CustomAttributes\AuthorAttribute.cs" />
